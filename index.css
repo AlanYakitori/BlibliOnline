@@ -1,0 +1,138 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contenedorPrincipal {
+    background: white;
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 600px;
+    width: 90%;
+    animation: animacionEntrada 1s ease-out;
+}
+
+@keyframes animacionEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.logoLibro {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    color: #4a5568;
+    animation: animacionLibro 2s ease-in-out infinite alternate;
+}
+
+@keyframes animacionLibro {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+}
+
+.tituloPrincipal {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+    letter-spacing: 2px;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.subTitulo {
+    font-size: 1.2rem;
+    color: #718096;
+    margin-bottom: 2rem;
+    font-style: italic;
+}
+
+.textoBienvenida {
+    font-size: 1.1rem;
+    color: #4a5568;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    padding: 0 1rem;
+}
+
+.botonLogin {
+    display: inline-block;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    text-decoration: none;
+    padding: 1rem 3rem;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.botonLogin:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+}
+
+.botonLogin:active {
+    transform: translateY(-1px);
+}
+
+.caracteristicas {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.caracteristica {
+    padding: 1rem;
+    background: #f7fafc;
+    border-radius: 10px;
+    color: #4a5568;
+    font-size: 0.9rem;
+}
+
+.iconoCaracteristica {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .contenedorPrincipal {
+        padding: 2rem;
+    }
+    
+    .tituloPrincipal {
+        font-size: 2.2rem;
+    }
+    
+    .logoLibro {
+        font-size: 3rem;
+    }
+    
+    .textoBienvenida {
+        font-size: 1rem;
+    }
+}
