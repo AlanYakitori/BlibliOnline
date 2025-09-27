@@ -63,8 +63,44 @@ body {
 .subTituloLogin {
     font-size: 1.1rem;
     color: #718096;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     font-weight: 500;
+}
+
+.indicadorTipoUsuario {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem 1.2rem;
+    border-radius: 25px;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.indicadorTipoUsuario.administrador {
+    background: linear-gradient(135deg, #e53e3e, #c53030);
+    color: white;
+}
+
+.indicadorTipoUsuario.docente {
+    background: linear-gradient(135deg, #38a169, #2f855a);
+    color: white;
+}
+
+.indicadorTipoUsuario.alumno {
+    background: linear-gradient(135deg, #3182ce, #2c5282);
+    color: white;
+}
+
+.iconoTipoUsuario {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+.textoTipoUsuario {
+    letter-spacing: 0.5px;
 }
 
 .formularioLogin {
@@ -217,6 +253,15 @@ body {
     
     .logoLibro {
         font-size: 2.5rem;
+    }
+    
+    .indicadorTipoUsuario {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .iconoTipoUsuario {
+        font-size: 1.1rem;
     }
     
     .opcionesLogin {

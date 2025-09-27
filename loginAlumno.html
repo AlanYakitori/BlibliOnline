@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIBLIONLINE - Iniciar Sesión Alumno</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="contenedorLogin">
+        <!-- Logo de libro -->
+        <div class="logoLibro">📚</div>
+        
+        <!-- Título -->
+        <h1 class="tituloLogin">BIBLIONLINE</h1>
+        <p class="subTituloLogin">Iniciar Sesión - Alumno</p>
+        <div class="indicadorTipoUsuario alumno">
+            <span class="iconoTipoUsuario">🎓</span>
+            <span class="textoTipoUsuario">Alumno</span>
+        </div>
+        
+        <!-- Formulario de login -->
+        <form class="formularioLogin" id="formularioLogin">
+            <div class="grupoInput">
+                <label for="correoElectronico" class="etiquetaInput">Correo Electrónico</label>
+                <input 
+                    type="email" 
+                    id="correoElectronico" 
+                    name="correoElectronico" 
+                    class="campoInput" 
+                    placeholder="ejemplo@correo.com"
+                    required
+                >
+            </div>
+            
+            <div class="grupoInput">
+                <label for="contrasena" class="etiquetaInput">Contraseña</label>
+                <input 
+                    type="password" 
+                    id="contrasena" 
+                    name="contrasena" 
+                    class="campoInput" 
+                    placeholder="••••••••"
+                    required
+                >
+            </div>
+            
+            <div class="opcionesLogin">
+                <label class="recordarme">
+                    <input type="checkbox" id="recordarUsuario" name="recordarUsuario">
+                    <span class="textoRecordar">Recordarme</span>
+                </label>
+                
+                <a href="#" class="enlaceOlvidoContrasena">¿Olvidaste tu contraseña?</a>
+            </div>
+            
+            <input type="submit" value="Ingresar" class="botonIngresar">
+        </form>
+        
+        <div class="enlacesAdicionales">
+            <p class="textoRegistro">¿No tienes cuenta? <a href="#" class="enlaceRegistro">Regístrate aquí</a></p>
+            <a href="index.html" class="enlaceVolver">← Volver al inicio</a>
+        </div>
+    </div>
+</body>
+</html>
