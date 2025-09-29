@@ -213,14 +213,6 @@ class Usuario {
         };
     }
 
-    // Método para procesar los datos validados (sin envío a servidor)
-    procesarDatos() {
-        const datos = this.obtenerDatos();
-        console.log('Datos validados:', datos);
-        this.mostrarMensaje('¡Datos válidos! Formulario listo para enviar.', 'exito');
-        return datos;
-    }
-
     // Función para enviar datos al servidor PHP
     async enviarAlServidor(datosUsuario) {
         try {

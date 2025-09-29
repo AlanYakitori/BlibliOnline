@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIBLIONLINE - Panel Alumno</title>
+    <link rel="stylesheet" href="dashboardAlumno.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="header">
+            <h1 class="welcome-message">📚 Panel de Alumno</h1>
+            <div class="user-info">
+                <p><strong>Bienvenido:</strong> <span id="nombreUsuario">Cargando...</span></p>
+                <p><strong>Correo:</strong> <span id="correoUsuario">Cargando...</span></p>
+                <p><strong>Matrícula:</strong> <span id="matriculaUsuario">Cargando...</span></p>
+            </div>
+            <button class="logout-btn" onclick="cerrarSesion()">Cerrar Sesión</button>
+        </div>
+        
+        <div class="content">
+            <h2>Servicios de Biblioteca</h2>
+            <p>Aquí podrás consultar libros, realizar préstamos y gestionar tus reservas.</p>
+            <!-- Aquí puedes añadir más funciones del dashboard del alumno -->
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="dashboardAlumno.js"></script>
+</body>
+</html>
