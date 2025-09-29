@@ -66,26 +66,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         // Preparar la consulta SQL
         $consulta = "INSERT INTO $tabla ($campos) VALUES ($valores)";
-        $declaracion = $conexion->prepare($consulta);
+        $stmt = $conexion->prepare($consulta);
         
         // Asignar valores a la consulta
-        $declaracion->bindParam(':nombre', $nombre);
-        $declaracion->bindParam(':apellidos', $apellidos);
-        $declaracion->bindParam(':telefono', $telefono);
-        $declaracion->bindParam(':correo', $correo);
-        $declaracion->bindParam(':contrasena', $contrasena);
+        $stmt->bindParam(':nombre', $nombre);
+        $stmt->bindParam(':apellidos', $apellidos);
+        $stmt->bindParam(':telefono', $telefono);
+        $stmt->bindParam(':correo', $correo);
+        $stmt->bindParam(':contrasena', $contrasena);
         
         // Asignar valor específico según tipo de usuario
         if ($tipo_usuario === 'administrador') {
-            $declaracion->bindParam(':cargo', $cargo);
+            $stmt->bindParam(':cargo', $cargo);
         } elseif ($tipo_usuario === 'docente') {
-            $declaracion->bindParam(':especialidad', $especialidad);
+            $stmt->bindParam(':especialidad', $especialidad);
         } elseif ($tipo_usuario === 'alumno') {
-            $declaracion->bindParam(':matricula', $matricula);
+            $stmt->bindParam(':matricula', $matricula);
         }
         
         // Ejecutar la consulta
-        if ($declaracion->execute()) {
+        if ($stmt->execute()) {
             // Éxito: usuario guardado
             echo json_encode([
                 'exito' => true,

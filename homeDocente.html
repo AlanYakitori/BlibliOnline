@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlibliOnline - Panel Docente</title>
+    <link rel="stylesheet" href="homeDocente.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Encabezado/Navegación -->
+    <header class="encabezado">
+        <div class="contenidoEncabezado">
+            <div class="seccionLogo">
+                <i class="fas fa-book-open"></i>
+                <h1>BlibliOnline</h1>
+                <span class="tipoUsuario">Docente</span>
+            </div>
+            
+            <nav class="menuNavegacion">
+                <a href="#panelPrincipal" class="enlaceNav activo">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="#grupos" class="enlaceNav">
+                    <i class="fas fa-users"></i> Mis Grupos
+                </a>
+                <a href="#biblioteca" class="enlaceNav">
+                    <i class="fas fa-book"></i> Biblioteca
+                </a>
+                <a href="#favoritos" class="enlaceNav">
+                    <i class="fas fa-heart"></i> Favoritos
+                </a>
+                <a href="#reportes" class="enlaceNav">
+                    <i class="fas fa-chart-bar"></i> Reportes
+                </a>
+            </nav>
+            
+            <div class="seccionUsuario">
+                <div class="notificaciones">
+                    <i class="fas fa-bell"></i>
+                    <span class="insigniaNotificacion">3</span>
+                </div>
+                <div class="perfilUsuario">
+                    <img src="https://via.placeholder.com/40" alt="Perfil" class="imagenPerfil">
+                    <span>Prof. María García</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="contenidoPrincipal">
+        <!-- Sección Dashboard -->
+        <section id="panelPrincipal" class="seccion activa">
+            <div class="encabezadoSeccion">
+                <h2>Dashboard</h2>
+                <p>Bienvenido de vuelta, Prof. María García</p>
+            </div>
+            
+            <!-- Estadísticas Rápidas -->
+            <div class="cuadriculaEstadisticas">
+                <div class="tarjetaEstadistica">
+                    <div class="iconoEstadistica estudiantes">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="infoEstadistica">
+                        <h3>45</h3>
+                        <p>Estudiantes en mis grupos</p>
+                    </div>
+                </div>
+                
+                <div class="tarjetaEstadistica">
+                    <div class="iconoEstadistica pendientes">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="infoEstadistica">
+                        <h3>8</h3>
+                        <p>Documentos pendientes</p>
+                    </div>
+                </div>
+                
+                <div class="tarjetaEstadistica">
+                    <div class="iconoEstadistica aprobados">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="infoEstadistica">
+                        <h3>127</h3>
+                        <p>Documentos aprobados</p>
+                    </div>
+                </div>
+                
+                <div class="tarjetaEstadistica">
+                    <div class="iconoEstadistica grupos">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="infoEstadistica">
+                        <h3>3</h3>
+                        <p>Grupos activos</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actividad Reciente y Notificaciones -->
+            <div class="cuadriculaPanel">
+                <div class="panelActividad">
+                    <h3><i class="fas fa-history"></i> Actividad Reciente</h3>
+                    <div class="listaActividad">
+                        <div class="elementoActividad">
+                            <div class="iconoActividad nuevo">
+                                <i class="fas fa-upload"></i>
+                            </div>
+                            <div class="contenidoActividad">
+                                <p><strong>Juan Pérez</strong> subió "Algoritmos de Ordenamiento.pdf"</p>
+                                <span class="tiempoActividad">Hace 5 minutos</span>
+                            </div>
+                            <div class="accionActividad">
+                                <button class="boton botonRevisar">Revisar</button>
+                            </div>
+                        </div>
+                        
+                        <div class="elementoActividad">
+                            <div class="iconoActividad aprobado">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="contenidoActividad">
+                                <p>Aprobaste "Bases de Datos NoSQL" de <strong>Ana López</strong></p>
+                                <span class="tiempoActividad">Hace 1 hora</span>
+                            </div>
+                        </div>
+                        
+                        <div class="elementoActividad">
+                            <div class="iconoActividad enlace">
+                                <i class="fas fa-link"></i>
+                            </div>
+                            <div class="contenidoActividad">
+                                <p><strong>Carlos Ruiz</strong> compartió enlace de Khan Academy</p>
+                                <span class="tiempoActividad">Hace 2 horas</span>
+                            </div>
+                            <div class="accionActividad">
+                                <button class="boton botonRevisar">Revisar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panelRecomendaciones">
+                    <h3><i class="fas fa-magic"></i> Recomendaciones</h3>
+                    
+                    <div class="pestañasRecomendacion">
+                        <button class="botonPestaña activo">Para Ti</button>
+                        <button class="botonPestaña">Trending</button>
+                        <button class="botonPestaña">Top Usuarios</button>
+                    </div>
+                    
+                    <div class="contenidoRecomendacion">
+                        <div class="contenidoPestaña activo">
+                            <div class="elementoRecomendacion">
+                                <div class="iconoRecomendacion">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="infoRecomendacion">
+                                    <h4>Machine Learning Basics</h4>
+                                    <p>Basado en tu especialidad en IA</p>
+                                    <div class="calificacionRecomendacion">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.8</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="elementoRecomendacion">
+                                <div class="iconoRecomendacion">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <div class="infoRecomendacion">
+                                    <h4>Python para Ciencia de Datos</h4>
+                                    <p>Curso interactivo recomendado</p>
+                                    <div class="calificacionRecomendacion">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.9</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Grupos -->
+        <section id="grupos" class="seccion">
+            <div class="encabezadoSeccion">
+                <h2>Gestión de Grupos</h2>
+                <button class="boton botonPrimario">
+                    <i class="fas fa-plus"></i> Crear Nuevo Grupo
+                </button>
+            </div>
+            
+            <div class="contenedorGrupos">
+                <div class="tarjetaGrupo">
+                    <div class="encabezadoGrupo">
+                        <h3>Programación Web - 2024A</h3>
+                        <div class="estadisticasGrupo">
+                            <span class="conteoEstudiantes">
+                                <i class="fas fa-users"></i> 18 estudiantes
+                            </span>
+                            <span class="conteoPendientes">
+                                <i class="fas fa-clock"></i> 3 pendientes
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="contenidoGrupo">
+                        <div class="listaEstudiantes">
+                            <h4>Estudiantes Recientes:</h4>
+                            <div class="elementoEstudiante">
+                                <img src="https://via.placeholder.com/30" alt="Estudiante">
+                                <span>Juan Pérez - 2021030123</span>
+                                <div class="accionesEstudiante">
+                                    <button class="botonIcono" title="Ver perfil">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="botonIcono" title="Enviar mensaje">
+                                        <i class="fas fa-message"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="elementoEstudiante">
+                                <img src="https://via.placeholder.com/30" alt="Estudiante">
+                                <span>Ana López - 2021030124</span>
+                                <div class="accionesEstudiante">
+                                    <button class="botonIcono" title="Ver perfil">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="botonIcono" title="Enviar mensaje">
+                                        <i class="fas fa-message"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accionesGrupo">
+                            <button class="boton botonSecundario">
+                                <i class="fas fa-user-plus"></i> Agregar Estudiante
+                            </button>
+                            <button class="boton botonBorde">
+                                <i class="fas fa-cog"></i> Configurar Grupo
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="notificacionesPendientes">
+                        <h4>Notificaciones Pendientes:</h4>
+                        <div class="elementoNotificacion">
+                            <div class="iconoNotificacion">
+                                <i class="fas fa-file-upload"></i>
+                            </div>
+                            <div class="contenidoNotificacion">
+                                <p><strong>Juan Pérez</strong> subió "Proyecto Final.zip"</p>
+                                <span class="tiempoNotificacion">Hace 10 minutos</span>
+                            </div>
+                            <div class="accionesNotificacion">
+                                <button class="boton botonExito botonPequeño">
+                                    <i class="fas fa-check"></i> Aprobar
+                                </button>
+                                <button class="boton botonAdvertencia botonPequeño">
+                                    <i class="fas fa-eye"></i> Revisar
+                                </button>
+                                <button class="boton botonPeligro botonPequeño">
+                                    <i class="fas fa-times"></i> Rechazar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sección Agregar Estudiante -->
+                <div class="seccionAgregarEstudiante">
+                    <div class="tarjetaAgregarEstudiante">
+                        <i class="fas fa-user-plus"></i>
+                        <h3>Agregar Estudiante por Matrícula</h3>
+                        <div class="grupoEntradaMatricula">
+                            <input type="text" placeholder="Ingresa la matrícula del estudiante" class="entradaMatricula">
+                            <button class="boton botonPrimario">
+                                <i class="fas fa-search"></i> Buscar
+                            </button>
+                        </div>
+                        <div class="resultadosBusquedaEstudiante">
+                            <!-- Los resultados aparecerán aquí -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Biblioteca -->
+        <section id="biblioteca" class="seccion">
+            <div class="encabezadoSeccion">
+                <h2>Biblioteca Digital</h2>
+                <div class="seccionBusquedaFiltro">
+                    <div class="barraBusqueda">
+                        <input type="text" placeholder="Buscar documentos, enlaces, videos...">
+                        <button class="botonBusqueda">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div class="opcionesFiltro">
+                        <select class="selectorFiltro">
+                            <option value="all">Todos los tipos</option>
+                            <option value="pdf">PDFs</option>
+                            <option value="video">Videos</option>
+                            <option value="link">Enlaces</option>
+                            <option value="presentation">Presentaciones</option>
+                        </select>
+                        <select class="selectorFiltro">
+                            <option value="all">Todas las materias</option>
+                            <option value="programacion">Programación</option>
+                            <option value="matematicas">Matemáticas</option>
+                            <option value="ciencias">Ciencias</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cuadriculaBiblioteca">
+                <div class="tarjetaDocumento">
+                    <div class="encabezadoDocumento">
+                        <div class="tipoDocumento pdf">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="accionesDocumento">
+                            <button class="botonIcono" title="Agregar a favoritos">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="botonIcono" title="Calificar">
+                                <i class="fas fa-star"></i>
+                            </button>
+                            <button class="botonIcono" title="Compartir">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="contenidoDocumento">
+                        <h3>Algoritmos de Ordenamiento</h3>
+                        <p class="autorDocumento">Por: Juan Pérez</p>
+                        <p class="descripcionDocumento">Guía completa sobre algoritmos de ordenamiento con ejemplos prácticos en Java y Python.</p>
+                        
+                        <div class="metadatosDocumento">
+                            <span class="fechaDocumento">
+                                <i class="fas fa-calendar"></i> 15 Nov 2024
+                            </span>
+                            <span class="vistasDocumento">
+                                <i class="fas fa-eye"></i> 234 vistas
+                            </span>
+                            <span class="calificacionDocumento">
+                                <i class="fas fa-star"></i> 4.8
+                            </span>
+                        </div>
+                        
+                        <div class="etiquetasDocumento">
+                            <span class="etiqueta">Algoritmos</span>
+                            <span class="etiqueta">Java</span>
+                            <span class="etiqueta">Python</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pieDocumento">
+                        <button class="boton botonPrimario botonPequeño">
+                            <i class="fas fa-download"></i> Ver Documento
+                        </button>
+                        <div class="seccionCalificacion">
+                            <span>Tu calificación:</span>
+                            <div class="estrellasCalificacion">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tarjetaDocumento">
+                    <div class="encabezadoDocumento">
+                        <div class="tipoDocumento enlace">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <div class="accionesDocumento">
+                            <button class="botonIcono enFavoritos" title="Remover de favoritos">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="botonIcono" title="Calificar">
+                                <i class="fas fa-star"></i>
+                            </button>
+                            <button class="botonIcono" title="Compartir">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="contenidoDocumento">
+                        <h3>Khan Academy - Machine Learning</h3>
+                        <p class="autorDocumento">Por: Carlos Ruiz</p>
+                        <p class="descripcionDocumento">Curso interactivo sobre los fundamentos del Machine Learning con ejercicios prácticos.</p>
+                        
+                        <div class="metadatosDocumento">
+                            <span class="fechaDocumento">
+                                <i class="fas fa-calendar"></i> 14 Nov 2024
+                            </span>
+                            <span class="vistasDocumento">
+                                <i class="fas fa-eye"></i> 189 vistas
+                            </span>
+                            <span class="calificacionDocumento">
+                                <i class="fas fa-star"></i> 4.9
+                            </span>
+                        </div>
+                        
+                        <div class="etiquetasDocumento">
+                            <span class="etiqueta">Machine Learning</span>
+                            <span class="etiqueta">IA</span>
+                            <span class="etiqueta">Curso</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pieDocumento">
+                        <button class="boton botonPrimario botonPequeño">
+                            <i class="fas fa-external-link-alt"></i> Visitar Enlace
+                        </button>
+                        <div class="seccionCalificacion">
+                            <span>Tu calificación:</span>
+                            <div class="estrellasCalificacion">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Favoritos -->
+        <section id="favoritos" class="seccion">
+            <div class="encabezadoSeccion">
+                <h2>Mis Favoritos</h2>
+                <p>Documentos y recursos que has marcado como favoritos</p>
+            </div>
+            
+            <div class="cuadriculaFavoritos">
+                <div class="estadoVacio">
+                    <i class="fas fa-heart"></i>
+                    <h3>No tienes favoritos aún</h3>
+                    <p>Marca documentos como favoritos desde la biblioteca para verlos aquí</p>
+                    <button class="boton botonPrimario">
+                        <i class="fas fa-book"></i> Explorar Biblioteca
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Reportes -->
+        <section id="reportes" class="seccion">
+            <div class="encabezadoSeccion">
+                <h2>Reportes y Estadísticas</h2>
+                <p>Análisis de tu actividad como docente</p>
+            </div>
+            
+            <div class="cuadriculaReportes">
+                <div class="tarjetaReporte reportePrincipal">
+                    <h3>Resumen de Aprobaciones</h3>
+                    <div class="estadisticasAprobacion">
+                        <div class="graficoAprobacion">
+                            <div class="circuloGrafico">
+                                <span class="porcentaje">85%</span>
+                                <span class="etiquetaGrafico">Aprobados</span>
+                            </div>
+                        </div>
+                        <div class="detallesAprobacion">
+                            <div class="elementoEstadistica aprobados">
+                                <i class="fas fa-check-circle"></i>
+                                <span>127 Documentos Aprobados</span>
+                            </div>
+                            <div class="elementoEstadistica rechazados">
+                                <i class="fas fa-times-circle"></i>
+                                <span>22 Documentos Rechazados</span>
+                            </div>
+                            <div class="elementoEstadistica pendientes">
+                                <i class="fas fa-clock"></i>
+                                <span>8 Documentos Pendientes</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tarjetaReporte">
+                    <h3>Actividad por Mes</h3>
+                    <div class="marcadorGrafico">
+                        <p>Gráfico de actividad mensual</p>
+                    </div>
+                </div>
+                
+                <div class="tarjetaReporte">
+                    <h3>Estudiantes Más Activos</h3>
+                    <div class="mejoresEstudiantes">
+                        <div class="elementoRankingEstudiante">
+                            <span class="posicionRanking">#1</span>
+                            <span class="nombreEstudiante">Juan Pérez</span>
+                            <span class="contribuciones">23 documentos</span>
+                        </div>
+                        <div class="elementoRankingEstudiante">
+                            <span class="posicionRanking">#2</span>
+                            <span class="nombreEstudiante">Ana López</span>
+                            <span class="contribuciones">18 documentos</span>
+                        </div>
+                        <div class="elementoRankingEstudiante">
+                            <span class="posicionRanking">#3</span>
+                            <span class="nombreEstudiante">Carlos Ruiz</span>
+                            <span class="contribuciones">15 documentos</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tarjetaReporte">
+                    <h3>Tipos de Contenido Más Populares</h3>
+                    <div class="tiposContenido">
+                        <div class="estadisticaTipo">
+                            <i class="fas fa-file-pdf"></i>
+                            <span>PDFs: 45%</span>
+                        </div>
+                        <div class="estadisticaTipo">
+                            <i class="fas fa-link"></i>
+                            <span>Enlaces: 30%</span>
+                        </div>
+                        <div class="estadisticaTipo">
+                            <i class="fas fa-video"></i>
+                            <span>Videos: 25%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>
