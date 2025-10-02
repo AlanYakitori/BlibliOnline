@@ -62,6 +62,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
         exit;
     }
+
+    try {
+        // Verificar si el correo ya existe en la tabla correspondiente
+        $consulta_verificacion = "SELECT COUNT(*) FROM $tabla WHERE correo = :correo";
+        $stmt_verificacion = $conexion->prepare($consulta_verificacion);
+        $stmt_verificacion->bindParam(':correo', $correo);
+        $stmt_verificacion->execute();
+        if ($stmt_verificacion->fetchColumn() > 0) {
+            echo json_encode([
+                'exito' => false,
+                'mensaje' => 'El correo ya está registrado'
+            ]);
+            exit;
+        }
+    } catch (Exception $e) {
+        echo json_encode([
+            'exito' => false,
+            'mensaje' => 'Error en la base de datos: ' . $error->getMessage()
+        ]);
+        exit;
+    }
+    
+    
     
     try {
         // Preparar la consulta SQL
@@ -100,18 +123,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
     } catch(PDOException $error) {
-        // Error de base de datos
-        if ($error->getCode() == 23000) {
-            echo json_encode([
-                'exito' => false,
-                'mensaje' => 'El correo ya está registrado'
-            ]);
-        } else {
-            echo json_encode([
-                'exito' => false,
-                'mensaje' => 'Error en la base de datos: ' . $error->getMessage()
-            ]);
-        }
+        echo json_encode([
+            'exito' => false,
+            'mensaje' => 'Error en la base de datos: ' . $error->getMessage()
+        ]);
     }
     
 } else {
