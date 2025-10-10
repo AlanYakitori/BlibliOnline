@@ -1,6 +1,5 @@
-// ===================================
+
 // CLASE: Usuario
-// ===================================
 class Usuario {
     #correo;
     #contrasena;
@@ -158,9 +157,7 @@ class Usuario {
     
 }
 
-// ===================================
 // INICIALIZACIÓN AUTOMÁTICA
-// ===================================
 document.addEventListener('DOMContentLoaded', function() {
     // Detectar qué tipo de página de inicio es
     const url = window.location.pathname;

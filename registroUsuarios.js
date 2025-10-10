@@ -1,6 +1,5 @@
-// ===================================
+
 // CLASE PADRE: Usuario
-// ===================================
 class Usuario {
     // Atributos privados
     #nombre;
@@ -239,9 +238,7 @@ class Usuario {
     }
 }
 
-// ===================================
 // CLASE HIJA: Administrador
-// ===================================
 class Administrador extends Usuario {
     #cargo;
 
@@ -327,9 +324,7 @@ class Administrador extends Usuario {
     }
 }
 
-// ===================================
 // CLASE HIJA: Docente
-// ===================================
 class Docente extends Usuario {
     #especialidad;
 
@@ -415,9 +410,7 @@ class Docente extends Usuario {
     }
 }
 
-// ===================================
 // CLASE HIJA: Alumno
-// ===================================
 class Alumno extends Usuario {
     #matricula;
 
@@ -504,9 +497,7 @@ class Alumno extends Usuario {
     }
 }
 
-// ===================================
 // FUNCIÓN PARA CREAR USUARIOS
-// ===================================
 function crearUsuario(tipoUsuario) {
     switch(tipoUsuario) {
         case 'administrador':
@@ -520,9 +511,7 @@ function crearUsuario(tipoUsuario) {
     }
 }
 
-// ===================================
 // INICIALIZACIÓN AUTOMÁTICA
-// ===================================
 document.addEventListener('DOMContentLoaded', function() {
     // Detectar qué tipo de página de registro es
     const url = window.location.pathname;

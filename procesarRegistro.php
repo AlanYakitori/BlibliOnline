@@ -35,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $correo = $datos_usuario['correo'];
     $contrasena = $datos_usuario['contrasena'];
     $tipo_usuario = $datos_usuario['tipoUsuario'];
+    $contrasena_hash = password_hash($contrasena, PASSWORD_DEFAULT);
     
     // Determinar en qué tabla guardar según el tipo de usuario
     if ($tipo_usuario === 'administrador') {
@@ -96,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindParam(':apellidos', $apellidos);
         $stmt->bindParam(':telefono', $telefono);
         $stmt->bindParam(':correo', $correo);
-        $stmt->bindParam(':contrasena', $contrasena);
+        $stmt->bindParam(':contrasena', $contrasena_hash);
         
         // Asignar valor específico según tipo de usuario
         if ($tipo_usuario === 'administrador') {
