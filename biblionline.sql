@@ -53,6 +53,10 @@ INSERT INTO Administrador VALUES
 (0,'Angel Daniel','Lemus Quiroz','5573335833','Programador a cargo','lqao230528@upemor.edu.mx','$2y$10$o5g2A1vE7emJIP9KKbDP7e28br/2G3GW8mx5/Gbe01frvIm4JrK3G',1),
 (0,'Alan David','Cruztitla Villanueva','7774604299','Programador a cargo','cvao230638@upemor.edu.mx','$2y$10$FHk28foEEzhpm1rvvAuY7OqVzL20/ihYsecAm/RfDH.yPLz68PJ2.',1);
 
+-- Docentes por defecto
+INSERT INTO Docente VALUES
+(0,'Arantxa','Miranda Ramirez','7774204180','Programación Orientada a Objetos','mrao230737@upemor.edu.mx','$2y$10$j.IXSOoYOzoyr1HpAh8or.xzQIhbxJ5BzUykChUutdZ6zsskYPks6',1);
+
 /* ================================================
    TRIGGERS PARA BITÁCORA
    ================================================ */
