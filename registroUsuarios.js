@@ -293,7 +293,6 @@ class Administrador extends Usuario {
         }
 
         const datosValidados = this.obtenerDatos();
-        console.log('Datos del administrador validados:', datosValidados);
         
         // Mostrar mensaje de "enviando..."
         this.mostrarMensaje('Guardando administrador...', 'info');
@@ -379,7 +378,6 @@ class Docente extends Usuario {
         }
 
         const datosValidados = this.obtenerDatos();
-        console.log('Datos del docente validados:', datosValidados);
         
         // Mostrar mensaje de "enviando..."
         this.mostrarMensaje('Guardando docente...', 'info');
@@ -431,11 +429,14 @@ class Alumno extends Usuario {
             this.mostrarError('matriculaEstudiante', 'La matrícula es obligatoria');
             return false;
         }
-        const formatoValidoMatricula = /^\d{6,10}$/;
+        
+        // Formato: 4 letras mayúsculas + 6 números (ej: LQAO230528)
+        const formatoValidoMatricula = /^[A-Z]{4}\d{6}$/;
         if (!formatoValidoMatricula.test(this.#matricula)) {
-            this.mostrarError('matriculaEstudiante', 'La matrícula debe tener entre 6 y 10 números');
+            this.mostrarError('matriculaEstudiante', 'La matrícula debe tener el formato: 4 letras mayúsculas seguidas de 6 números (ej: LQAO230528)');
             return false;
         }
+        
         this.limpiarError('matriculaEstudiante');
         return true;
     }
@@ -466,7 +467,6 @@ class Alumno extends Usuario {
         }
 
         const datosValidados = this.obtenerDatos();
-        console.log('Datos del alumno validados:', datosValidados);
         
         // Mostrar mensaje de "enviando..."
         this.mostrarMensaje('Guardando alumno...', 'info');
@@ -529,7 +529,6 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const usuario = crearUsuario(tipoUsuario);
             usuario.inicializar();
-            console.log(`Sistema de registro ${tipoUsuario} inicializado correctamente`);
         } catch (error) {
             console.error('Error al inicializar el sistema de registro:', error);
         }

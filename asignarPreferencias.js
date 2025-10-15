@@ -1,56 +1,56 @@
 
-// CLASE: Usuario
-class Usuario {
-    #correo;
-    #contrasena;
+// CLASE: Preferencias
+class Preferencias {
+    #usuarioId;
     #tipoUsuario;
-    #preferencias;
 
-    constructor(tipoUsuario) {
+    constructor(usuarioId, tipoUsuario) {
+        this.#usuarioId = usuarioId;
         this.#tipoUsuario = tipoUsuario;
     }
-
+    
     // Getters
-    get correo() { return this.#correo;}
-    get contrasena() { return this.#contrasena; }
+    get usuarioId() { return this.#usuarioId; }
     get tipoUsuario() { return this.#tipoUsuario; }
-    get preferencias() { return this.#preferencias; }
 
     // Setters
-    set correo(correo) { this.#correo = correo; }
-    set contrasena(contrasena) { this.#contrasena = contrasena; }
+    set usuarioId(usuarioId) { this.#usuarioId = usuarioId; }
     set tipoUsuario(tipoUsuario) { this.#tipoUsuario = tipoUsuario; }
-    set preferencias(preferencias) { this.#preferencias = preferencias; }
     
     // Método para inicializar el sistema de inicio de sesión
     inicializar() {
-        const formulario = document.getElementById('formularioLogin');
+        const formulario = document.getElementById('formularioPreferencias');
         
         formulario.addEventListener('submit', (evento) => {
             evento.preventDefault();
-            this.procesarIngreso();
+            this.procesarCategorias();
         });
     }
 
-    async procesarIngreso() {
+    async procesarCategorias() {
         // Limpiar errores previos
         this.limpiarTodosLosErrores();
 
-        // Obtener datos del formulario
-        this.correo = document.getElementById('correoElectronico').value.trim();
-        this.contrasena = document.getElementById('contrasena').value.trim();
-
-        // Validar campos
-        if (!this.validarCampos()) {
-            this.mostrarMensaje('Por favor, complete todos los campos.', 'error');
+        // Obtener todas las categorías seleccionadas
+        const categoriasSeleccionadas = document.querySelectorAll('input[name="categorias"]:checked');
+        
+        // Validar que se haya seleccionado al menos una categoría
+        if (categoriasSeleccionadas.length === 0) {
+            this.mostrarMensaje('Por favor, selecciona al menos una categoría de tu interés.', 'error');
             return;
         }
-
+        
+        // Obtener solo los números de las categorías seleccionadas
+        const numerosCategorias = [];
+        categoriasSeleccionadas.forEach(function(checkbox) {
+            numerosCategorias.push(parseInt(checkbox.value));
+        });
+ 
         // Preparar datos para enviar al servidor
         const datosUsuario = {
-            correo: this.correo,
-            contrasena: this.contrasena,
-            tipoUsuario: this.tipoUsuario
+            idUsuario: this.usuarioId,
+            tipoUsuario: this.tipoUsuario,
+            categoriasSeleccionadas: numerosCategorias
         };
 
         // Mostrar mensaje de "ingresando..."
@@ -64,42 +64,22 @@ class Usuario {
             
             // Guardar datos del usuario en localStorage para usar en el dashboard
             localStorage.setItem('usuarioActual', JSON.stringify({
-                idUsuario: respuestaServidor.usuario.id_admin || 
-                           respuestaServidor.usuario.id_docente || 
-                           respuestaServidor.usuario.id_alumno,
+                idUsuario: this.usuarioId,
                 tipoUsuario: this.tipoUsuario
             }));
             
             if (this.tipoUsuario === 'administrador') {
-                if (respuestaServidor.usuario.gusto === 1) {
-                    setTimeout(() => {
+                setTimeout(() => {
                         window.location.href = 'dashboardAdministrador.html';
-                    }, 2000);
-                } else {
-                    setTimeout(() => {
-                        window.location.href = 'asignarPreferencias.html';
-                    }, 2000);
-                }    
+                }, 2000);  
             } else if (this.tipoUsuario === 'docente') {
-                if (respuestaServidor.usuario.gusto === 1) {
-                    setTimeout(() => {
+                setTimeout(() => {
                         window.location.href    = 'dashboardDocente.html';
-                    }, 2000);
-                } else {
-                    setTimeout(() => {
-                        window.location.href = 'asignarPreferencias.html';
-                    }, 2000);
-                }
+                }, 2000);
             } else if (this.tipoUsuario === 'alumno') {
-                if (respuestaServidor.usuario.gusto === 1) {
-                    setTimeout(() => {
+                setTimeout(() => {
                         window.location.href = 'dashboardAlumno.html';
-                    }, 2000);
-                } else {
-                    setTimeout(() => {
-                        window.location.href = 'asignarPreferencias.html';
-                    })
-                }
+                }, 2000);
             }
         } else {
             this.mostrarMensaje('Error: ' + respuestaServidor.mensaje, 'error');
@@ -109,7 +89,7 @@ class Usuario {
     async enviarAlServidor(datosUsuario) {
         try {
             // Enviar datos al archivo PHP
-            const respuesta = await fetch('procesarIngreso.php', {
+            const respuesta = await fetch('procesarPreferencias.php', {
                 method: 'POST',                    // Método de envío
                 headers: {                         // Configuración
                     'Content-Type': 'application/json'
@@ -139,7 +119,7 @@ class Usuario {
         mensaje.className = `mensajeGeneral ${tipo}`;
         mensaje.textContent = texto;
 
-        const formulario = document.getElementById('formularioLogin');
+        const formulario = document.getElementById('formularioPreferencias');
         formulario.parentNode.insertBefore(mensaje, formulario);
 
         setTimeout(() => {
@@ -165,35 +145,26 @@ class Usuario {
         if (mensajeGeneral) {
             mensajeGeneral.remove();
         }
-    }
-
-    // Método para validar los campos del formulario
-    validarCampos() {
-        return this.correo !== '' && this.contrasena !== '';
-    }
-    
+    }    
 }
 
 // INICIALIZACIÓN AUTOMÁTICA
 document.addEventListener('DOMContentLoaded', function() {
-    // Detectar qué tipo de página de inicio es
-    const url = window.location.pathname;
-    let tipoUsuario;
-    
-    if (url.includes('loginAdministrador')) {
-        tipoUsuario = 'administrador';
-    } else if (url.includes('loginDocente')) {
-        tipoUsuario = 'docente';
-    } else if (url.includes('loginAlumno')) {
-        tipoUsuario = 'alumno';
+    // Obtener datos del usuario desde localStorage
+    const datosUsuarioGuardado = localStorage.getItem('usuarioActual');
+
+    if (!datosUsuarioGuardado) {
+        mostrarMensaje('Error: No se encontraron datos del usuario', 'error');
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 2000);
+        return;
     }
+
+    const datosUsuario = JSON.parse(datosUsuarioGuardado);
+    const usuarioId = datosUsuario.idUsuario;
+    const tipoUsuario = datosUsuario.tipoUsuario;
     
-    if (tipoUsuario) {
-        try {
-            const usuario = new Usuario(tipoUsuario);
-            usuario.inicializar();
-        } catch (error) {
-            console.error('Error al intentar acceder al inicio de sesión:', error);
-        }
-    }
+    const preferencias = new Preferencias(usuarioId, tipoUsuario);
+    preferencias.inicializar();
 });

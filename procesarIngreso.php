@@ -56,7 +56,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $usuario = $consulta->fetch(PDO::FETCH_ASSOC);
 
         if ($usuario && password_verify($contrasena, $usuario['contrasena'])) {
-            if ($usuario["aceptado"] == true) {
+            if ($tipo_usuario === 'administrador' || $tipo_usuario === 'docente') {
+                if ($usuario["aceptado"] == true) {
+                    // Eliminar la contraseña del array antes de enviarlo
+                    unset($usuario['contrasena']);
+                    echo json_encode([
+                        'exito' => true,
+                        'mensaje' => 'Ingreso exitoso',
+                        'usuario' => $usuario
+                    ]);
+                } else {
+                    // Credenciales inválidas
+                    echo json_encode([
+                        'exito' => false,
+                        'mensaje' => 'Su peticion de crear cuenta aun no ha sido aceptada por algun administrador'
+                    ]);
+                }
+            } else {
                 // Eliminar la contraseña del array antes de enviarlo
                 unset($usuario['contrasena']);
                 echo json_encode([
@@ -64,14 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'mensaje' => 'Ingreso exitoso',
                     'usuario' => $usuario
                 ]);
-            } else {
-                // Credenciales inválidas
-                echo json_encode([
-                    'exito' => false,
-                    'mensaje' => 'Su peticion de crear cuenta aun no ha sido aceptada por algun administrador'
-                ]);
-            }
-            
+            } 
         } else {
             // Credenciales inválidas
             echo json_encode([
