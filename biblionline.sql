@@ -215,9 +215,9 @@ INSERT INTO Administrador VALUES
 
 -- Docentes por defecto
 INSERT INTO Docente VALUES
-(0,'Arantxa','Miranda Ramirez','7774204180','Programación Orientada a Objetos','mrao230737@upemor.edu.mx','$2y$10$j.IXSOoYOzoyr1HpAh8or.xzQIhbxJ5BzUykChUutdZ6zsskYPks6',1,0,'Femenino'),
-(0,'Manuel Antonio','Arellano Díaz','7771894755','Administración de Base de Datos','admo230179@upemor.edu.mx','$2y$10$IWYNjYoS/ed0c7Rj/WeiX.bfKTWGVdRzCxQZGBfhOINCIb.Y9Rr4W',1,1,'Otro'),
-(0,'Alexis Sebastian','Sanchez Luna','7774805924','Programacion Estructurada','slao230036@upemor.edu.mx','$2y$10$jWrk555ujPb686dVSdtkDer6d11bwJsBxJf5OCkjvUYv/CtfVSJXO',0,0,'Otro');
+(0,'Arantxa','Miranda Ramirez','7774204180','Programación Orientada a Objetos','mrao230737@upemor.edu.mx','$2y$10$j.IXSOoYOzoyr1HpAh8or.xzQIhbxJ5BzUykChUutdZ6zsskYPks6',1,0,'Femenino',''),
+(0,'Manuel Antonio','Arellano Díaz','7771894755','Administración de Base de Datos','admo230179@upemor.edu.mx','$2y$10$IWYNjYoS/ed0c7Rj/WeiX.bfKTWGVdRzCxQZGBfhOINCIb.Y9Rr4W',1,1,'Otro',''),
+(0,'Alexis Sebastian','Sanchez Luna','7774805924','Programacion Estructurada','slao230036@upemor.edu.mx','$2y$10$jWrk555ujPb686dVSdtkDer6d11bwJsBxJf5OCkjvUYv/CtfVSJXO',0,0,'Otro','');
 
 -- Alumnos por defecto
 INSERT INTO Alumno VALUES
