@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIBLIONLINE - Biblioteca Digital</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
+ 
     <div class="contenedorPrincipal">
         <!-- Logo de libro -->
         <div class="logoLibro">📚</div>
@@ -39,8 +41,29 @@
                     <div class="iconoUsuario">🎓</div>
                     <span class="textoBoton">Alumno</span>
                 </a>
+                <?php 
+                    if(isset($_GET['message'])){  
+                ?> 
+                <div class="alert alert-success" role="alert">
+                   
+                <?php
+                    switch ($_GET['message']){
+                        case 'ok':
+                            echo 'Correo enviado con exito, por favor, revise su badeja de mensajes';
+                            break;
+                        default:
+                            echo 'Algo salio mal, no se porque la notificacion es verde!';
+                            break;
+                    }
+                ?>   
+                <?php 
+                    }
+                ?>   
             </div>
+            </div>
+            
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>
