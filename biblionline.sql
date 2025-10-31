@@ -217,13 +217,17 @@ INSERT INTO Administrador VALUES
 INSERT INTO Docente VALUES
 (0,'Arantxa','Miranda Ramirez','7774204180','Programación Orientada a Objetos','mrao230737@upemor.edu.mx','$2y$10$j.IXSOoYOzoyr1HpAh8or.xzQIhbxJ5BzUykChUutdZ6zsskYPks6',1,1,'Femenino','2004-09-10'),
 (0,'Manuel Antonio','Arellano Díaz','7771894755','Administración de Base de Datos','admo230179@upemor.edu.mx','$2y$10$IWYNjYoS/ed0c7Rj/WeiX.bfKTWGVdRzCxQZGBfhOINCIb.Y9Rr4W',1,1,'Otro','2005-06-22'),
-(0,'Alexis Sebastian','Sanchez Luna','7774805924','Programacion Estructurada','slao230036@upemor.edu.mx','$2y$10$jWrk555ujPb686dVSdtkDer6d11bwJsBxJf5OCkjvUYv/CtfVSJXO',0,0,'Otro','2005-10-27');
+(0,'Alexis Sebastian','Sanchez Luna','7774805924','Programacion Estructurada','slao230036@upemor.edu.mx','$2y$10$jWrk555ujPb686dVSdtkDer6d11bwJsBxJf5OCkjvUYv/CtfVSJXO',0,0,'Otro','2005-10-27'),
+(0,'Angel Daniel','Lemus Quiroz','5573335833','Programador a cargo','lqao230528@upemor.edu.mx','$2y$10$o5g2A1vE7emJIP9KKbDP7e28br/2G3GW8mx5/Gbe01frvIm4JrK3G',1,1,'Masculino','2005-09-24'),
+(0,'Alan David','Cruztitla Villanueva','7774604299','Programador a cargo','cvao230638@upemor.edu.mx','$2y$10$FHk28foEEzhpm1rvvAuY7OqVzL20/ihYsecAm/RfDH.yPLz68PJ2.',1,1,'Masculino','2005-01-20');
 
 -- Alumnos por defecto
 INSERT INTO Alumno VALUES
 (0,'Gerardo','Sanchez Martinez','7775823248','SMGO230581','smgo230581@upemor.edu.mx','$2y$10$ogLEVnUTm3CoLhDXDVZVg.hVorWAm12fvywFOxjCZLYYWIubUahn2',1,'Otro','2004-01-20'),
 (0,'Edwin Leonardo','Vargas Lopez','7775396206','VLE0231602','vleo231602@upemor.edu.mx','$2y$10$fGQB87pU4DmYLXjcBG8RVePbVdigNEpHq.n.sfSB3rUy2p.kCA9ny',1,'Otro','2003-09-10'),
-(0,'Cynthia Jocelyn','Martinez Delgado','7774306734','MDCO230011','mdco230011@upemor.edu.mx','$2y$10$V4I18TXwABlXuiduDa2ae.WThOlehXYz0VpMRTUS62m2J2o.e0cEi',0,'Femenino','2005-06-02');
+(0,'Cynthia Jocelyn','Martinez Delgado','7774306734','MDCO230011','mdco230011@upemor.edu.mx','$2y$10$V4I18TXwABlXuiduDa2ae.WThOlehXYz0VpMRTUS62m2J2o.e0cEi',0,'Femenino','2005-06-02'),
+(0,'Angel Daniel','Lemus Quiroz','5573335833','LQAO230528','lqao230528@upemor.edu.mx','$2y$10$o5g2A1vE7emJIP9KKbDP7e28br/2G3GW8mx5/Gbe01frvIm4JrK3G',1,'Masculino','2005-09-24'),
+(0,'Alan David','Cruztitla Villanueva','7774604299','CVAO230638','cvao230638@upemor.edu.mx','$2y$10$FHk28foEEzhpm1rvvAuY7OqVzL20/ihYsecAm/RfDH.yPLz68PJ2.',1,'Masculino','2005-01-20');
 
 -- Categorías por defecto
 INSERT INTO Categoria VALUES

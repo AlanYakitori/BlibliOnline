@@ -46,19 +46,19 @@
                 case 'administrador':
                     $mail->Body= 'Hola Administrador, este es un correo generado para recuperar tu contrasenia, por favor,
                     visite el siguiente enlace <a href="localhost/BlibliOnline/cambiarContraseniaAdministrador.php?id='.$row['correo'].'">Clic aqui!</a>, Si usted 
-                    no solicito esta accion, haga caso omiso de este mensaje <center><img src="https://stickerly.pstatic.net/sticker_pack/M6DUfwweCC1PPhJ9HOcpw/DAS3U4/19/-837628409.png" alt="un gato"></center>';
+                    no solicito esta accion, haga caso omiso de este mensaje ';
                     break;
 
                 case 'docente':
                     $mail->Body= 'Hola Docente, este es un correo generado para recuperar tu contrasenia, por favor,
                     visite el siguiente enlace <a href="localhost/Estancia_2/cambiarContraseniaDocente.php?id='.$row['correo'].'">Clic aqui!</a>, Si usted 
-                    no solicito esta accion, haga caso omiso de este mensaje <center><img src="https://stickerly.pstatic.net/sticker_pack/M6DUfwweCC1PPhJ9HOcpw/DAS3U4/19/-837628409.png" alt="un gato"></center>';
+                    no solicito esta accion, haga caso omiso de este mensaje ';
                     break;
 
                 case 'alumno':
                     $mail->Body= 'Hola Alumno, este es un correo generado para recuperar tu contrasenia, por favor,
                     visite el siguiente enlace <a href="localhost/Estancia_2/cambiarContraseniaAlumno.php?id='.$row['correo'].'">Clic aqui!</a>, Si usted 
-                    no solicito esta accion, haga caso omiso de este mensaje <center><img src="https://stickerly.pstatic.net/sticker_pack/M6DUfwweCC1PPhJ9HOcpw/DAS3U4/19/-837628409.png" alt="un gato"></center>';
+                    no solicito esta accion, haga caso omiso de este mensaje ';
                     break;
                 default:
                     $mail->Body    = 'Tipo de usuario no reconocido.';

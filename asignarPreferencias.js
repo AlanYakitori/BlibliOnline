@@ -1,4 +1,3 @@
-
 // CLASE: Preferencias
 class Preferencias {
     #usuarioId;
@@ -156,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!datosUsuarioGuardado) {
         mostrarMensaje('Error: No se encontraron datos del usuario', 'error');
         setTimeout(() => {
-            window.location.href = 'index.html';
+            window.location.href = 'index.php';
         }, 2000);
         return;
     }
