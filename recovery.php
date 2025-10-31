@@ -19,6 +19,8 @@
     $result = $conexion->query($query);
     $row = $result->fetch_assoc();
 
+    $tabla = $row['tabla'];
+
     if($result->num_rows > 0){
 
         $mail = new PHPMailer(true);
@@ -39,9 +41,29 @@
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML
             $mail->Subject = 'Recuperacion de contrasenia';
-            $mail->Body    = 'Hola, este es un correo generado para recuperar tu contrasenia, por favor,
-             visite el siguiente enlace <a href="localhost/Estancia_2/BlibliOnline/cambiarContrasenia.php?id='.$row['id_admin'].'">Clic aqui!</a>, Si usted 
-             no solicito esta accion, haga caso omiso de este mensaje';
+
+            switch($tabla){
+                case 'administrador':
+                    $mail->Body= 'Hola Administrador, este es un correo generado para recuperar tu contrasenia, por favor,
+                    visite el siguiente enlace <a href="localhost/BlibliOnline/cambiarContraseniaAdministrador.php?id='.$row['correo'].'">Clic aqui!</a>, Si usted 
+                    no solicito esta accion, haga caso omiso de este mensaje <center><img src="https://stickerly.pstatic.net/sticker_pack/M6DUfwweCC1PPhJ9HOcpw/DAS3U4/19/-837628409.png" alt="un gato"></center>';
+                    break;
+
+                case 'docente':
+                    $mail->Body= 'Hola Docente, este es un correo generado para recuperar tu contrasenia, por favor,
+                    visite el siguiente enlace <a href="localhost/Estancia_2/cambiarContraseniaDocente.php?id='.$row['correo'].'">Clic aqui!</a>, Si usted 
+                    no solicito esta accion, haga caso omiso de este mensaje <center><img src="https://stickerly.pstatic.net/sticker_pack/M6DUfwweCC1PPhJ9HOcpw/DAS3U4/19/-837628409.png" alt="un gato"></center>';
+                    break;
+
+                case 'alumno':
+                    $mail->Body= 'Hola Alumno, este es un correo generado para recuperar tu contrasenia, por favor,
+                    visite el siguiente enlace <a href="localhost/Estancia_2/cambiarContraseniaAlumno.php?id='.$row['correo'].'">Clic aqui!</a>, Si usted 
+                    no solicito esta accion, haga caso omiso de este mensaje <center><img src="https://stickerly.pstatic.net/sticker_pack/M6DUfwweCC1PPhJ9HOcpw/DAS3U4/19/-837628409.png" alt="un gato"></center>';
+                    break;
+                default:
+                    $mail->Body    = 'Tipo de usuario no reconocido.';
+                    break;
+            }
 
             $mail->send();
             header("Location: index.php?message=ok");
@@ -58,11 +80,3 @@
 
 ?>
 
-
-if (url.includes('registroAdministrador')) {
-        tipoUsuario = 'administrador';
-    } else if (url.includes('registroDocente')) {
-        tipoUsuario = 'docente';
-    } else if (url.includes('registroAlumno')) {
-        tipoUsuario = 'alumno';
-    }
