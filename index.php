@@ -44,7 +44,7 @@
                 <?php 
                     if(isset($_GET['message'])){  
                 ?> 
-                <div class="alert alert-success" role="alert">
+                <div class="alert alert-primary" role="alert">
                    
                 <?php
                     switch ($_GET['message']){
