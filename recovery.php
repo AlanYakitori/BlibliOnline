@@ -51,13 +51,13 @@
 
                 case 'docente':
                     $mail->Body= 'Hola Docente, este es un correo generado para recuperar tu contrasenia, por favor,
-                    visite el siguiente enlace <a href="localhost/Estancia_2/cambiarContraseniaDocente.php?id='.$row['correo'].'">Clic aqui!</a>, Si usted 
+                    visite el siguiente enlace <a href="localhost/BlibliOnline/cambiarContraseniaDocente.php?id='.$row['correo'].'">Clic aqui!</a>, Si usted 
                     no solicito esta accion, haga caso omiso de este mensaje ';
                     break;
 
                 case 'alumno':
                     $mail->Body= 'Hola Alumno, este es un correo generado para recuperar tu contrasenia, por favor,
-                    visite el siguiente enlace <a href="localhost/Estancia_2/cambiarContraseniaAlumno.php?id='.$row['correo'].'">Clic aqui!</a>, Si usted 
+                    visite el siguiente enlace <a href="localhost/BlibliOnline/cambiarContraseniaAlumno.php?id='.$row['correo'].'">Clic aqui!</a>, Si usted 
                     no solicito esta accion, haga caso omiso de este mensaje ';
                     break;
                 default:
