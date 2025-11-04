@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIBLIONLINE - Registro Alumno</title>
-    <link rel="stylesheet" href="registro.css">
+    <link rel="stylesheet" href="../../../public/css/registro.css">
 </head>
 <body>
     <div class="contenedorRegistro">
@@ -58,13 +58,53 @@
                 </div>
                 
                 <div class="grupoInput">
-                    <label for="matriculaEstudiante" class="etiquetaInput">Matrícula</label>
-                    <input 
-                        type="text" 
-                        id="matriculaEstudiante" 
-                        name="matriculaEstudiante" 
+                    <label for="carreraEstudiante" class="etiquetaInput">Carrera</label>
+                    <select 
+                        id="carreraEstudiante" 
+                        name="carreraEstudiante" 
                         class="campoInput" 
-                        placeholder="Ej: 2024001"
+                        required
+                    >
+                        <option value="">Selecciona una carrera</option>
+                        <option value="Licenciatura en Administración">Licenciatura en Administración</option>
+                        <option value="Ingeniería en Biotecnología">Ingeniería en Biotecnología</option>
+                        <option value="Ingeniería Ambiental y Sustentabilidad">Ingeniería Ambiental y Sustentabilidad</option>
+                        <option value="Ingeniería Industrial">Ingeniería Industrial</option>
+                        <option value="Ingeniería en Tecnologías de la Información e Innovación Digital">Ingeniería en Tecnologías de la Información e Innovación Digital</option>
+                        <option value="Ingeniería en Sistemas Electrónicos">Ingeniería en Sistemas Electrónicos</option>
+                        <option value="Ingeniería Financiera">Ingeniería Financiera</option>
+                        <option value="Maestría en Enseñanza de las Ciencias">Maestría en Enseñanza de las Ciencias</option>
+                        <option value="Maestría en Tecnologías de la Información">Maestría en Tecnologías de la Información</option>
+                        <option value="Maestría en Finanzas y Gestión">Maestría en Finanzas y Gestión</option>
+                        <option value="Maestría en Ciencias en Biotecnología">Maestría en Ciencias en Biotecnología</option>
+                        <option value="Doctorado en Ciencias en Biotecnología">Doctorado en Ciencias en Biotecnología</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="filaInputs">
+                <div class="grupoInput">
+                    <label for="sexo" class="etiquetaInput">Sexo</label>
+                    <select 
+                        id="sexo" 
+                        name="sexo" 
+                        class="campoInput" 
+                        required
+                    >
+                        <option value="">Selecciona tu género</option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+                
+                <div class="grupoInput">
+                    <label for="fechaNacimiento" class="etiquetaInput">Fecha de Nacimiento</label>
+                    <input 
+                        type="date" 
+                        id="fechaNacimiento" 
+                        name="fechaNacimiento" 
+                        class="campoInput" 
                         required
                     >
                 </div>
@@ -112,11 +152,11 @@
         </form>
         
         <div class="enlacesAdicionales">
-            <p class="textoLogin">¿Ya tienes cuenta? <a href="loginAlumno.html" class="enlaceLogin">Inicia sesión aquí</a></p>
-            <a href="index.php" class="enlaceVolver">← Volver al inicio</a>
+            <p class="textoLogin">¿Ya tienes cuenta? <a href="loginAlumno.php" class="enlaceLogin">Inicia sesión aquí</a></p>
+            <a href="../../../index.php" class="enlaceVolver">← Volver al inicio</a>
         </div>
     </div>
     
-    <script src="registroUsuarios.js"></script>
+    <script src="../../../public/js/registroUsuarios.js"></script>
 </body>
 </html>

@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIBLIONLINE - Iniciar Sesión Docente</title>
-    <link rel="stylesheet" href="login.css">
+    <title>BIBLIONLINE - Iniciar Sesión</title>
+    <link rel="stylesheet" href="../../../public/css/login.css">
 </head>
 <body>
     <div class="contenedorLogin">
         <div class="logoLibro">📚</div>
         
         <h1 class="tituloLogin">BIBLIONLINE</h1>
-        <p class="subTituloLogin">Iniciar Sesión - Docente</p>
-        <div class="indicadorTipoUsuario docente">
-            <span class="iconoTipoUsuario">👨‍🏫</span>
-            <span class="textoTipoUsuario">Docente</span>
+        <p class="subTituloLogin">Iniciar Sesión - Administrador</p>
+        <div class="indicadorTipoUsuario administrador">
+            <span class="iconoTipoUsuario">👤</span>
+            <span class="textoTipoUsuario">Administrador</span>
         </div>
         
         <form class="formularioLogin" id="formularioLogin">
@@ -43,18 +43,19 @@
             </div>
             
             <div class="opcionesLogin">
-                <a href="recuperarContrasenia.html" class="enlaceOlvidoContrasena">¿Olvidaste tu contraseña?</a>
+                <a href="recuperarContrasenia.php" class="enlaceOlvidoContrasena">¿Olvidaste tu contraseña?</a>
             </div>
             
             <input type="submit" value="Ingresar" class="botonIngresar">
         </form>
         
         <div class="enlacesAdicionales">
-            <p class="textoRegistro">¿No tienes cuenta? <a href="registroDocente.html" class="enlaceRegistro">Regístrate aquí</a></p>
-            <a href="index.php" class="enlaceVolver">← Volver al inicio</a>
+            <p class="textoRegistro">¿No tienes cuenta? <a href="registroAdministrador.php" class="enlaceRegistro">Regístrate aquí</a></p>
+            <a href="../../../index.php" class="enlaceVolver">← Volver al inicio</a>
         </div>
     </div>
 
-    <script src="ingresoUsuarios.js"></script>
+    <script src="../../../public/js/ingresoUsuarios.js"></script>
+    
 </body>
 </html>

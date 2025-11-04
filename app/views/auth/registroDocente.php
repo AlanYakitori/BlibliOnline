@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIBLIONLINE - Registro Docente</title>
-    <link rel="stylesheet" href="registro.css">
+    <link rel="stylesheet" href="../../../public/css/registro.css">
 </head>
 <body>
     <div class="contenedorRegistro">
@@ -70,6 +70,34 @@
                 </div>
             </div>
             
+            <div class="filaInputs">
+                <div class="grupoInput">
+                    <label for="sexo" class="etiquetaInput">Sexo</label>
+                    <select 
+                        id="sexo" 
+                        name="sexo" 
+                        class="campoInput" 
+                        required
+                    >
+                        <option value="">Selecciona tu género</option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+                
+                <div class="grupoInput">
+                    <label for="fechaNacimiento" class="etiquetaInput">Fecha de Nacimiento</label>
+                    <input 
+                        type="date" 
+                        id="fechaNacimiento" 
+                        name="fechaNacimiento" 
+                        class="campoInput" 
+                        required
+                    >
+                </div>
+            </div>
+            
             <div class="grupoInput">
                 <label for="correoElectronico" class="etiquetaInput">Correo Electrónico</label>
                 <input 
@@ -112,11 +140,11 @@
         </form>
         
         <div class="enlacesAdicionales">
-            <p class="textoLogin">¿Ya tienes cuenta? <a href="loginDocente.html" class="enlaceLogin">Inicia sesión aquí</a></p>
-            <a href="index.php" class="enlaceVolver">← Volver al inicio</a>
+            <p class="textoLogin">¿Ya tienes cuenta? <a href="loginDocente.php" class="enlaceLogin">Inicia sesión aquí</a></p>
+            <a href="../../../index.php" class="enlaceVolver">← Volver al inicio</a>
         </div>
     </div>
     
-    <script src="registroUsuarios.js"></script>
+    <script src="../../../public/js/registroUsuarios.js"></script>
 </body>
 </html>

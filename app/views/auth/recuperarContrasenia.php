@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIBLIONLINE - Iniciar Sesión Alumno</title>
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="../../../public/css/login.css">
 </head>
 <body>
     <div class="contenedorLogin">
@@ -31,8 +31,8 @@
         </form>
         
         <div class="enlacesAdicionales">
-            <p class="textoRegistro">¿No tienes cuenta? <a href="registroAlumno.html" class="enlaceRegistro">Regístrate aquí</a></p>
-            <a href="index.php" class="enlaceVolver">← Volver al inicio</a>
+            <p class="textoRegistro">¿Ya tienes cuenta? <a href="#" onclick="history.back(); return false;" class="enlaceRegistro">Inicia sesión aquí</a></p>
+            <a href="../../../index.php" class="enlaceVolver">← Volver al inicio</a>
         </div>
     </div>
 
