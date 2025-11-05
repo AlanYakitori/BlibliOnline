@@ -14,7 +14,7 @@
         <p class="subTituloLogin">Recuperar contraseña</p>
         <p class="subTituloLogin">Para poder reestablecer su contraseña se le enviara un mensaje al correo destinado a la cuenta</p>
         <br>
-        <form class="formularioLogin" id="formularioLogin" action="recovery.php" method="POST">
+        <form class="formularioLogin" id="formularioLogin" action="../../services/EmailService.php" method="POST">
             <div class="grupoInput">
                 <label for="correoElectronico" class="etiquetaInput">Correo Electrónico Con El Que Se Registro</label>
                 <input 
@@ -26,7 +26,6 @@
                     required
                 >
             </div>
-            
             <input type="submit" value="Enviar" class="botonIngresar">
         </form>
         

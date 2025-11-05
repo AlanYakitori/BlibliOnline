@@ -82,7 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ]);
             }
             break;
-
         case 'ingresar':
             // Extraer datos del usuario
             $correo = $datos_usuario['correo'];
@@ -141,7 +140,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ]
             ]);
             break;
-        
+        case 'cambiarContrasenia':
+            // Extraer datos del usuario
+            
+            $nuevaContrasena = $datos_usuario['contrasenia'];
+            $nuevaContrasenaHash = password_hash($nuevaContrasena, PASSWORD_DEFAULT);
+            $correo = $datos_usuario['correo'];
+            
+            // Crear objeto UserModel
+            $usuario = new UserModel();
+            
+            $usuario->setCorreo($correo);
+            $usuario->setContrasena($nuevaContrasenaHash);
+
+            // Ejecutar el método cambiarContrasenia
+            $result = $usuario->actualizarContrasena($conexion);
+
+            // Enviar respuesta basada en el resultado
+            if ($result) {
+                echo json_encode([
+                    'exito' => true,
+                    'mensaje' => 'Contraseña cambiada exitosamente. Redirigiendo al inicio de sesión...'
+                ]);
+            } else {
+                echo json_encode([
+                    'exito' => false,
+                    'mensaje' => 'Ocurrió un error al cambiar la contraseña. Inténtalo de nuevo.'
+                ]);
+            }
+            break;
         default:
             echo json_encode([
                 'exito' => false,

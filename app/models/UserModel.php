@@ -131,5 +131,39 @@ class UserModel {
             return false;
         }
     }
+
+    // Método para obtener el tipo de usuario por correo
+    public function obtenerTipoUsuarioPorCorreo($conexion) {
+        try {
+            $sql = "SELECT * FROM Usuarios WHERE correo = :correo";
+            $stmt = $conexion->prepare($sql);
+            $stmt->bindParam(':correo', $this->correo);
+            $stmt->execute();
+            
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $resultado;
+            
+        } catch (PDOException $e) {
+            error_log("Error al obtener tipo de usuario: " . $e->getMessage());
+            return null;
+        }
+    }
+
+    // Método para actualizar la contraseña del usuario
+    public function actualizarContrasena($conexion) {
+        try {
+            $sql = "UPDATE Usuarios SET contrasena = :contrasena WHERE correo = :correo";
+            $stmt = $conexion->prepare($sql);
+            $stmt->bindParam(':contrasena', $this->contrasena);
+            $stmt->bindParam(':correo', $this->correo);
+            
+            $resultado = $stmt->execute();
+            return $resultado;
+            
+        } catch (PDOException $e) {
+            error_log("Error al actualizar contraseña: " . $e->getMessage());
+            return false;
+        }
+    }
 }
 ?>
