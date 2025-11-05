@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DashboardDocente</title>
+</head>
+<body>
+    <h1>Docente</h1>
+
+    <a href="index.php">Inicio</a>
+
+    <script src="../../../public/js/dashboardDocente.js"></script>
+</body>
+</html>

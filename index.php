@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIBLIONLINE - Biblioteca Digital</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="public/css/index.css">
 </head>
 <body>
  
@@ -27,17 +27,17 @@
         <div class="seccionUsuarios">
             <h2 class="tituloUsuarios">Selecciona tu inicio de sesión</h2>
             <div class="contenedorBotones">
-                <a href="loginAdministrador.html" class="botonTipoUsuario botonAdministrador">
+                <a href="app/views/auth/loginAdministrador.php" class="botonTipoUsuario botonAdministrador">
                     <div class="iconoUsuario">👤</div>
                     <span class="textoBoton">Administrador</span>
                 </a>
                 
-                <a href="loginDocente.html" class="botonTipoUsuario botonDocente">
+                <a href="app/views/auth/loginDocente.php" class="botonTipoUsuario botonDocente">
                     <div class="iconoUsuario">👨‍🏫</div>
                     <span class="textoBoton">Docente</span>
                 </a>
                 
-                <a href="loginAlumno.html" class="botonTipoUsuario botonAlumno">
+                <a href="app/views/auth/loginAlumno.php" class="botonTipoUsuario botonAlumno">
                     <div class="iconoUsuario">🎓</div>
                     <span class="textoBoton">Alumno</span>
                 </a>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIBLIONLINE - Iniciar Sesión Docente</title>
+    <link rel="stylesheet" href="../../../public/css/login.css">
+</head>
+<body>
+    <div class="contenedorLogin">
+        <div class="logoLibro">📚</div>
+        
+        <h1 class="tituloLogin">BIBLIONLINE</h1>
+        <p class="subTituloLogin">Iniciar Sesión - Docente</p>
+        <div class="indicadorTipoUsuario docente">
+            <span class="iconoTipoUsuario">👨‍🏫</span>
+            <span class="textoTipoUsuario">Docente</span>
+        </div>
+        
+        <form class="formularioLogin" id="formularioLogin">
+            <div class="grupoInput">
+                <label for="correoElectronico" class="etiquetaInput">Correo Electrónico</label>
+                <input 
+                    type="email" 
+                    id="correoElectronico" 
+                    name="correoElectronico" 
+                    class="campoInput" 
+                    placeholder="ejemplo@correo.com"
+                    required
+                >
+            </div>
+            
+            <div class="grupoInput">
+                <label for="contrasena" class="etiquetaInput">Contraseña</label>
+                <input 
+                    type="password" 
+                    id="contrasena" 
+                    name="contrasena" 
+                    class="campoInput" 
+                    placeholder="••••••••"
+                    required
+                >
+            </div>
+            
+            <div class="opcionesLogin">
+                <a href="recuperarContrasenia.php" class="enlaceOlvidoContrasena">¿Olvidaste tu contraseña?</a>
+            </div>
+            
+            <input type="submit" value="Ingresar" class="botonIngresar">
+        </form>
+        
+        <div class="enlacesAdicionales">
+            <p class="textoRegistro">¿No tienes cuenta? <a href="registroDocente.php" class="enlaceRegistro">Regístrate aquí</a></p>
+            <a href="../../../index.php" class="enlaceVolver">← Volver al inicio</a>
+        </div>
+    </div>
+
+    <script src="../../../public/js/ingresoUsuarios.js"></script>
+</body>
+</html>
