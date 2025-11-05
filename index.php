@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="public/css/index.css">
 </head>
 <body>
- 
+<div class="boxBienvenida">
     <div class="contenedorPrincipal">
         <!-- Logo de libro -->
-        <div class="logoLibro">📚</div>
+        
         
         <!-- Título principal -->
         <h1 class="tituloPrincipal">BIBLIONLINE</h1>
@@ -28,17 +28,14 @@
             <h2 class="tituloUsuarios">Selecciona tu inicio de sesión</h2>
             <div class="contenedorBotones">
                 <a href="app/views/auth/loginAdministrador.php" class="botonTipoUsuario botonAdministrador">
-                    <div class="iconoUsuario">👤</div>
                     <span class="textoBoton">Administrador</span>
                 </a>
                 
                 <a href="app/views/auth/loginDocente.php" class="botonTipoUsuario botonDocente">
-                    <div class="iconoUsuario">👨‍🏫</div>
                     <span class="textoBoton">Docente</span>
                 </a>
                 
                 <a href="app/views/auth/loginAlumno.php" class="botonTipoUsuario botonAlumno">
-                    <div class="iconoUsuario">🎓</div>
                     <span class="textoBoton">Alumno</span>
                 </a>
                 <?php 
@@ -64,6 +61,20 @@
             
         </div>
     </div>
+</div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
+<footer class="pie">
+    <div class="grupo1">
+        <div class="box">
+            <a href="">Ayuda</a>
+        </div>
+        <div class="box">
+            <a href="#" class="">Quienes somos?</a>
+        </div>
+    </div>
+    <div class="grupo2">
+        <small>&copy; 2024 <b>BIBLIONLINE</b> - Todos los Derechos Reservados.</small>
+    </div>
+</footer>
 </html>
