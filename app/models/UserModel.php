@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../../config/conexion.php';
 
 class UserModel { 
+    private $id;
     private $nombre;
     private $apellidos;
     private $tipoUsuario;
@@ -14,21 +15,23 @@ class UserModel {
     private $genero;
     private $fechaNacimiento;
 
-    public function __construct($nombre, $apellidos, $tipoUsuario, $telefono, $dato, $correo, $contrasena, $aceptado, $gusto, $genero, $fechaNacimiento) {
-        $this->nombre = $nombre;
-        $this->apellidos = $apellidos;
-        $this->tipoUsuario = $tipoUsuario;
-        $this->telefono = $telefono;
-        $this->dato = $dato;
-        $this->correo = $correo;
-        $this->contrasena = $contrasena;
-        $this->aceptado = $aceptado;
-        $this->gusto = $gusto;
-        $this->genero = $genero;
-        $this->fechaNacimiento = $fechaNacimiento;
+    public function __construct() {
+        $this->id = '';
+        $this->nombre = '';
+        $this->apellidos = '';
+        $this->tipoUsuario = '';
+        $this->telefono = '';
+        $this->dato = '';
+        $this->correo = '';
+        $this->contrasena = '';
+        $this->aceptado = '';
+        $this->gusto = '';
+        $this->genero = '';
+        $this->fechaNacimiento = '';
     }
 
     // Getters
+    public function getId() { return $this->id; }
     public function getNombre() { return $this->nombre; }
     public function getApellidos() { return $this->apellidos; }
     public function getTipoUsuario() { return $this->tipoUsuario; }
@@ -42,6 +45,7 @@ class UserModel {
     public function getFechaNacimiento() { return $this->fechaNacimiento; }
 
     // Setters
+    public function setId($id) { $this->id = $id; }
     public function setNombre($nombre) { $this->nombre = $nombre; }
     public function setApellidos($apellidos) { $this->apellidos = $apellidos; }
     public function setTipoUsuario($tipoUsuario) { $this->tipoUsuario = $tipoUsuario; }
@@ -57,7 +61,7 @@ class UserModel {
     // Método para verificar si el correo ya existe
     public function correoExiste($conexion) {
         try {
-            $sql = "SELECT COUNT(*) FROM usuarios WHERE correo = :correo";
+            $sql = "SELECT COUNT(*) FROM Usuarios WHERE correo = :correo";
             $stmt = $conexion->prepare($sql);
             $stmt->bindParam(':correo', $this->correo);
             $stmt->execute();
@@ -73,7 +77,7 @@ class UserModel {
 
     // Método para registrar un nuevo usuario
     public function registrarUsuario($conexion) {
-        $sql = "INSERT INTO usuarios (nombre, apellidos, tipoUsuario, telefono, dato, correo, contrasena, aceptado, gusto, genero, fechaNacimiento) 
+        $sql = "INSERT INTO Usuarios (nombre, apellidos, tipoUsuario, telefono, dato, correo, contrasena, aceptado, gusto, genero, fechaNacimiento) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         try {
@@ -95,6 +99,35 @@ class UserModel {
             
         } catch (PDOException $e) {
             error_log("Error al registrar usuario: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    // Método para validar credenciales y obtener datos del usuario
+    public function validarCredenciales($conexion, $correo, $contrasena) {
+        try {
+            $sql = "SELECT * FROM Usuarios WHERE correo = :correo";
+            $stmt = $conexion->prepare($sql);
+            $stmt->bindParam(':correo', $correo);
+            $stmt->execute();
+            
+            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            // Si no se encuentra el usuario
+            if (!$usuario) {
+                return null;
+            }
+            
+            // Verificar la contraseña
+            if (password_verify($contrasena, $usuario['contrasena'])) {
+                return $usuario;
+            } else {
+                // Contraseña incorrecta
+                return false;
+            }
+            
+        } catch (PDOException $e) {
+            error_log("Error al validar credenciales: " . $e->getMessage());
             return false;
         }
     }
