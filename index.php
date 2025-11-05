@@ -6,12 +6,12 @@
     <title>BIBLIONLINE - Biblioteca Digital</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="public/css/index.css">
+    <link rel="stylesheet" href="public/css/footer.css">
 </head>
 <body>
  
     <div class="contenedorPrincipal">
-        <!-- Logo de libro -->
-        <div class="logoLibro">📚</div>
+       
         
         <!-- Título principal -->
         <h1 class="tituloPrincipal">BIBLIONLINE</h1>
@@ -19,7 +19,6 @@
         
         <!-- Texto de bienvenida -->
         <div class="textoBienvenida">
-            <p>¡Bienvenido a BIBLIONLINE!</p>
             <p>Descubre miles de libros digitales, artículos académicos y recursos educativos al alcance de un clic. Nuestra plataforma te ofrece acceso ilimitado a una vasta colección literaria desde la comodidad de tu hogar.</p>
         </div>
         
@@ -28,17 +27,14 @@
             <h2 class="tituloUsuarios">Selecciona tu inicio de sesión</h2>
             <div class="contenedorBotones">
                 <a href="app/views/auth/loginAdministrador.php" class="botonTipoUsuario botonAdministrador">
-                    <div class="iconoUsuario">👤</div>
                     <span class="textoBoton">Administrador</span>
                 </a>
                 
                 <a href="app/views/auth/loginDocente.php" class="botonTipoUsuario botonDocente">
-                    <div class="iconoUsuario">👨‍🏫</div>
                     <span class="textoBoton">Docente</span>
                 </a>
                 
                 <a href="app/views/auth/loginAlumno.php" class="botonTipoUsuario botonAlumno">
-                    <div class="iconoUsuario">🎓</div>
                     <span class="textoBoton">Alumno</span>
                 </a>
                 <?php 
@@ -66,4 +62,5 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
+<?php include 'app/views/footer.php'; ?>
 </html>

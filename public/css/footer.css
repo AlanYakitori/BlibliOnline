@@ -1,0 +1,48 @@
+
+.pie{
+
+    width: 100%;
+    
+}
+
+.pie .grupo1{
+    margin: 0 0 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.pie .box{
+    padding-right: 5%;
+    padding-left: 5%;
+}
+
+.pie .box a{
+    color: #736977;
+    text-decoration: none;
+}
+.pie .box a:hover{
+    transition: 0.1s;
+    color: #2e2e2e;
+}
+
+.pie .grupo2{
+    background-color:#441972;
+    color: #ffffff;
+    padding: 15px 10px;
+    text-align: center;
+}   
+
+.pie .grupo2 small{
+    font-size: 90%;
+}
+
+@media screen and (max-width:800px) {
+    .pie .grupo1{
+        width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 50px;
+        padding:45px 0px;
+    }
+}
