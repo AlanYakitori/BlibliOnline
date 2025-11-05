@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIBLIONLINE - Completar Perfil</title>
-    <link rel="stylesheet" href="asignarPreferencias.css">
+    <link rel="stylesheet" href="../../../public/css/asignarPreferencias.css">
 </head>
 <body>
     <div class="contenedorPreferencias">
@@ -110,6 +110,6 @@
         </form>
     </div>
 
-    <script src="asignarPreferencias.js"></script>
+    <script src="../../../public/js/asignarPreferencias.js"></script>
 </body>
 </html>

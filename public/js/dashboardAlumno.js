@@ -6,10 +6,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const datosUsuario = JSON.parse(usuarioActualStorage);
 
     // Extraer cada dato en variables separadas:
-    const idUsuario = datosUsuario.idUsuario;                          
+    const idUsuario = datosUsuario.id;                          
     const tipoUsuario = datosUsuario.tipoUsuario;                    
  
     // Mostrar en consola para verificar
     console.log('ID del usuario:', idUsuario);
     console.log('Tipo de usuario:', tipoUsuario);
+    console.log('Datos completos del usuario:', datosUsuario);
 })

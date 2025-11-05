@@ -10,6 +10,6 @@
 
     <a href="index.php">Inicio</a>
 
-    <script src="dashboardAdministrador.js"></script>
+    <script src="../../../public/js/dashboardAdministrador.js"></script>
 </body>
 </html>

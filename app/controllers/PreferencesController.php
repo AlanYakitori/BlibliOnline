@@ -1,65 +1,65 @@
 <?php
-require_once __DIR__ . '/../models/UserModel.php';
-require_once __DIR__ . '/../models/CategoryModel.php';
+require_once __DIR__ . '/../models/PreferencesModel.php';
+require_once __DIR__ . '/../../config/conexion.php';
 
-class PreferencesController {
-    private $userModel;
-    private $categoryModel;
+// Configurar respuestas en formato JSON
+header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Headers: Content-Type');
+
+// Solo procesar si recibimos datos POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-    public function __construct() {
-        $this->userModel = new UserModel();
-        $this->categoryModel = new CategoryModel();
+    // Leer los datos que envía JavaScript
+    $datos_recibidos = file_get_contents('php://input');
+    $datos_usuario = json_decode($datos_recibidos, true);
+    
+    // Verificar que llegaron datos
+    if (!$datos_usuario) {
+        echo json_encode([
+            'exito' => false,
+            'mensaje' => 'No se pudieron procesar los datos del formulario'
+        ]);
+        exit;
     }
     
-    // FUNCIONALIDAD DE procesarPreferencias.php
-    public function savePreferences() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $datosRecibidos = file_get_contents('php://input');
-            $datosPreferencias = json_decode($datosRecibidos, true);
-            
-            if (!$datosPreferencias) {
-                return $this->jsonResponse(false, 'No se recibieron datos');
-            }
-            
-            $idUsuario = $datosPreferencias['idUsuario'];
-            $tipoUsuario = $datosPreferencias['tipoUsuario'];
-            $categoriasSeleccionadas = $datosPreferencias['categoriasSeleccionadas'];
-            
-            if (!$idUsuario || !$tipoUsuario || !$categoriasSeleccionadas) {
-                return $this->jsonResponse(false, 'Datos incompletos');
-            }
-            
+    // Verificar accion
+    $accion = $datos_usuario['accion'];
+
+    switch ($accion) {
+        case 'agregarPreferencias':
+            // Extraer y validar datos del usuario
+            $id = $datos_usuario['usuarioId'];
+            $categoriasSeleccionadas = $datos_usuario['categoriasSeleccionadas'];
+
             try {
-                // Actualizar preferencias del usuario
-                $resultado = $this->userModel->updateUserPreferences($idUsuario, $tipoUsuario, $categoriasSeleccionadas);
-                
-                if ($resultado) {
-                    // Obtener datos actualizados
-                    $datosUsuario = $this->userModel->getUserById($idUsuario, $tipoUsuario);
-                    $categoriasUsuario = $this->categoryModel->getUserCategories($idUsuario, $tipoUsuario);
-                    
-                    unset($datosUsuario['contrasena']);
-                    $datosUsuario['tipoUsuario'] = $tipoUsuario;
-                    
-                    return $this->jsonResponse(true, 'Preferencias guardadas correctamente', $datosUsuario, $categoriasUsuario);
-                } else {
-                    return $this->jsonResponse(false, 'Error al guardar preferencias');
-                }
-                
-            } catch(Exception $error) {
-                return $this->jsonResponse(false, 'Error al guardar preferencias: ' . $error->getMessage());
+                // Crear objeto PreferencesModel
+                $preferencias = new PreferencesModel();
+                $preferencias->setId($id);
+                $preferencias->setListaCategorias($categoriasSeleccionadas);
+
+                // Ejecutar el guardado de preferencias
+                $resultado = $preferencias->guardarPreferencia($conexion);
+
+                // Retornar la respuesta del modelo
+                echo json_encode($resultado);
+
+            } catch (Exception $e) {
+                error_log("Error en PreferencesController: " . $e->getMessage());
+                echo json_encode([
+                    'exito' => false,
+                    'mensaje' => 'Error interno del servidor al guardar las preferencias'
+                ]);
             }
-        }
-        return $this->jsonResponse(false, 'Método no permitido');
-    }
-    
-    private function jsonResponse($success, $message, $userData = null, $categories = null) {
-        header('Content-Type: application/json');
-        $response = ['exito' => $success, 'mensaje' => $message];
-        if ($userData) $response['datosUsuario'] = $userData;
-        if ($categories) $response['categoriasUsuario'] = $categories;
-        echo json_encode($response);
-        exit();
+            
+            break;
+        
+        default:
+            echo json_encode([
+                'exito' => false,
+                'mensaje' => 'Operación no reconocida'
+            ]);
+            break;
     }
 }
-?>

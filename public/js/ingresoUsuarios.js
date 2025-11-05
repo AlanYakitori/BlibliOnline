@@ -1,146 +1,3 @@
-
-// CLASE: Usuario
-class Usuario {
-    #correo;
-    #contrasena;
-    #tipoUsuario;
-    #preferencias;
-
-    constructor(tipoUsuario) {
-        this.#tipoUsuario = tipoUsuario;
-    }
-
-    // Getters
-    get correo() { return this.#correo;}
-    get contrasena() { return this.#contrasena; }
-    get tipoUsuario() { return this.#tipoUsuario; }
-    get preferencias() { return this.#preferencias; }
-
-    // Setters
-    set correo(correo) { this.#correo = correo; }
-    set contrasena(contrasena) { this.#contrasena = contrasena; }
-    set tipoUsuario(tipoUsuario) { this.#tipoUsuario = tipoUsuario; }
-    set preferencias(preferencias) { this.#preferencias = preferencias; }
-    
-    // Método para inicializar el sistema de inicio de sesión
-    inicializar() {
-        const formulario = document.getElementById('formularioLogin');
-        
-        formulario.addEventListener('submit', (evento) => {
-            evento.preventDefault();
-            this.procesarIngreso();
-        });
-    }
-
-    async procesarIngreso() {
-        // Limpiar errores previos
-        this.limpiarTodosLosErrores();
-
-        // Obtener datos del formulario
-        this.correo = document.getElementById('correoElectronico').value.trim();
-        this.contrasena = document.getElementById('contrasena').value.trim();
-
-        // Validar campos
-        if (!this.validarCampos()) {
-            this.mostrarMensaje('Por favor, complete todos los campos.', 'error');
-            return;
-        }
-
-        // Preparar datos para enviar al servidor
-        const datosUsuario = {
-            correo: this.correo,
-            contrasena: this.contrasena,
-            tipoUsuario: this.tipoUsuario
-        };
-
-        // Mostrar mensaje de "ingresando..."
-        this.mostrarMensaje('Ingresando...', 'info');
-
-        // Enviar datos al servidor y esperar respuesta
-        const respuestaServidor = await this.enviarAlServidor(datosUsuario);
-
-        if (respuestaServidor.exito) {
-            this.mostrarMensaje('Redirigiendo...', 'exito');
-            
-            // Guardar datos del usuario en localStorage para usar en el dashboard
-            localStorage.setItem('usuarioActual', JSON.stringify({
-                idUsuario: respuestaServidor.usuario.id_admin || 
-                           respuestaServidor.usuario.id_docente || 
-                           respuestaServidor.usuario.id_alumno,
-                tipoUsuario: this.tipoUsuario
-            }));
-            
-            if (this.tipoUsuario === 'administrador') {
-                if (respuestaServidor.usuario.gusto === 1) {
-                    setTimeout(() => {
-                        window.location.href = 'dashboardAdministrador.html';
-                    }, 2000);
-                } else {
-                    setTimeout(() => {
-                        window.location.href = 'asignarPreferencias.html';
-                    }, 2000);
-                }    
-            } else if (this.tipoUsuario === 'docente') {
-                if (respuestaServidor.usuario.gusto === 1) {
-                    setTimeout(() => {
-                        window.location.href    = 'dashboardDocente.html';
-                    }, 2000);
-                } else {
-                    setTimeout(() => {
-                        window.location.href = 'asignarPreferencias.html';
-                    }, 2000);
-                }
-            } else if (this.tipoUsuario === 'alumno') {
-                if (respuestaServidor.usuario.gusto === 1) {
-                    setTimeout(() => {
-                        window.location.href = 'dashboardAlumno.html';
-                    }, 2000);
-                } else {
-                    setTimeout(() => {
-                        window.location.href = 'asignarPreferencias.html';
-                    })
-                }
-            }
-        } else {
-            this.mostrarMensaje('Error: ' + respuestaServidor.mensaje, 'error');
-        }
-    }
-
-    async enviarAlServidor(datosUsuario) {
-        try {
-            // Enviar datos al archivo PHP
-            const respuesta = await fetch('procesarIngreso.php', {
-                method: 'POST',                    // Método de envío
-                headers: {                         // Configuración
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(datosUsuario) // Convertir datos a formato PHP
-            });
-
-            // Obtener respuesta del servidor PHP
-            const resultado = await respuesta.json();
-            return resultado;
-
-        } catch (error) {
-            console.error('Error al conectar con el servidor:', error);
-            return {
-                exito: false,
-                mensaje: 'Error de conexión con el servidor'
-            };
-        }
-    }
-
-    
-
-   
-
-    // Método para validar los campos del formulario
-    validarCampos() {
-        return this.correo !== '' && this.contrasena !== '';
-    }
-    
-}
-
 document.addEventListener('DOMContentLoaded', function() {
     const url = window.location.pathname;
     let tipoUsuario = '';
@@ -204,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
         mensaje.className = `mensajeGeneral ${tipo}`;
         mensaje.textContent = texto;
 
-        const formulario = document.getElementById('formularioRegistro');
+        const formulario = document.getElementById('formularioLogin');
         formulario.parentNode.insertBefore(mensaje, formulario);
 
         setTimeout(() => {
@@ -264,6 +121,70 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 
+    // Función para enviar datos al servidor
+    async function enviarDatos(datosValidados) {
+        try {
+            mostrarMensaje('Iniciando sesión...', 'info');
+            
+            const respuesta = await fetch('../../controllers/AuthController.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(datosValidados)
+            });
+            
+            const resultado = await respuesta.json();
+            
+            if (resultado.exito) {
+                mostrarMensaje('Inicio de sesión exitoso. Redirigiendo...', 'exito');
+                
+                // Guardar datos del usuario en localStorage
+                localStorage.setItem('usuarioActual', JSON.stringify({
+                    id: resultado.usuario.id,
+                    nombre: resultado.usuario.nombre,
+                    apellidos: resultado.usuario.apellidos,
+                    tipoUsuario: resultado.usuario.tipoUsuario,
+                    telefono: resultado.usuario.telefono,
+                    dato: resultado.usuario.dato,
+                    correo: resultado.usuario.correo,
+                    aceptado: resultado.usuario.aceptado,
+                    gusto: resultado.usuario.gusto,
+                    genero: resultado.usuario.genero,
+                    fechaNacimiento: resultado.usuario.fechaNacimiento
+                }));
+                
+                // Redirigir según el tipo de usuario y gusto
+                setTimeout(() => {
+                    if (tipoUsuario === 'administrador') {
+                        if (resultado.usuario.gusto == 1) {
+                            window.location.href = '../dashboard/administrador.php';
+                        } else {
+                            window.location.href = 'asignarPreferencias.php';
+                        }    
+                    } else if (tipoUsuario === 'docente') {
+                        if (resultado.usuario.gusto == 1) {
+                            window.location.href = '../dashboard/docente.php';
+                        } else {
+                            window.location.href = 'asignarPreferencias.php';
+                        }
+                    } else if (tipoUsuario === 'alumno') {
+                        if (resultado.usuario.gusto == 1) {
+                            window.location.href = '../dashboard/alumno.php';
+                        } else {
+                            window.location.href = 'asignarPreferencias.php';
+                        }
+                    }
+                }, 2000);
+            } else {
+                mostrarMensaje(resultado.mensaje, 'error');
+            }
+            
+        } catch (error) {
+            console.error('Error al conectar con el servidor:', error);
+            mostrarMensaje('Error de conexión con el servidor', 'error');
+        }
+    }
 
     // Event listener del formulario
     const formulario = document.getElementById('formularioLogin');
@@ -275,8 +196,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const datosValidados = obtenerDatosValidados();
         
         if (datosValidados) {
-            // Enviar datos al servidor
-            await enviarDatos(datosValidados);
+            // Enviar datos al servidor y esperar respuesta
+           await enviarDatos(datosValidados); 
         }
     });
 });
