@@ -1,270 +1,176 @@
-* {
+/* ================================
+   ESTILOS GENERALES
+================================== */
+html, body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    background-color: #bb95ca;
+    color: #fff;
+    overflow-x: hidden; 
+    overflow-y: auto; 
 }
 
-body {
-    font-family: 'Arial', sans-serif;
-background-color: #764ba2; 
-   min-height: 100vh;
-}
-
-.boxBienvenida{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
+/* ================================
+   CONTENEDOR PRINCIPAL
+================================== */
 .contenedorPrincipal {
-    margin: 5%;
-    background: white;
-    border-radius: 30px;
-    padding: 5%;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    background-color: #f7edf6;
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 50px;
+    width: 35%;
+    max-width: 800px;
     text-align: center;
-    max-width: 600px;
-    width: 40%;
-    animation: animacionEntrada 1s ease-out;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    margin: 60px auto;
+    transition: all 0.3s ease;
 }
 
-@keyframes animacionEntrada {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.logoLibro {
-    font-size: 4rem;
-    margin-bottom: 1rem;
-    color: #4a5568;
-    animation: animacionLibro 2s ease-in-out infinite alternate;
-}
-
-@keyframes animacionLibro {
-    from { transform: scale(1); }
-    to { transform: scale(1.1); }
-}
-
+/* ================================
+   TÍTULOS Y TEXTOS
+================================== */
 .tituloPrincipal {
     font-size: 3rem;
-    font-weight: bold;
-    color: #2d3748;
-    margin-bottom: 0.5rem;
+    font-weight: 700;
+    color: #2e2c2e;
+    margin-bottom: 10px;
     letter-spacing: 2px;
-    background: linear-gradient(45deg, #667eea, #764ba2);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
 }
 
 .subTitulo {
-    font-size: 1.2rem;
-    color: #718096;
-    margin-bottom: 2rem;
-    font-style: italic;
+    font-size: 1.3rem;
+    color: #333038;
+    margin-bottom: 40px;
 }
 
-.textoBienvenida {
+.textoBienvenida p {
+    color: #3b3741;
     font-size: 1.1rem;
-    color: #4a5568;
     line-height: 1.6;
-    margin-bottom: 2.5rem;
-    padding: 0 1rem;
+    margin-bottom: 10px;
+    text-align: justify;
 }
 
+/* ================================
+   SECCIÓN DE USUARIOS
+================================== */
 .seccionUsuarios {
-    margin-top: 1rem;
+    margin-top: 40px;
 }
 
 .tituloUsuarios {
-    font-size: 1.3rem;
-    color: #4a5568;
-    margin-bottom: 2rem;
+    font-size: 1.5rem;
     font-weight: 600;
+    color: #2f213a;
+    margin-bottom: 25px;
 }
 
+/* ================================
+   BOTONES DE USUARIO
+================================== */
 .contenedorBotones {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    max-width: 300px;
-    margin: 0 auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
 }
 
 .botonTipoUsuario {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+    display: inline-block;
+    width: 180px;
+    padding: 15px 0;
+    border-radius: 12px;
     text-decoration: none;
-    padding: 1.2rem 1.5rem;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    color: #fff;
     font-weight: 600;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    position: relative;
-    overflow: hidden;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
 }
 
-.botonTipoUsuario::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s ease;
-}
-
-.botonTipoUsuario:hover::before {
-    left: 100%;
-}
-
+/* Tonos de morado */
 .botonAdministrador {
-    justify-content: center;
-    background: linear-gradient(135deg, #e53e3e, #c53030);
-    color: white;
+    background-color: #5c4574;
 }
-
 .botonDocente {
-    justify-content: center;
-    background: linear-gradient(135deg, #38a169, #2f855a);
-    color: white;
+    background-color: #432e5a;
 }
-
 .botonAlumno {
-    justify-content: center;
-    background: linear-gradient(135deg, #3182ce, #2c5282);
-    color: white;
+    background-color: #331750;
 }
 
+/* Efecto hover */
 .botonTipoUsuario:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25);
+    opacity: 0.95;
 }
 
-.botonTipoUsuario:active {
-    transform: translateY(-1px);
-}
-
-.iconoUsuario {
-    font-size: 2rem;
-    margin-right: 1rem;
-    min-width: 2.5rem;
-    text-align: center;
-}
-
-.textoBoton {
-    font-size: 1.1rem;
-    letter-spacing: 0.5px;
-}
-
-.caracteristicas {
-    margin-top: 2rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
-}
-
-.caracteristica {
-    padding: 1rem;
-    background: #f7fafc;
+/* ================================
+   ALERTAS
+================================== */
+.alert {
+    margin-top: 30px;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: #fff;
+    font-weight: 500;
     border-radius: 10px;
-    color: #4a5568;
-    font-size: 0.9rem;
 }
 
-.iconoCaracteristica {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-}
+/* ================================
+   RESPONSIVE DESIGN
+================================== */
 
-@media (max-width: 768px) {
-    .contenedorPrincipal {
-        padding: 2rem;
-    }
-    
+/* Tablet */
+@media (max-width: 992px) {
     .tituloPrincipal {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
     }
-    
-    .logoLibro {
-        font-size: 3rem;
+
+    .contenedorPrincipal {
+        padding: 40px 30px;
     }
-    
-    .textoBienvenida {
-        font-size: 1rem;
+
+    .botonTipoUsuario {
+        width: 160px;
+        padding: 12px 0;
     }
-    
-    .tituloUsuarios {
+}
+
+/* Celular */
+@media (max-width: 600px) {
+    body {
+        background: linear-gradient(160deg, #7a28cb 0%, #b372ff 100%);
+    }
+
+    .contenedorPrincipal {
+        padding: 35px 25px;
+        margin: 30px auto;
+    }
+
+    .tituloPrincipal {
+        font-size: 2rem;
+    }
+
+    .subTitulo {
         font-size: 1.1rem;
     }
-    
-    .botonTipoUsuario {
-        padding: 1rem 1.2rem;
-    }
-    
-    .iconoUsuario {
-        font-size: 1.8rem;
-        margin-right: 0.8rem;
-    }
-    
-    .textoBoton {
+
+    .textoBienvenida p {
         font-size: 1rem;
     }
-}
 
-.pie{
+    .contenedorBotones {
+        flex-direction: column;
+        gap: 15px;
+    }
 
-    width: 100%;
-    background-color: #764ba2;
-}
-
-.pie .grupo1{
-    margin: 0 0 50px;
-    display: flex;
-    justify-content: center;
-    
-}
-
-.pie .box{
-    justify-content: center;
-    padding-left: 5%;
-    align-items: center;
-}
-
-.pie .box a{
-    color: #ffffff;
-    text-decoration: none;
-}
-.pie .box a:hover{
-    transition: 0.1s;
-    color: #2e2e2e;
-}
-
-.pie .grupo2{
-    background-color: rgb(92, 4, 119);
-    color: #ffffff;
-    padding: 15px 10px;
-    text-align: center;
-}   
-
-.pie .grupo2 small{
-    font-size: 90%;
-}
-
-@media screen and (max-width:800px) {
-    .pie .grupo1{
+    .botonTipoUsuario {
         width: 100%;
-        grid-template-columns: repeat(2, 1fr);
-        grid-gap: 50px;
-        padding:45px 0px;
+        font-size: 0.95rem;
     }
 }

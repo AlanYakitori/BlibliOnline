@@ -6,12 +6,12 @@
     <title>BIBLIONLINE - Biblioteca Digital</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="public/css/index.css">
+    <link rel="stylesheet" href="public/css/footer.css">
 </head>
 <body>
-<div class="boxBienvenida">
+ 
     <div class="contenedorPrincipal">
-        <!-- Logo de libro -->
-        
+       
         
         <!-- Título principal -->
         <h1 class="tituloPrincipal">BIBLIONLINE</h1>
@@ -19,7 +19,6 @@
         
         <!-- Texto de bienvenida -->
         <div class="textoBienvenida">
-            <p>¡Bienvenido a BIBLIONLINE!</p>
             <p>Descubre miles de libros digitales, artículos académicos y recursos educativos al alcance de un clic. Nuestra plataforma te ofrece acceso ilimitado a una vasta colección literaria desde la comodidad de tu hogar.</p>
         </div>
         
@@ -61,20 +60,7 @@
             
         </div>
     </div>
-</div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
-<footer class="pie">
-    <div class="grupo1">
-        <div class="box">
-            <a href="">Ayuda</a>
-        </div>
-        <div class="box">
-            <a href="#" class="">Quienes somos?</a>
-        </div>
-    </div>
-    <div class="grupo2">
-        <small>&copy; 2024 <b>BIBLIONLINE</b> - Todos los Derechos Reservados.</small>
-    </div>
-</footer>
+<?php include 'app/views/footer.php'; ?>
 </html>

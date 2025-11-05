@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIBLIONLINE - Iniciar Sesión</title>
     <link rel="stylesheet" href="../../../public/css/login.css">
+    <link rel="stylesheet" href="../../../public/css/footer.css">
 </head>
 <body>
+    <div class="cajota">
     <div class="contenedorLogin">
         <div class="logoLibro">📚</div>
         
@@ -54,8 +56,10 @@
             <a href="../../../index.php" class="enlaceVolver">← Volver al inicio</a>
         </div>
     </div>
-
+</div>
     <script src="../../../public/js/ingresoUsuarios.js"></script>
     
 </body>
 </html>
+
+    <?php include_once __DIR__ . '/../footer.php'; ?>
