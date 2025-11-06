@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../../../public/css/login.css">
 </head>
 <body>
+    <div class="cajota">
     <div class="contenedorLogin">
         <div class="logoLibro">📚</div>
         
@@ -54,7 +55,7 @@
             <a href="../../../index.php" class="enlaceVolver">← Volver al inicio</a>
         </div>
     </div>
-
+</div>
     <script src="../../../public/js/ingresoUsuarios.js"></script>
 </body>
 </html>
