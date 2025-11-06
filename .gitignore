@@ -11,3 +11,8 @@ Thumbs.db
 # Archivos temporales
 *.tmp
 *.temp
+
+# Backups de base de datos (no trackear en Git)
+backups/
+*.bak
+
