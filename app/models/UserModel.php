@@ -165,5 +165,18 @@ class UserModel {
             return false;
         }
     }
+
+    public function consultarUsuariosNoAdmin($conexion) {
+        try {
+            $sql = "SELECT id_usuario, nombre, apellidos, correo, telefono, tipoUsuario FROM Usuarios WHERE tipoUsuario != 'administrador'";
+            $stmt = $conexion->prepare($sql);
+            $stmt->execute();
+            return $stmt;
+        } catch (PDOException $e) {
+            error_log("Error al consultar usuarios: " . $e->getMessage());
+            throw new Exception("Error al consultar usuarios");
+        }
+    }
+
 }
 ?>
