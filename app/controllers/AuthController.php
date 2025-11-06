@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../models/UserModel.php';
 require_once __DIR__ . '/../../config/conexion.php';
+require_once __DIR__ . '/../../config/session.php';
 
 // Configurar respuestas en formato JSON
 header('Content-Type: application/json');
@@ -122,22 +123,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             
             // Si todo está bien, retornar los datos del usuario
+            // Iniciar sesión en el servidor para proteger accesos a dashboards
+            $usuarioSession = [
+                'id' => $datosUsuario['id_usuario'],
+                'nombre' => $datosUsuario['nombre'],
+                'apellidos' => $datosUsuario['apellidos'],
+                'tipoUsuario' => $datosUsuario['tipoUsuario'],
+                'telefono' => $datosUsuario['telefono'],
+                'dato' => $datosUsuario['dato'],
+                'correo' => $datosUsuario['correo'],
+                'aceptado' => $datosUsuario['aceptado'],
+                'gusto' => $datosUsuario['gusto'],
+                'genero' => $datosUsuario['genero'],
+                'fechaNacimiento' => $datosUsuario['fechaNacimiento']
+            ];
+
+            iniciarSesionUsuario($usuarioSession);
+
             echo json_encode([
                 'exito' => true,
                 'mensaje' => 'Inicio de sesión exitoso',
-                'usuario' => [
-                    'id' => $datosUsuario['id_usuario'],
-                    'nombre' => $datosUsuario['nombre'],
-                    'apellidos' => $datosUsuario['apellidos'],
-                    'tipoUsuario' => $datosUsuario['tipoUsuario'],
-                    'telefono' => $datosUsuario['telefono'],
-                    'dato' => $datosUsuario['dato'],
-                    'correo' => $datosUsuario['correo'],
-                    'aceptado' => $datosUsuario['aceptado'],
-                    'gusto' => $datosUsuario['gusto'],
-                    'genero' => $datosUsuario['genero'],
-                    'fechaNacimiento' => $datosUsuario['fechaNacimiento']
-                ]
+                'usuario' => $usuarioSession
             ]);
             break;
         case 'cambiarContrasenia':
