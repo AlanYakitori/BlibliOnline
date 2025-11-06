@@ -1,5 +1,11 @@
+<?php
+require_once __DIR__ . '/../../../config/session.php';
+// Proteger la página para que solo administradores puedan acceder
+protegerPagina(['administrador']);
+$csrf = obtenerCSRFToken();
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,6 +42,10 @@
 <br><br><br><br>
 <br><br><br><br>
 <br><br><br>
+    <button id="btnBackup">Crear copia de seguridad</button>
+
+    <!-- Exponer CSRF token al JS de forma segura -->
+    <script>window.csrfToken = '<?php echo $csrf; ?>';</script>
     <script src="../../../public/js/dashboardAdministrador.js"></script>
 </body>
 </html>
