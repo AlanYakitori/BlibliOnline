@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (usuarioActualStorage) {
         try { 
-            console.log('Usuario actual:', JSON.parse(usuarioActualStorage)); 
-            
+            const datosUsuario = JSON.parse(usuarioActualStorage);
+
             const nombre = datosUsuario.nombre.trim();
             nombreBienvenida.textContent = `Bienvenido ${nombre}`;
         } catch(e){
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     const btnCerrarSesion = document.getElementById('btnCerrarSesion');
-    
+
     if (btnCerrarSesion) btnCerrarSesion.addEventListener('click', cerrarSesion);
 
     async function cerrarSesion() {

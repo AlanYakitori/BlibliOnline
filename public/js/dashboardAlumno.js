@@ -3,12 +3,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const nombreBienvenida = document.getElementById('nombreBienvenida');
 
     if (usuarioActualStorage) {
-        try { console.log('Usuario actual:', JSON.parse(usuarioActualStorage));
+        try {
+            const datosUsuario = JSON.parse(usuarioActualStorage);
+
             const nombre = datosUsuario.nombre.trim();
             nombreBienvenida.textContent = `Bienvenido ${nombre}`;
-         } catch(e){
-            
-         }
+        } catch (e) {
+            console.warn('usuarioActual corrupto en localStorage');
+        }
     }
 
     const btnCerrarSesion = document.getElementById('btnCerrarSesion');

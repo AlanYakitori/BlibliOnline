@@ -4,11 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (usuarioActualStorage) {
         try {
             const datosUsuario = JSON.parse(usuarioActualStorage);
-            console.log('Usuario actual:', datosUsuario);
 
             const nombre = datosUsuario.nombre.trim();
             nombreBienvenida.textContent = `Bienvenido ${nombre}`;
-            
         } catch (e) {
             console.warn('usuarioActual corrupto en localStorage');
         }
