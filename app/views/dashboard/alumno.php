@@ -1,9 +1,10 @@
 <?php
 require_once __DIR__ . '/../../../config/session.php';
-// Proteger la página para que solo alumnos puedan acceder
+
 protegerPagina(['alumno']);
 $csrf = obtenerCSRFToken();
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>

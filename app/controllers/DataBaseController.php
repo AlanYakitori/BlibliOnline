@@ -6,7 +6,6 @@ require_once __DIR__ . '/../../config/session.php';
 // Protección: solo administradores pueden ejecutar backups
 protegerPagina(['administrador']);
 
-// Si se solicita la descarga vía GET ?download=archivo -> servir el archivo
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['download'])) {
     $download = basename($_GET['download']); // sanitizar
     $backupsDir = realpath(__DIR__ . '/../../backups');
@@ -22,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['download'])) {
         exit;
     }
 
-    // Forzar descarga con nombre fijo copiaSeguridad.bak
     header('Content-Description: File Transfer');
     header('Content-Type: application/octet-stream');
     header('Content-Disposition: attachment; filename="copiaSeguridad.bak"');
@@ -32,7 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['download'])) {
     header('Content-Length: ' . filesize($filePath));
     readfile($filePath);
 
-    // Opcional: eliminar el backup del servidor después de enviar
     @unlink($filePath);
     exit;
 }

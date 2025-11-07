@@ -44,6 +44,7 @@ CREATE TABLE Recurso (
     descripcion VARCHAR(500),
     archivo_url VARCHAR(10000),
     calificacion FLOAT DEFAULT 0,
+    aprobado BOOLEAN DEFAULT false,
     id_categoria INT,
     id_usuario INT,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE SET NULL,
@@ -57,6 +58,22 @@ CREATE TABLE ListasFavoritos (
     id_recurso INT,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE,
     FOREIGN KEY (id_recurso) REFERENCES Recurso(id_recurso) ON DELETE CASCADE
+);
+
+CREATE TABLE Grupos (
+    id_grupo INT PRIMARY KEY auto_increment,
+    nombre VARCHAR(100),
+    clave VARCHAR(100),
+    docente INT,
+    FOREIGN KEY (docente) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE
+);
+
+CREATE TABLE MiembrosGrupo (
+    id_miembro_grupo INT PRIMARY KEY auto_increment,
+    id_grupo INT,
+    id_usuario INT,
+    FOREIGN KEY (id_grupo) REFERENCES Grupos(id_grupo) ON DELETE CASCADE,
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE
 );
 
 -- Tabla: Historial (Bitácora)
@@ -202,12 +219,12 @@ INSERT INTO CategoriasUsuario (id_usuario, id_categoria) VALUES
 
 -- Recursos por defecto
 INSERT INTO Recurso (titulo, descripcion, archivo_url, calificacion, id_categoria, id_usuario) VALUES
-('GDB ONLINE','IDE en linea con capacidad de correr diferentes lenguajes de programacion','https://www.onlinegdb.com',5,1,1),
-('GIT HUB','Controlador de manejo de versiones','https://github.com',5,1,2),
-('OCEANOFPDF','Pagina web para descargar libros de texto de forma gratuita en formato pdf y epub','https://oceanofpdf.com',5,5,4),
-('BIB GURU','Generador de citas APA','https://www.bibguru.com/es',5,5,5),
-('CHATGPT','IA util para documentar','https://chatgpt.com',5,1,7),
-('ILOVEPDF','Convertidor de archivos','https://www.ilovepdf.com/es',5,5,8);
+('GDB ONLINE','IDE en linea con capacidad de correr diferentes lenguajes de programacion','https://www.onlinegdb.com',5,1,1,1),
+('GIT HUB','Controlador de manejo de versiones','https://github.com',5,1,1,2),
+('OCEANOFPDF','Pagina web para descargar libros de texto de forma gratuita en formato pdf y epub','https://oceanofpdf.com',5,1,5,4),
+('BIB GURU','Generador de citas APA','https://www.bibguru.com/es',5,1,5,5),
+('CHATGPT','IA util para documentar','https://chatgpt.com',5,0,1,7),
+('ILOVEPDF','Convertidor de archivos','https://www.ilovepdf.com/es',5,0,5,8);
 
 -- Listas de favoritos por defecto
 INSERT INTO ListasFavoritos (id_usuario, id_recurso) VALUES
@@ -235,3 +252,12 @@ INSERT INTO ListasFavoritos (id_usuario, id_recurso) VALUES
 (8,2),
 (8,4),
 (8,6);
+
+INSERT INTO Grupos (nombre, clave, docente) VALUES
+('ITI-7A','abcdefgh',4),
+('ITI-7B','qwertyui',5);
+
+INSERT INTO MiembrosGrupo (id_grupo, id_usuario) VALUES
+(1,7),
+(1,8),
+(2,9);

@@ -1,9 +1,10 @@
 <?php
 require_once __DIR__ . '/../../../config/session.php';
-// Proteger la página para que solo docentes puedan acceder
+
 protegerPagina(['docente']);
 $csrf = obtenerCSRFToken();
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -37,7 +38,7 @@ $csrf = obtenerCSRFToken();
 <br><br><br><br>
 <br><br><br><br>
 <br><br><br>
-    <script src="../../../public/js/dashboardAdministrador.js"></script>
+
     <script>window.csrfToken = '<?php echo $csrf; ?>';</script>
     <script src="../../../public/js/dashboardDocente.js"></script>
 </body>
