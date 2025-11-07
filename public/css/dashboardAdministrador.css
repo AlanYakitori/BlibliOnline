@@ -16,7 +16,7 @@ header{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 33px 9%;
+    padding: 33px 5%;
     background: transparent;
     
 }
@@ -45,7 +45,7 @@ body{
 
 .navlist a{
     color:rgb(50, 19, 61);
-    margin-left: 60px;
+    margin-left: 40px;
     font-size: 15px;
     font-weight: 600;
     border-bottom: 2px solid transparent;

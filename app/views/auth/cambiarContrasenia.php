@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../../../public/css/login.css">
 </head>
 <body>
+<div class="cajota">
     <div class="contenedorLogin">
         <div class="logoLibro">📚</div>
         
@@ -42,7 +43,7 @@
             <input type="submit" value="Actualizar" class="botonIngresar">
         </form>
     </div>
-
+</div>
     <script src="../../../public/js/actualizarContrasenia.js"></script>
     
 </body>

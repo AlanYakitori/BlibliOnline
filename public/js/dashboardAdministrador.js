@@ -1,9 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
     const usuarioActualStorage = localStorage.getItem('usuarioActual');
+    const nombreBienvenida = document.getElementById('nombreBienvenida');
     if (usuarioActualStorage) {
         try {
             const datosUsuario = JSON.parse(usuarioActualStorage);
             console.log('Usuario actual:', datosUsuario);
+
+            const nombre = datosUsuario.nombre.trim();
+            nombreBienvenida.textContent = `Bienvenido ${nombre}`;
+            
         } catch (e) {
             console.warn('usuarioActual corrupto en localStorage');
         }

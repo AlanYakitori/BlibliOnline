@@ -1,8 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
     const usuarioActualStorage = localStorage.getItem('usuarioActual');
+    const nombreBienvenida = document.getElementById('nombreBienvenida');
 
     if (usuarioActualStorage) {
-        try { console.log('Usuario actual:', JSON.parse(usuarioActualStorage)); } catch(e){}
+        try { 
+            console.log('Usuario actual:', JSON.parse(usuarioActualStorage)); 
+            
+            const nombre = datosUsuario.nombre.trim();
+            nombreBienvenida.textContent = `Bienvenido ${nombre}`;
+        } catch(e){
+            
+        }
     }
 
     const btnCerrarSesion = document.getElementById('btnCerrarSesion');
