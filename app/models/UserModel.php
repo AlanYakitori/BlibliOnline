@@ -166,17 +166,115 @@ class UserModel {
         }
     }
 
-    public function consultarUsuariosNoAdmin($conexion) {
+    public function consultarTodos($conexion) {
+        
+        $sql = "SELECT id_usuario, nombre, apellidos, correo, telefono, tipoUsuario, aceptado 
+                FROM Usuarios";
+        
         try {
-            $sql = "SELECT id_usuario, nombre, apellidos, correo, telefono, tipoUsuario FROM Usuarios WHERE tipoUsuario != 'administrador'";
             $stmt = $conexion->prepare($sql);
             $stmt->execute();
-            return $stmt;
+
+            $usuarios = [];
+            
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                
+                $row['aceptado'] = (bool) $row['aceptado'];
+                $usuarios[] = $row;
+            }
+            
+            return $usuarios;
+
         } catch (PDOException $e) {
-            error_log("Error al consultar usuarios: " . $e->getMessage());
-            throw new Exception("Error al consultar usuarios");
+        
+            error_log("Error en consultarTodos: " . $e->getMessage());
+            throw new Exception("Error al consultar la base de datos: " . $e->getMessage());
+        }
+    }
+
+    public function eliminarPorId($conexion, $id_usuario) {
+        
+        $sql = "DELETE FROM Usuarios WHERE id_usuario = :id";
+
+        try {
+            $stmt = $conexion->prepare($sql);
+            
+            $stmt->bindParam(':id', $id_usuario, PDO::PARAM_INT);
+            
+            $stmt->execute();
+            
+            return $stmt->rowCount() > 0;
+            
+        } catch (PDOException $e) {
+            error_log("Error en eliminarPorId: " . $e->getMessage());
+            throw new Exception("Error al eliminar el usuario: " . $e->getMessage());
+        }
+    }
+
+    public function consultarPorId($conexion, $id) {
+        $sql = "SELECT nombre, apellidos, telefono, dato, correo, genero, fechaNacimiento, tipoUsuario 
+                FROM Usuarios WHERE id_usuario = :id";
+        try {
+            $stmt = $conexion->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if (!$usuario) {
+                throw new Exception('Usuario no encontrado');
+            }
+            return $usuario;
+            
+        } catch (PDOException $e) {
+            throw new Exception("Error al consultar usuario: " . $e->getMessage());
+        }
+    }
+
+    public function actualizarUsuario($conexion) {
+        try {
+            $sql = "UPDATE Usuarios SET 
+                        nombre = :nombre,
+                        apellidos = :apellidos,
+                        tipoUsuario = :tipoUsuario,
+                        telefono = :telefono,
+                        dato = :dato,
+                        correo = :correo,
+                        genero = :genero,
+                        fechaNacimiento = :fechaNacimiento";
+
+            if ($this->getContrasena()) {
+                $sql .= ", contrasena = :contrasena";
+            }
+            
+            $sql .= " WHERE id_usuario = :id";
+
+            $stmt = $conexion->prepare($sql);
+
+            $stmt->bindParam(':nombre', $this->nombre);
+            $stmt->bindParam(':apellidos', $this->apellidos);
+            $stmt->bindParam(':tipoUsuario', $this->tipoUsuario);
+            $stmt->bindParam(':telefono', $this->telefono);
+            $stmt->bindParam(':dato', $this->dato);
+            $stmt->bindParam(':correo', $this->correo);
+            $stmt->bindParam(':genero', $this->genero);
+            $stmt->bindParam(':fechaNacimiento', $this->fechaNacimiento);
+            $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+
+            if ($this->getContrasena()) {
+                $stmt->bindParam(':contrasena', $this->contrasena);
+            }
+
+            return $stmt->execute();
+
+        } catch (PDOException $e) {
+            if ($e->errorInfo[1] == 1062) { // 1062 es el código de 'Duplicate entry'
+                throw new Exception("Error: El correo electrónico '{$this->correo}' ya está registrado por otro usuario.");
+            }
+            error_log("Error en actualizarUsuario: " . $e->getMessage());
+            return false;
         }
     }
 
 }
+
 ?>

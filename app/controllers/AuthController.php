@@ -175,6 +175,109 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ]);
             }
             break;
+        case 'consultarUsuarios':
+            try {
+                $modelo = new UserModel();
+                $listaUsuarios = $modelo->consultarTodos($conexion); 
+                
+                echo json_encode([
+                    'exito' => true, 
+                    'usuarios' => $listaUsuarios
+                ]);
+                
+            } catch (Exception $e) {
+                echo json_encode([
+                    'exito' => false, 
+                    'mensaje' => 'Error del servidor: ' . $e->getMessage()
+                ]);
+            }
+            break;
+        case 'consultarUsuarioUnico':
+            try {
+                $id = $datos_usuario['id_usuario'] ?? null;
+                if (!$id) {
+                    throw new Exception('ID de usuario no proporcionado');
+                }
+                
+                $modelo = new UserModel();
+                // Necesitas esta nueva función en tu Modelo
+                $usuario = $modelo->consultarPorId($conexion, $id); 
+                
+                echo json_encode(['exito' => true, 'usuario' => $usuario]);
+                
+            } catch (Exception $e) {
+                echo json_encode(['exito' => false, 'mensaje' => $e->getMessage()]);
+            }
+            break;
+        case 'eliminarUsuario': // <--- Lo puse en singular
+            try {
+                $id_usuario = $datos_usuario['id_usuario'] ?? null;
+
+                if (!$id_usuario) {
+                    throw new Exception('No se proporcionó un ID de usuario.');
+                }
+
+                $modelo = new UserModel();
+                
+                $exito = $modelo->eliminarPorId($conexion, $id_usuario); 
+
+                if ($exito) {
+                    echo json_encode([
+                        'exito' => true, 
+                        'mensaje' => 'Usuario eliminado correctamente'
+                    ]);
+                } else {
+                    throw new Exception('No se pudo eliminar el usuario (el ID no existía).');
+                }
+                
+            } catch (Exception $e) {
+                echo json_encode([
+                    'exito' => false, 
+                    'mensaje' => $e->getMessage()
+                ]);
+            }
+            break;
+        case 'actualizarUsuario':
+            try {
+                $modelo = new UserModel();
+                
+                // Pasa todos los datos del JS al Modelo
+                $modelo->setId($datos_usuario['id_usuario']);
+                $modelo->setNombre($datos_usuario['nombre']);
+                $modelo->setApellidos($datos_usuario['apellidos']);
+                $modelo->setTelefono($datos_usuario['telefono']);
+                $modelo->setDato($datos_usuario['dato']);
+                $modelo->setCorreo($datos_usuario['correo']);
+                $modelo->setGenero($datos_usuario['genero']);
+                $modelo->setFechaNacimiento($datos_usuario['fechaNacimiento']);
+                $modelo->setTipoUsuario($datos_usuario['tipoUsuario']);
+                
+                // (MUY IMPORTANTE) Lógica de contraseña opcional
+                // Solo "hasheamos" y "seteamos" la contraseña si el JS la envió
+                if (isset($datos_usuario['contrasena']) && !empty($datos_usuario['contrasena'])) {
+                    $hash = password_hash($datos_usuario['contrasena'], PASSWORD_DEFAULT);
+                    $modelo->setContrasena($hash);
+                }
+
+                // Llama a la función del modelo (que también vamos a corregir)
+                $resultado = $modelo->actualizarUsuario($conexion);
+
+                if ($resultado) {
+                    echo json_encode([
+                        'exito' => true, 
+                        'mensaje' => 'Usuario actualizado correctamente'
+                    ]);
+                } else {
+                    throw new Exception('No se pudo actualizar el usuario en la base de datos.');
+                }
+
+            } catch (Exception $e) {
+                echo json_encode([
+                    'exito' => false, 
+                    'mensaje' => $e->getMessage()
+                ]);
+            }
+            break;
         default:
             echo json_encode([
                 'exito' => false,
