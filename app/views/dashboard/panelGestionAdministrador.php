@@ -19,7 +19,7 @@ $csrf = obtenerCSRFToken();
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="../../../public/css/GestionAdministrador.css">
+    <link rel="stylesheet" href="../../../public/css/gestionAdministrador.css">
     <link rel="stylesheet" href="../../../public/css/dashboardAdministrador.css">
     <link rel="stylesheet" href="../../../public/css/footer.css">
 </head>
@@ -27,7 +27,7 @@ $csrf = obtenerCSRFToken();
     <header>
         <a href="administrador.php" class="logo">BibliONLINE</a>
         <ul class="navlist">
-            <li><a href="gestionAdministrador.php" class="lnk">Gestion de usuarios</a></li>
+            <li><a href="panelGestionAdministrador.php" class="lnk">Gestion de usuarios</a></li>
             <li><a href="#" class="lnk">Subir contenido</a></li>
             <li><a href="#" class="lnk">Notificaciones</a></li>
             <li><a href="#" class="lnk">Mi cuenta</a></li>
@@ -43,8 +43,14 @@ $csrf = obtenerCSRFToken();
             <div class="content1">
                 <p>Generar copia de seguridad</p>
                 <a id="btnBackup" class="btnGenerar">Crear</a>
+                <p>Restaurar datos del sistema</p>
+                <p>Seleccione un archivo .bak para realizar la restauracion de datos del sistema</p>
+                    <form class="formularioDB" id="formularioDB">
+                        <input type="file" id="inputArchivoDB" name="inputArchivoDB" accept=".bak" required>
+                        <input type="submit" value="Restaurar" class="btnGenerar" id="btnRestaurarDB">
+                    </form>
                 <p>Generar Reporte general</p>
-                <a id="btnBackup" class="btnGenerar">Crear</a>
+                <a id="" class="btnGenerar">Crear</a>
             </div>
             <div class="content2">
                 <div class="subcontent1">

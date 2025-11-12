@@ -218,7 +218,7 @@ INSERT INTO CategoriasUsuario (id_usuario, id_categoria) VALUES
 (8,10);
 
 -- Recursos por defecto
-INSERT INTO Recurso (titulo, descripcion, archivo_url, calificacion, id_categoria, id_usuario) VALUES
+INSERT INTO Recurso (titulo, descripcion, archivo_url, calificacion, aprobado, id_categoria, id_usuario) VALUES
 ('GDB ONLINE','IDE en linea con capacidad de correr diferentes lenguajes de programacion','https://www.onlinegdb.com',5,1,1,1),
 ('GIT HUB','Controlador de manejo de versiones','https://github.com',5,1,1,2),
 ('OCEANOFPDF','Pagina web para descargar libros de texto de forma gratuita en formato pdf y epub','https://oceanofpdf.com',5,1,5,4),
