@@ -1,0 +1,208 @@
+/* Estilos para la visualización de grupos */
+.contenedor-grupos {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.grupo-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+}
+
+.grupo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.grupo-info h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 1.4em;
+}
+
+.grupo-info p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.grupo-acciones {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.grupo-acciones .enlace-actualizar {
+    color: #28a745;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 15px;
+    border: 1px solid #28a745;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.grupo-acciones .enlace-actualizar:hover {
+    background-color: #28a745;
+    color: white;
+}
+
+.grupo-acciones .enlace-eliminar {
+    color: #dc3545;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 15px;
+    border: 1px solid #dc3545;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.grupo-acciones .enlace-eliminar:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+.miembros-lista h4 {
+    margin: 0 0 10px 0;
+    color: #555;
+    font-size: 1.1em;
+}
+
+.miembro-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.miembro-item:last-child {
+    border-bottom: none;
+}
+
+.miembro-info {
+    flex-grow: 1;
+}
+
+.miembro-nombre {
+    font-weight: bold;
+    color: #333;
+    margin-right: 10px;
+}
+
+.miembro-email {
+    color: #777;
+    font-style: italic;
+}
+
+.miembro-acciones .enlace-eliminar {
+    color: #dc3545;
+    text-decoration: none;
+    font-size: 0.9em;
+    padding: 4px 8px;
+    border: 1px solid #dc3545;
+    border-radius: 3px;
+    transition: all 0.3s;
+}
+
+.miembro-acciones .enlace-eliminar:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+.sin-miembros {
+    color: #999;
+    font-style: italic;
+    padding: 10px 0;
+}
+
+/* Estilos para mensajes de notificación */
+.mensajeGeneral {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    z-index: 1000;
+    max-width: 300px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.mensajeGeneral.exito {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.mensajeGeneral.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.mensajeGeneral.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+/* Estilos para formulario de actualización */
+.formulario-actualizar-grupo {
+    background-color: #f8f9fa;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.formulario-actualizar-grupo h3 {
+    color: #007bff;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+.formulario-actualizar-grupo label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+.formulario-actualizar-grupo input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 1em;
+}
+
+.botones-formulario {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.btnCancelar {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btnCancelar:hover {
+    background-color: #5a6268;
+}

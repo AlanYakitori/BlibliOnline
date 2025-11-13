@@ -47,8 +47,8 @@ CREATE TABLE Recurso (
     aprobado BOOLEAN DEFAULT false,
     id_categoria INT,
     id_usuario INT,
-    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE SET NULL,
-    FOREIGN KEY (id_categoria) REFERENCES Categoria(id_categoria) ON DELETE SET NULL
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE,
+    FOREIGN KEY (id_categoria) REFERENCES Categoria(id_categoria) ON DELETE CASCADE
 );
 
 -- Tabla: ListasFavoritos
