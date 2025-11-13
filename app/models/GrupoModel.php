@@ -280,5 +280,200 @@ class GrupoModel {
             ];
         }
     }
+
+    // Métodos para alumnos
+    public function unirseGrupo($conexion, $codigoGrupo, $idAlumno) {
+        try {
+            // Verificar que el código no esté vacío
+            if (empty(trim($codigoGrupo))) {
+                return [
+                    'exito' => false,
+                    'mensaje' => 'El código de acceso es obligatorio'
+                ];
+            }
+
+            // Verificar que el grupo existe
+            $sqlVerificarGrupo = "SELECT id_grupo FROM Grupos WHERE clave = ?";
+            $stmtVerificarGrupo = $conexion->prepare($sqlVerificarGrupo);
+            $stmtVerificarGrupo->bindParam(1, $codigoGrupo, PDO::PARAM_STR);
+            $stmtVerificarGrupo->execute();
+            
+            $grupo = $stmtVerificarGrupo->fetch(PDO::FETCH_ASSOC);
+            if (!$grupo) {
+                return [
+                    'exito' => false,
+                    'mensaje' => 'El código de acceso no es válido'
+                ];
+            }
+
+            // Verificar que el alumno no esté ya en un grupo
+            $sqlVerificarMiembro = "SELECT COUNT(*) FROM MiembrosGrupo WHERE id_usuario = ?";
+            $stmtVerificarMiembro = $conexion->prepare($sqlVerificarMiembro);
+            $stmtVerificarMiembro->bindParam(1, $idAlumno, PDO::PARAM_INT);
+            $stmtVerificarMiembro->execute();
+            
+            if ($stmtVerificarMiembro->fetchColumn() > 0) {
+                return [
+                    'exito' => false,
+                    'mensaje' => 'Ya perteneces a un grupo. Debes salir del grupo actual primero.'
+                ];
+            }
+
+            // Agregar al alumno al grupo
+            $sql = "INSERT INTO MiembrosGrupo (id_grupo, id_usuario) VALUES (?, ?)";
+            $stmt = $conexion->prepare($sql);
+            $stmt->bindParam(1, $grupo['id_grupo'], PDO::PARAM_INT);
+            $stmt->bindParam(2, $idAlumno, PDO::PARAM_INT);
+
+            if ($stmt->execute()) {
+                return [
+                    'exito' => true,
+                    'mensaje' => '¡Te has unido al grupo exitosamente!'
+                ];
+            } else {
+                return [
+                    'exito' => false,
+                    'mensaje' => 'Error al unirse al grupo'
+                ];
+            }
+        } catch (PDOException $e) {
+            error_log("Error al unirse al grupo: " . $e->getMessage());
+            return [
+                'exito' => false,
+                'mensaje' => 'Error en la base de datos al unirse al grupo'
+            ];
+        }
+    }
+
+    public function verificarGrupoAlumno($conexion, $idAlumno) {
+        try {
+            $sql = "SELECT COUNT(*) FROM MiembrosGrupo WHERE id_usuario = ?";
+            $stmt = $conexion->prepare($sql);
+            $stmt->bindParam(1, $idAlumno, PDO::PARAM_INT);
+            $stmt->execute();
+            
+            $tieneGrupo = $stmt->fetchColumn() > 0;
+            
+            return [
+                'exito' => true,
+                'tieneGrupo' => $tieneGrupo
+            ];
+        } catch (PDOException $e) {
+            error_log("Error al verificar grupo del alumno: " . $e->getMessage());
+            return [
+                'exito' => false,
+                'mensaje' => 'Error al verificar el estado del grupo'
+            ];
+        }
+    }
+
+    public function obtenerGrupoDeAlumno($conexion, $idAlumno) {
+        try {
+            // Obtener el grupo del alumno con información completa
+            $sql = "
+                SELECT 
+                    g.id_grupo,
+                    g.nombre,
+                    g.clave,
+                    u_docente.nombre as nombre_docente,
+                    u_docente.apellidos as apellidos_docente,
+                    u_docente.correo as correo_docente
+                FROM MiembrosGrupo mg
+                INNER JOIN Grupos g ON mg.id_grupo = g.id_grupo
+                INNER JOIN Usuarios u_docente ON g.docente = u_docente.id_usuario
+                WHERE mg.id_usuario = ?
+            ";
+            $stmt = $conexion->prepare($sql);
+            $stmt->bindParam(1, $idAlumno, PDO::PARAM_INT);
+            $stmt->execute();
+            
+            $grupoInfo = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if (!$grupoInfo) {
+                return [
+                    'exito' => false,
+                    'mensaje' => 'No perteneces a ningún grupo'
+                ];
+            }
+
+            // Obtener todos los miembros del grupo
+            $sqlMiembros = "
+                SELECT 
+                    u.nombre,
+                    u.apellidos,
+                    u.correo,
+                    mg.id_miembro_grupo
+                FROM MiembrosGrupo mg
+                INNER JOIN Usuarios u ON mg.id_usuario = u.id_usuario
+                WHERE mg.id_grupo = ?
+            ";
+            $stmtMiembros = $conexion->prepare($sqlMiembros);
+            $stmtMiembros->bindParam(1, $grupoInfo['id_grupo'], PDO::PARAM_INT);
+            $stmtMiembros->execute();
+            $miembros = $stmtMiembros->fetchAll(PDO::FETCH_ASSOC);
+
+            return [
+                'exito' => true,
+                'grupo' => [
+                    'id_grupo' => $grupoInfo['id_grupo'],
+                    'nombre' => $grupoInfo['nombre'],
+                    'clave' => $grupoInfo['clave'],
+                    'docente' => [
+                        'nombre' => $grupoInfo['nombre_docente'],
+                        'apellidos' => $grupoInfo['apellidos_docente'],
+                        'correo' => $grupoInfo['correo_docente']
+                    ],
+                    'miembros' => $miembros,
+                    'total_miembros' => count($miembros)
+                ]
+            ];
+        } catch (PDOException $e) {
+            error_log("Error al obtener grupo del alumno: " . $e->getMessage());
+            return [
+                'exito' => false,
+                'mensaje' => 'Error al obtener la información del grupo'
+            ];
+        }
+    }
+
+    public function salirDeGrupo($conexion, $idAlumno) {
+        try {
+            // Verificar que el alumno esté en un grupo
+            $sqlVerificar = "SELECT COUNT(*) FROM MiembrosGrupo WHERE id_usuario = ?";
+            $stmtVerificar = $conexion->prepare($sqlVerificar);
+            $stmtVerificar->bindParam(1, $idAlumno, PDO::PARAM_INT);
+            $stmtVerificar->execute();
+            
+            if ($stmtVerificar->fetchColumn() == 0) {
+                return [
+                    'exito' => false,
+                    'mensaje' => 'No perteneces a ningún grupo'
+                ];
+            }
+
+            // Eliminar al alumno del grupo
+            $sql = "DELETE FROM MiembrosGrupo WHERE id_usuario = ?";
+            $stmt = $conexion->prepare($sql);
+            $stmt->bindParam(1, $idAlumno, PDO::PARAM_INT);
+
+            if ($stmt->execute()) {
+                return [
+                    'exito' => true,
+                    'mensaje' => 'Has salido del grupo exitosamente'
+                ];
+            } else {
+                return [
+                    'exito' => false,
+                    'mensaje' => 'Error al salir del grupo'
+                ];
+            }
+        } catch (PDOException $e) {
+            error_log("Error al salir del grupo: " . $e->getMessage());
+            return [
+                'exito' => false,
+                'mensaje' => 'Error en la base de datos al salir del grupo'
+            ];
+        }
+    }
 }
 ?>

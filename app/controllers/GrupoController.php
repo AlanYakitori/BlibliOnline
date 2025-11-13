@@ -71,6 +71,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo json_encode($resultado);
             break;
         
+        case 'unirseGrupo':
+            $codigoGrupo = $datos_usuario['codigoGrupo'];
+            $idAlumno = $datos_usuario['idAlumno'];
+            $grupo = new GrupoModel();
+            $resultado = $grupo->unirseGrupo($conexion, $codigoGrupo, $idAlumno);
+            
+            echo json_encode($resultado);
+            break;
+            
+        case 'verificarGrupoAlumno':
+            $idAlumno = $datos_usuario['idAlumno'];
+            $grupo = new GrupoModel();
+            $resultado = $grupo->verificarGrupoAlumno($conexion, $idAlumno);
+            
+            echo json_encode($resultado);
+            break;
+            
+        case 'verGrupoAlumno':
+            $idAlumno = $datos_usuario['idAlumno'];
+            $grupo = new GrupoModel();
+            $resultado = $grupo->obtenerGrupoDeAlumno($conexion, $idAlumno);
+            
+            echo json_encode($resultado);
+            break;
+            
+        case 'salirDeGrupo':
+            $idAlumno = $datos_usuario['idAlumno'];
+            $grupo = new GrupoModel();
+            $resultado = $grupo->salirDeGrupo($conexion, $idAlumno);
+            
+            echo json_encode($resultado);
+            break;
+        
         case 'verGrupos':
             $idDocente = $datos_usuario['idDocente'];
             $grupo = new GrupoModel();

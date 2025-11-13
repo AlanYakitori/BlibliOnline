@@ -1,0 +1,502 @@
+/* ===== ESTILOS DASHBOARD ALUMNO ===== */
+
+/* Espaciado superior para separar del header */
+.wrapper {
+    margin-top: 100px;
+    min-height: calc(100vh - 200px);
+}
+
+.main-container {
+    padding-top: 30px;
+}
+
+.content1 {
+    margin-top: 20px;
+}
+
+/* Contenedor principal de grupos */
+.contenedor-grupos {
+    max-width: 900px;
+    margin: 40px auto 20px auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Estilos para items de grupo */
+.grupo-item {
+    border: 2px solid #e3f2fd;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    padding: 20px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.grupo-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.grupo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e8f4fd;
+}
+
+.grupo-info h3 {
+    margin: 0 0 12px 0;
+    color: #1976d2;
+    font-size: 1.6em;
+    font-weight: 600;
+}
+
+.grupo-info p {
+    margin: 8px 0;
+    color: #555;
+    font-size: 1em;
+}
+
+.grupo-info p strong {
+    color: #1976d2;
+    font-weight: 600;
+}
+
+/* Estilos para acciones del grupo */
+.grupo-acciones {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.grupo-acciones .enlace-salir {
+    color: #ff5722;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 10px 18px;
+    border: 2px solid #ff5722;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-size: 0.95em;
+    background-color: transparent;
+}
+
+.grupo-acciones .enlace-salir:hover {
+    background-color: #ff5722;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+}
+
+/* Información del docente */
+.docente-info {
+    background: linear-gradient(135deg, #e3f2fd 0%, #f1f8e9 100%);
+    border: 2px solid #81c784;
+    border-radius: 10px;
+    padding: 18px;
+    margin: 20px 0;
+}
+
+.docente-info h4 {
+    color: #2e7d32;
+    margin-bottom: 12px;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.docente-info p {
+    margin: 8px 0;
+    color: #333;
+    font-size: 1em;
+}
+
+.docente-info p strong {
+    color: #2e7d32;
+    font-weight: 600;
+}
+
+/* Lista de miembros */
+.miembros-lista {
+    margin-top: 20px;
+}
+
+.miembros-lista h4 {
+    margin: 0 0 15px 0;
+    color: #1976d2;
+    font-size: 1.3em;
+    font-weight: 600;
+}
+
+.miembro-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #e3f2fd;
+    transition: background-color 0.3s ease;
+}
+
+.miembro-item:hover {
+    background-color: rgba(25, 118, 210, 0.05);
+    border-radius: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.miembro-item:last-child {
+    border-bottom: none;
+}
+
+.miembro-info {
+    flex-grow: 1;
+}
+
+.miembro-nombre {
+    font-weight: 600;
+    color: #1976d2;
+    margin-right: 12px;
+    font-size: 1em;
+}
+
+.miembro-email {
+    color: #666;
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+.sin-miembros {
+    color: #999;
+    font-style: italic;
+    padding: 15px 0;
+    text-align: center;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px dashed #ddd;
+}
+
+/* Formulario inline para unirse al grupo */
+.formulario-unirse-grupo {
+    background: linear-gradient(135deg, #e8f5e8 0%, #f3e5f5 100%);
+    border: 2px solid #4caf50;
+    border-radius: 12px;
+    padding: 25px;
+    margin: 25px 0;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.15);
+}
+
+.formulario-unirse-grupo h3 {
+    color: #2e7d32;
+    margin-bottom: 18px;
+    font-size: 1.4em;
+    font-weight: 600;
+    text-align: center;
+}
+
+.formulario-unirse-grupo label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #2e7d32;
+    font-size: 1em;
+}
+
+.formulario-unirse-grupo input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #81c784;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+    font-weight: 600;
+    transition: border-color 0.3s ease;
+}
+
+.formulario-unirse-grupo input[type="text"]:focus {
+    border-color: #4caf50;
+    outline: none;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.2);
+}
+
+.botones-formulario {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-unirse {
+    background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    min-width: 120px;
+}
+
+.btn-unirse:hover {
+    background: linear-gradient(135deg, #388e3c 0%, #2e7d32 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3);
+}
+
+.btn-cancelar,
+.btnCancelar {
+    background: linear-gradient(135deg, #757575 0%, #616161 100%);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    min-width: 120px;
+}
+
+.btn-cancelar:hover,
+.btnCancelar:hover {
+    background: linear-gradient(135deg, #616161 0%, #424242 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(117, 117, 117, 0.3);
+}
+
+/* Modal para formulario (respaldo) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(3px);
+}
+
+.modal-formulario {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    max-width: 450px;
+    width: 90%;
+    border: 2px solid #e3f2fd;
+}
+
+.modal-formulario h3 {
+    margin-bottom: 25px;
+    color: #1976d2;
+    text-align: center;
+    font-size: 1.4em;
+    font-weight: 600;
+}
+
+.modal-formulario label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #1976d2;
+}
+
+.modal-formulario input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #81c784;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.modal-formulario input[type="text"]:focus {
+    border-color: #4caf50;
+    outline: none;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.2);
+}
+
+.botones-modal {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Mensajes de notificación */
+.mensajeGeneral {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 18px 25px;
+    border-radius: 10px;
+    font-weight: 600;
+    z-index: 1000;
+    max-width: 350px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    backdrop-filter: blur(10px);
+    font-size: 1em;
+}
+
+.mensajeGeneral.exito {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    color: #155724;
+    border: 2px solid #4caf50;
+}
+
+.mensajeGeneral.error {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    color: #721c24;
+    border: 2px solid #f44336;
+}
+
+.mensajeGeneral.info {
+    background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+    color: #0c5460;
+    border: 2px solid #2196f3;
+}
+
+/* Botón para salir del grupo (versión independiente) */
+.btn-salir-grupo {
+    background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+}
+
+.btn-salir-grupo:hover {
+    background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(244, 67, 54, 0.4);
+}
+
+/* Estados de botones dinámicos */
+.btn-dinamico {
+    background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+    min-width: 200px;
+}
+
+.btn-dinamico:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+}
+
+.btn-dinamico.unirse {
+    background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+.btn-dinamico.unirse:hover {
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+.btn-dinamico.ver-grupo {
+    background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+    box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+}
+
+.btn-dinamico.ver-grupo:hover {
+    box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .wrapper {
+        margin-top: 80px;
+    }
+    
+    .main-container {
+        padding-top: 20px;
+    }
+    
+    .contenedor-grupos {
+        margin: 30px 15px 15px 15px;
+        padding: 15px;
+    }
+    
+    .grupo-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+    
+    .grupo-acciones {
+        justify-content: center;
+    }
+    
+    .formulario-unirse-grupo {
+        padding: 20px;
+        margin: 20px 10px;
+    }
+    
+    .botones-formulario,
+    .botones-modal {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .modal-formulario {
+        margin: 20px;
+        width: auto;
+    }
+    
+    .mensajeGeneral {
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .wrapper {
+        margin-top: 70px;
+    }
+    
+    .grupo-item {
+        padding: 15px;
+    }
+    
+    .formulario-unirse-grupo input[type="text"] {
+        font-size: 1em;
+        letter-spacing: 1px;
+    }
+    
+    .grupo-info h3 {
+        font-size: 1.3em;
+    }
+    
+    .miembros-lista h4 {
+        font-size: 1.1em;
+    }
+}
