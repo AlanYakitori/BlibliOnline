@@ -47,8 +47,8 @@ CREATE TABLE Recurso (
     aprobado BOOLEAN DEFAULT false,
     id_categoria INT,
     id_usuario INT,
-    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE SET NULL,
-    FOREIGN KEY (id_categoria) REFERENCES Categoria(id_categoria) ON DELETE SET NULL
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE,
+    FOREIGN KEY (id_categoria) REFERENCES Categoria(id_categoria) ON DELETE CASCADE
 );
 
 -- Tabla: ListasFavoritos
@@ -170,8 +170,8 @@ INSERT INTO Usuarios (nombre, apellidos, tipoUsuario, telefono, dato, correo, co
 
 -- Alumnos por defecto
 INSERT INTO Usuarios (nombre, apellidos, tipoUsuario, telefono, dato, correo, contrasena, aceptado, gusto, genero, fechaNacimiento) VALUES
-('Gerardo','Sanchez Martinez','alumno','7775823248','SMGO230581','smgo230581@upemor.edu.mx','$2y$10$ogLEVnUTm3CoLhDXDVZVg.hVorWAm12fvywFOxjCZLYYWIubUahn2',1,0,'Otro','2004-01-20'),
-('Edwin Leonardo','Vargas Lopez','alumno','7775396206','VLE0231602','vleo231602@upemor.edu.mx','$2y$10$fGQB87pU4DmYLXjcBG8RVePbVdigNEpHq.n.sfSB3rUy2p.kCA9ny',1,0,'Otro','2003-09-10'),
+('Gerardo','Sanchez Martinez','alumno','7775823248','SMGO230581','smgo230581@upemor.edu.mx','$2y$10$ogLEVnUTm3CoLhDXDVZVg.hVorWAm12fvywFOxjCZLYYWIubUahn2',1,1,'Otro','2004-01-20'),
+('Edwin Leonardo','Vargas Lopez','alumno','7775396206','VLE0231602','vleo231602@upemor.edu.mx','$2y$10$fGQB87pU4DmYLXjcBG8RVePbVdigNEpHq.n.sfSB3rUy2p.kCA9ny',1,1,'Otro','2003-09-10'),
 ('Cynthia Jocelyn','Martinez Delgado','alumno','7774306734','MDCO230011','mdco230011@upemor.edu.mx','$2y$10$V4I18TXwABlXuiduDa2ae.WThOlehXYz0VpMRTUS62m2J2o.e0cEi',1,0,'Femenino','2005-06-02');
 
 -- Categorías por defecto
@@ -218,7 +218,7 @@ INSERT INTO CategoriasUsuario (id_usuario, id_categoria) VALUES
 (8,10);
 
 -- Recursos por defecto
-INSERT INTO Recurso (titulo, descripcion, archivo_url, calificacion, id_categoria, id_usuario) VALUES
+INSERT INTO Recurso (titulo, descripcion, archivo_url, calificacion, aprobado, id_categoria, id_usuario) VALUES
 ('GDB ONLINE','IDE en linea con capacidad de correr diferentes lenguajes de programacion','https://www.onlinegdb.com',5,1,1,1),
 ('GIT HUB','Controlador de manejo de versiones','https://github.com',5,1,1,2),
 ('OCEANOFPDF','Pagina web para descargar libros de texto de forma gratuita en formato pdf y epub','https://oceanofpdf.com',5,1,5,4),

@@ -10,7 +10,7 @@ $csrf = obtenerCSRFToken();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Mi Grupo - BibliONLINE</title>
 
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet">
@@ -27,29 +27,30 @@ $csrf = obtenerCSRFToken();
     <header>
         <a href="alumno.php" class="logo">BibliONLINE</a>
         <ul class="navlist">
-            <li><a href="#" id="unirmeGrupo">Unirme a grupo</a></li>
-            <li><a href="#">Subir contenido</a></li>
-            <li><a href="">Notificaciones</a></li>
-            <li><a href="#">Mi cuenta</a></li>
-            <li><a href="" class="lnk" id="btnCerrarSesion">Cerrar Sesion</a></li>
+            <li><a href="panelGestionAlumno.php" class="lnk">Ver Grupo</a></li>
+            <li><a href="#" class="lnk">Subir contenido</a></li>
+            <li><a href="#" class="lnk">Notificaciones</a></li>
+            <li><a href="#" class="lnk">Mi cuenta</a></li>
+            <li><a href="" class="lnk" id="btnCerrarSesion">Cerrar Sesión</a></li>
         </ul>
 
         <div class="bx bx-menu" id="menu-icon"></div>
-
     </header>
 
-    <!-- Contenedor para el formulario de unirse a grupo -->
-    <div id="contenedorFormularioGrupo" style="margin-top: 80px; padding: 20px;"></div>
+    <div class="wrapper">
+        <div class="main-container">
+            <div class="content1">
+                <center><h2>Mi Grupo</h2></center>
+                
+                <!-- Contenedor para mostrar la información del grupo -->
+                <div id="contenedorInfoGrupo" class="contenedor-grupos" style="margin-top: 20px;"></div>
+            </div>
+        </div>
+    </div>
 
-    <br><br><br><br>
-    <br><br><br><br>
-    <center><h1 id="nombreBienvenida"></h1></center>
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br>
-  
     <script>window.csrfToken = '<?php echo $csrf; ?>';</script>
     <script src="../../../public/js/dashboardAlumno.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>
 

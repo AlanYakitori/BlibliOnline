@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const nombre = datosUsuario.nombre.trim();
             nombreBienvenida.textContent = `Bienvenido ${nombre}`;
         } catch (e) {
-            console.warn('usuarioActual corrupto en localStorage');
+            console.warn('usuarioActual corrupto en localStorage');   
         }
     }
 
@@ -23,6 +23,15 @@ document.addEventListener('DOMContentLoaded', function() {
     if (btnBackup) {
         btnBackup.addEventListener('click', function() {
             crearBackup();
+        });
+    }
+
+    // Manejar formulario de restauración si existe
+    const formRestaurar = document.getElementById('formularioDB');
+    if (formRestaurar) {
+        formRestaurar.addEventListener('submit', function(e) {
+            e.preventDefault();
+            procesarRestauracion();
         });
     }
 
@@ -92,6 +101,62 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error creando backup:', err);
             alert('Ocurrió un error al generar la copia de seguridad. Revisa la consola.');
         }
+    }
+
+    async function procesarArchivoRestauracion(archivo) {
+        try {
+            // Validar extensión
+            if (!archivo.name.toLowerCase().endsWith('.bak')) {
+                alert('Solo se permiten archivos .bak');
+                return;
+            }
+
+            // Confirmar antes de restaurar
+            if (!confirm('¿Desea restaurar los datos del sistema? Esta acción puede sobrescribir datos actuales.')) {
+                return;
+            }
+
+            // Crear FormData para enviar el archivo
+            const formData = new FormData();
+            formData.append('accion', 'restaurarBackup');
+            formData.append('backupFile', archivo);
+
+            // Mostrar mensaje de progreso
+            alert('Restaurando base de datos, por favor espere...');
+
+            const respuesta = await fetch('../../controllers/DataBaseController.php', {
+                method: 'POST',
+                body: formData
+            });
+
+            const resultado = await respuesta.json();
+
+            if (resultado.exito) {
+                alert('✅ ' + resultado.mensaje);
+                // Opcional: recargar la página después de restauración exitosa
+                if (confirm('¿Desea recargar la página para reflejar los cambios?')) {
+                    window.location.reload();
+                }
+            } else {
+                alert('❌ Error: ' + resultado.mensaje);
+            }
+
+        } catch (err) {
+            console.error('Error procesando restauración:', err);
+            alert('❌ Ocurrió un error durante la restauración. Revisa la consola.');
+        }
+    }
+
+    async function procesarRestauracion() {
+        // Función para manejar el formulario HTML
+        const fileInput = document.getElementById('inputArchivoDB');
+        
+        if (!fileInput || !fileInput.files[0]) {
+            alert('Es necesario seleccionar un archivo .bak para la restauración');
+            return;
+        }
+        
+        await procesarArchivoRestauracion(fileInput.files[0]);
     }
 
     // Evitar mostrar contenido vía "back" (segunda capa)

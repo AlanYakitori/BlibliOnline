@@ -16,3 +16,6 @@ Thumbs.db
 backups/
 *.bak
 
+# Archivos temporales de uploads
+uploads/
+
