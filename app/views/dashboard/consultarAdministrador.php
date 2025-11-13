@@ -21,13 +21,14 @@ $csrf = obtenerCSRFToken();
     
     <link rel="stylesheet" href="../../../public/css/dashboardAdministrador.css">
     <link rel="stylesheet" href="../../../public/css/footer.css">
+    <link rel="stylesheet" href="../../../public/css/consulta.css">
 </head>
 <body>
 
     <header>
         <a href="administrador.php" class="logo">BibliONLINE</a>
         <ul class="navlist">
-            <li><a href="PanelGestionAdministrador.php">Gestion de usuarios</a></li>
+            <li><a href="PanelGestionAdministrador.php">Herramientas</a></li>
             <li><a href="#">Subir contenido</a></li>
             <li><a href="#">Notificaciones</a></li>
             <li><a href="#">Mi cuenta</a></li>
@@ -38,10 +39,11 @@ $csrf = obtenerCSRFToken();
 
     <br><br><br><br><br><br>
 
+    <div class="container1">
     <div class="container">
-        <h2>Panel de Gestión de Usuarios</h2>
-        <table class="table table-striped table-hover">
-            <thead class="thead-dark">
+        <h2>Gestión de Usuarios</h2>
+        <table class="">
+            <thead class="">
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
@@ -55,13 +57,14 @@ $csrf = obtenerCSRFToken();
             </thead>
             <tbody id="tabla-usuarios-body">
                 <tr>
-                    <td colspan="8" class="text-center"></td>
+                    <td colspan="8" class=""></td>
                 </tr>
             </tbody>
         </table>
     </div>
+    </div>
 
-    <br><br><br><br><br>
+    <br><br><br>
 
     <?php include '../footer.php'; ?>
 
