@@ -64,8 +64,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     <td>${usuario.tipoUsuario}</td>
                     <td>${estadoBadge}</td>
                     <td>
-                        <a href="actualizarAdministrador.php?id=${usuario.id_usuario}" class="btn btn-primary btn-sm">Editar</a>
-                        <a "class="btn btn-danger btn-sm" onclick="confirmarEliminar(${usuario.id_usuario})">Eliminar</a>
+                        <a href="actualizarAdministrador.php?id=${usuario.id_usuario}" class="btnActualizar">Editar</a>
+                        <a class="btnEliminar" onclick="confirmarEliminar(${usuario.id_usuario})">Eliminar</a>
                     </td>
                 </tr>
             `;
