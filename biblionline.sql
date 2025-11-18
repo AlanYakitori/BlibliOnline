@@ -34,15 +34,17 @@ CREATE TABLE CategoriasUsuario (
     id_categoria_usuario INT PRIMARY KEY auto_increment,
     id_usuario INT,
     id_categoria INT,
-    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE,
+    FOREIGN KEY (id_categoria) REFERENCES Categoria(id_categoria) ON DELETE CASCADE
 );
 
 -- Tabla: Recurso
 CREATE TABLE Recurso (
     id_recurso INT PRIMARY KEY auto_increment,
     titulo VARCHAR(100),
-    descripcion VARCHAR(500),
-    archivo_url VARCHAR(10000),
+    descripcion TEXT,
+    archivo_url TEXT,
+    imagen_url TEXT DEFAULT 'https://www.esdip.com/wp-content/uploads/2023/01/historia-de-la-animacion_la-saga-shrek.jpg',
     calificacion FLOAT DEFAULT 0,
     aprobado BOOLEAN DEFAULT false,
     id_categoria INT,
@@ -223,8 +225,8 @@ INSERT INTO Recurso (titulo, descripcion, archivo_url, calificacion, aprobado, i
 ('GIT HUB','Controlador de manejo de versiones','https://github.com',5,1,1,2),
 ('OCEANOFPDF','Pagina web para descargar libros de texto de forma gratuita en formato pdf y epub','https://oceanofpdf.com',5,1,5,4),
 ('BIB GURU','Generador de citas APA','https://www.bibguru.com/es',5,1,5,5),
-('CHATGPT','IA util para documentar','https://chatgpt.com',5,0,1,7),
-('ILOVEPDF','Convertidor de archivos','https://www.ilovepdf.com/es',5,0,5,8);
+('CHATGPT','IA util para documentar','https://chatgpt.com',5,NULL,1,7),
+('ILOVEPDF','Convertidor de archivos','https://www.ilovepdf.com/es',5,NULL,5,8);
 
 -- Listas de favoritos por defecto
 INSERT INTO ListasFavoritos (id_usuario, id_recurso) VALUES
