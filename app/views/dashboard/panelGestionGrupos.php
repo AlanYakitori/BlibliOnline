@@ -29,9 +29,9 @@ $csrf = obtenerCSRFToken();
         <a href="docente.php" class="logo">BibliONLINE</a>
         <ul class="navlist">
             <li><a href="panelGestionGrupos.php" class="lnk">Gestion de usuarios</a></li>
-            <li><a href="#" class="lnk">Subir contenido</a></li>
+            <li><a href="panelGestionContenidoDocente.php" class="lnk">Subir contenido</a></li>
             <li><a href="#" class="lnk">Notificaciones</a></li>
-            <li><a href="#" class="lnk">Mi cuenta</a></li>
+            <li><a href="perfil.php" class="lnk">Mi cuenta</a></li>
             <li><a href="" class="lnk" id="btnCerrarSesion">Cerrar Sesion</a></li>
         </ul>
 

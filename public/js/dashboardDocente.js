@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (grupos.length === 0) {
             console.log('No hay grupos para mostrar');
-            contenedorGrupos.innerHTML = '<p>No tienes grupos creados.</p>';
+            contenedorGrupos.innerHTML = '<p style="color: #999; font-style: italic; text-align: center;">No tienes grupos creados.</p>';
             return;
         }
 
@@ -133,19 +133,21 @@ document.addEventListener('DOMContentLoaded', function() {
         grupos.forEach(grupo => {
             console.log('Procesando grupo:', grupo);
             const grupoDiv = document.createElement('div');
-            grupoDiv.className = 'grupo-item';
+            grupoDiv.className = 'contenido-tarjeta grupo-tarjeta';
             grupoDiv.innerHTML = `
-                <div class="grupo-header">
-                    <div class="grupo-info">
-                        <h3>${grupo.nombre}</h3>
-                        <p><strong>Código de acceso:</strong> ${grupo.clave}</p>
-                        <p><strong>Total miembros:</strong> ${grupo.total_miembros}</p>
-                    </div>
-                    <div class="grupo-acciones">
-                        <a href="#" class="enlace-actualizar" onclick="actualizarGrupo(${grupo.id_grupo}, '${grupo.nombre}', '${grupo.clave}')">Actualizar</a>
-                        <a href="#" class="enlace-eliminar" onclick="eliminarGrupo(${grupo.id_grupo})">Eliminar</a>
+                <div class="contenido-header">
+                    <h3 class="contenido-titulo">${grupo.nombre}</h3>
+                    <div class="contenido-acciones">
+                        <button class="btn-actualizar" onclick="actualizarGrupo(${grupo.id_grupo}, '${grupo.nombre}', '${grupo.clave}')">Actualizar</button>
+                        <button class="btn-eliminar" onclick="eliminarGrupo(${grupo.id_grupo})">Eliminar</button>
                     </div>
                 </div>
+                
+                <div class="contenido-info">
+                    <div class="contenido-descripcion"><strong>Código de acceso:</strong> ${grupo.clave}</div>
+                    <div class="contenido-categoria"><strong>Total miembros:</strong> ${grupo.total_miembros}</div>
+                </div>
+                
                 <div class="miembros-lista">
                     <h4>Miembros del grupo:</h4>
                     ${grupo.miembros.length > 0 ? 
@@ -156,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <span class="miembro-email">(${miembro.correo})</span>
                                 </div>
                                 <div class="miembro-acciones">
-                                    <a href="#" class="enlace-eliminar" onclick="eliminarMiembro(${miembro.id_miembro_grupo}, '${miembro.nombre}')">Eliminar</a>
+                                    <button class="btn-eliminar btn-eliminar-small" onclick="eliminarMiembro(${miembro.id_miembro_grupo}, '${miembro.nombre}')">Eliminar</button>
                                 </div>
                             </div>
                         `).join('') 

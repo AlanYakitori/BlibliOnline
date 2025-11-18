@@ -11,7 +11,7 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.content1, .content2>div{
+.content1, .content2{
     flex: 1;
     background-color: white;
     border-radius: 10px;
@@ -49,13 +49,17 @@
 }
 
 .content2{
-    flex: 1;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     gap: 15px;
-    justify-content: space-between;
+    justify-content: flex-start;
+}
 
+.content2>div{
+    background-color: white;
+    border-radius: 10px;
+    padding: 3%;
 }
 
 @media screen and (max-width:800px) {
@@ -84,4 +88,391 @@
         min-height: 200px;
     }
 
+}
+
+/* ===== ESTILOS PARA FORMULARIOS DE CONTENIDO ===== */
+
+/* Contenedor principal del formulario - diseño simple */
+.formularioContenido {
+    background-color: white;
+    border-radius: 10px;
+    padding: 25px;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 20px;
+}
+
+/* Título del formulario */
+.tituloFormulario {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Contenedor de campos */
+.camposFormulario {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Grupos de campos */
+.grupoInput {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Etiquetas */
+.labelInput {
+    font-weight: 500;
+    color: #555;
+    font-size: 14px;
+}
+
+/* Inputs básicos */
+.inputEstilizado {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    transition: border-color 0.2s ease;
+}
+
+.inputEstilizado:focus {
+    outline: none;
+    border-color: #9e76a0;
+}
+
+/* Textarea */
+.textareaEstilizado {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    resize: vertical;
+    min-height: 80px;
+    transition: border-color 0.2s ease;
+}
+
+.textareaEstilizado:focus {
+    outline: none;
+    border-color: #9e76a0;
+}
+
+/* Select */
+.selectEstilizado {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    background-color: white;
+    cursor: pointer;
+}
+
+.selectEstilizado:focus {
+    outline: none;
+    border-color: #9e76a0;
+}
+
+/* Campo opcional */
+.campoOpcional .labelInput::after {
+    content: ' (opcional)';
+    color: #777;
+    font-weight: normal;
+    font-style: italic;
+}
+
+/* Botón del formulario */
+.btnCrearRecurso {
+    background-color: #9e76a0;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 10px;
+    align-self: flex-start;
+}
+
+.btnCrearRecurso:hover {
+    background-color: #814e83;
+}
+
+/* Estilos responsivos */
+@media screen and (max-width: 800px) {
+    .formularioContenido {
+        padding: 20px;
+        margin: 10px;
+    }
+    
+    .tituloFormulario {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .formularioContenido {
+        padding: 15px;
+    }
+    
+    .tituloFormulario {
+        font-size: 18px;
+    }
+    
+    .inputEstilizado,
+    .textareaEstilizado,
+    .selectEstilizado {
+        font-size: 14px;
+    }
+}
+
+/* ===== ESTILOS PARA TARJETAS DE CONTENIDO ===== */
+
+/* Tarjeta principal del contenido */
+.contenido-tarjeta {
+    background-color: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.contenido-tarjeta:hover {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+/* Header de la tarjeta con título y acciones */
+.contenido-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.contenido-titulo {
+    color: #333;
+    font-size: 1.4em;
+    font-weight: 600;
+    margin: 0;
+    flex: 1;
+    margin-right: 15px;
+}
+
+.contenido-acciones {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.btn-actualizar,
+.btn-eliminar {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-actualizar {
+    background-color: #4caf50;
+    color: white;
+}
+
+.btn-actualizar:hover {
+    background-color: #45a049;
+    transform: translateY(-1px);
+}
+
+.btn-eliminar {
+    background-color: #f44336;
+    color: white;
+}
+
+.btn-eliminar:hover {
+    background-color: #da190b;
+    transform: translateY(-1px);
+}
+
+/* Información del contenido */
+.contenido-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contenido-descripcion,
+.contenido-url,
+.contenido-categoria,
+.contenido-calificacion,
+.contenido-estado {
+    color: #666;
+    font-size: 0.95em;
+    line-height: 1.4;
+}
+
+.contenido-descripcion strong,
+.contenido-url strong,
+.contenido-categoria strong,
+.contenido-calificacion strong,
+.contenido-estado strong {
+    color: #333;
+    font-weight: 600;
+}
+
+.enlace-contenido {
+    color: #2196f3;
+    text-decoration: none;
+    word-break: break-all;
+}
+
+.enlace-contenido:hover {
+    text-decoration: underline;
+}
+
+/* Estados del contenido */
+.estado-espera {
+    color: #ff9800;
+    font-weight: 600;
+}
+
+.estado-aceptado {
+    color: #4caf50;
+    font-weight: 600;
+}
+
+.estado-rechazado {
+    color: #f44336;
+    font-weight: 600;
+}
+
+/* Calificación */
+.contenido-calificacion {
+    color: #666;
+    font-size: 0.95em;
+    line-height: 1.4;
+}
+
+/* Responsividad para tarjetas */
+@media screen and (max-width: 800px) {
+    .contenido-header {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+    }
+    
+    .contenido-titulo {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    .contenido-acciones {
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .contenido-tarjeta {
+        padding: 15px;
+    }
+    
+    .contenido-titulo {
+        font-size: 1.2em;
+    }
+    
+    .contenido-acciones {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .btn-actualizar,
+    .btn-eliminar {
+        width: 100%;
+    }
+}
+
+/* ===== ESTILOS ESPECÍFICOS PARA GRUPOS ===== */
+
+/* Lista de miembros dentro de la tarjeta de grupo */
+.miembros-lista {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.miembros-lista h4 {
+    color: #333;
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.miembro-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.miembro-item:last-child {
+    border-bottom: none;
+}
+
+.miembro-info {
+    flex: 1;
+}
+
+.miembro-nombre {
+    font-weight: 600;
+    color: #333;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.miembro-email {
+    color: #666;
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+.miembro-acciones {
+    flex-shrink: 0;
+}
+
+/* Botón eliminar pequeño para miembros */
+.btn-eliminar-small {
+    padding: 6px 12px;
+    font-size: 0.8em;
+    border-radius: 4px;
+}
+
+/* Responsividad para items de miembro */
+@media screen and (max-width: 520px) {
+    .miembro-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .miembro-acciones {
+        width: 100%;
+    }
+    
+    .btn-eliminar-small {
+        width: 100%;
+    }
 }

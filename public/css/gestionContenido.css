@@ -1,0 +1,235 @@
+/* Estilo unificado para gestión de contenido */
+
+/* Reset específico para el panel de contenido */
+#contenedorContenido {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+}
+
+/* Items de contenido con el mismo estilo que los grupos */
+.grupo-item {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.grupo-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.grupo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.grupo-info {
+    flex: 1;
+}
+
+.grupo-info h3 {
+    color: #2c3e50;
+    margin: 0 0 15px 0;
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.grupo-info p {
+    margin: 8px 0;
+    color: #555;
+    line-height: 1.4;
+}
+
+.grupo-info strong {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.grupo-info a {
+    color: #007bff;
+    text-decoration: none;
+    word-break: break-all;
+}
+
+.grupo-info a:hover {
+    text-decoration: underline;
+}
+
+.grupo-acciones {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 120px;
+}
+
+.enlace-actualizar,
+.enlace-eliminar {
+    padding: 8px 16px;
+    text-decoration: none !important;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.enlace-actualizar {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white !important;
+}
+
+.enlace-actualizar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.enlace-eliminar {
+    background: linear-gradient(135deg, #dc3545, #e74c3c);
+    color: white !important;
+}
+
+.enlace-eliminar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+/* Estados para alumnos */
+.estado-espera {
+    background: linear-gradient(135deg, #ffc107, #ffca28);
+    color: #333;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+.estado-aceptado {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+.estado-rechazado {
+    background: linear-gradient(135deg, #dc3545, #e74c3c);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+/* Formulario de actualización con estilo de grupos */
+.formulario-actualizar-grupo {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border: 2px solid #007bff;
+    border-radius: 15px;
+    padding: 25px;
+    margin: 20px 0;
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.15);
+}
+
+.formulario-actualizar-grupo h3 {
+    color: #007bff;
+    margin-bottom: 20px;
+    font-size: 1.4em;
+    font-weight: 600;
+    text-align: center;
+}
+
+.formulario-actualizar-grupo label {
+    display: block;
+    margin: 15px 0 5px 0;
+    color: #2c3e50;
+    font-weight: 600;
+    font-size: 0.95em;
+}
+
+.formulario-actualizar-grupo input,
+.formulario-actualizar-grupo select,
+.formulario-actualizar-grupo textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+    background: white;
+    box-sizing: border-box;
+}
+
+.formulario-actualizar-grupo input:focus,
+.formulario-actualizar-grupo select:focus,
+.formulario-actualizar-grupo textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.botones-formulario {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+    justify-content: center;
+}
+
+.btnCancelar {
+    background: linear-gradient(135deg, #6c757d, #5a6268);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1em;
+    transition: all 0.3s ease;
+}
+
+.btnCancelar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+
+/* Mensaje cuando no hay contenido */
+#contenedorContenido p {
+    text-align: center;
+    color: #6c757d;
+    font-style: italic;
+    padding: 40px 20px;
+    margin: 0;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .grupo-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .grupo-acciones {
+        flex-direction: row;
+        justify-content: center;
+        min-width: auto;
+    }
+    
+    .botones-formulario {
+        flex-direction: column;
+    }
+    
+    .formulario-actualizar-grupo {
+        margin: 15px 0;
+        padding: 20px;
+    }
+}
