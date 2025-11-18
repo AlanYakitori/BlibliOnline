@@ -34,8 +34,8 @@ $tipoUsuario = 'docente';
             <li><a href="panelGestionGrupos.php" class="lnk">Herramientas</a></li>
             <li><a href="panelGestionContenidoDocente.php" class="lnk">Mi Contenido</a></li>
             <li><a href="#" class="lnk">Notificaciones</a></li>
-            <li><a href="perfil" class="lnk">Mi cuenta</a></li>
-            <li><a href="" class="lnk" id="btnCerrarSesion">Cerrar Sesión</a></li>
+            <li><a href="perfilDocente.php" class="lnk">Mi cuenta</a></li>
+            <li><a href="#" class="lnk" id="btnCerrarSesion">Cerrar Sesión</a></li>
         </ul>
 
         <div class="bx bx-menu" id="menu-icon"></div>
@@ -112,7 +112,6 @@ $tipoUsuario = 'docente';
     <script>window.csrfToken = '<?php echo $csrf; ?>';</script>
     <script>window.tipoUsuario = '<?php echo $tipoUsuario; ?>';</script>
     <script src="../../../public/js/agregarContenido.js"></script>
-    <script src="../../../public/js/dashboardDocente.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>

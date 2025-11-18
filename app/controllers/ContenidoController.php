@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../models/ContenidoModel.php';
+              require_once __DIR__ . '/../models/ContenidoModel.php';
 require_once __DIR__ . '/../../config/conexion.php';
 require_once __DIR__ . '/../../config/session.php';
 
@@ -99,11 +99,12 @@ class ContenidoController {
             }
 
             // Configurar valores según el tipo de usuario
+            // TODOS los contenidos empiezan con calificación 0
+            $calificacion = 0.0;
+            
             if ($tipo_usuario === 'administrador' || $tipo_usuario === 'docente') {
-                $calificacion = 5.0;
                 $aprobado = 1;
             } else { // alumno
-                $calificacion = 0.0;
                 $aprobado = null;
             }
 

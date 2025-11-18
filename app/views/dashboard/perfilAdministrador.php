@@ -10,7 +10,7 @@ $csrf = obtenerCSRFToken();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Mi Perfil - Administrador | BibliONLINE</title>
 
     <link rel="shortcut icon" href="/favicon.svg">       
     <link rel="icon" sizes="64x64" href="../../../public/media/book.svg">         
@@ -28,33 +28,32 @@ $csrf = obtenerCSRFToken();
 </head>
 <body>
     <header>
-        <a href="" class="logo">BibliONLINE</a>
+        <a href="administrador.php" class="logo">BibliONLINE</a>
         <ul class="navlist">
             <li><a href="panelGestionAdministrador.php">Herramientas</a></li>
             <li><a href="panelGestionContenidoAdministrador.php">Subir Contenido</a></li>
             <li><a href="#">Notificaciones</a></li>
             <li><a href="perfilAdministrador.php">Mi cuenta</a></li>
-            <li><a href="" class="lnk" id="btnCerrarSesion">Cerrar Sesion</a></li>
+            <li><a href="#" class="lnk" id="btnCerrarSesion">Cerrar Sesión</a></li>
         </ul>
 
         <div class="bx bx-menu" id="menu-icon"></div>
-
     </header>
 
-<br><br><br><br>
-<br><br><br><br>
-<center><h1 id="nombreBienvenida"></h1></center>
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
-<center><h3>Aqui va el contenido</h3></center>
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br>
+    <br><br><br><br>
+    <br><br><br><br>
+    <center><h1 id="nombreBienvenida">Mi Perfil</h1></center>
+    <br><br><br><br>
+    <br><br><br><br>
+    <br><br><br><br>
+    <br><br><br><br>
+    <center><h3>Configuración de perfil de administrador</h3></center>
+    <br><br><br><br>
+    <br><br><br><br>
+    <br><br><br>
+
     <script>window.csrfToken = '<?php echo $csrf; ?>';</script>
-    <script src="../../../public/js/dashboardAdministrador.js"></script>
-    <script src="https://kit.fontawesome.com/b668f928a3.js" crossorigin="anonymous"></script>
+    <script src="../../../public/js/perfil.js"></script>
 </body>
 </html>
 

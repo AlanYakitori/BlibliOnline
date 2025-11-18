@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const nombre = datosUsuario.nombre.trim();
             nombreBienvenida.textContent = `Bienvenido ${nombre}`;
         } catch (e) {
-            console.warn('usuarioActual corrupto en localStorage');   
+            console.warn('usuarioActual corrupto en localStorage');
         }
     }
 

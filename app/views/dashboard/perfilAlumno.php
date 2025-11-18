@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../../config/session.php';
 
-protegerPagina(['administrador']);
+protegerPagina(['alumno']);
 $csrf = obtenerCSRFToken();
 ?>
 
@@ -10,7 +10,7 @@ $csrf = obtenerCSRFToken();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Mi Perfil - Estudiante | BibliONLINE</title>
 
     <link rel="shortcut icon" href="/favicon.svg">       
     <link rel="icon" sizes="64x64" href="../../../public/media/book.svg">         
@@ -24,37 +24,33 @@ $csrf = obtenerCSRFToken();
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="../../../public/css/dashboardAdministrador.css">
+    <link rel="stylesheet" href="../../../public/css/dashboardAlumno.css">
     <link rel="stylesheet" href="../../../public/css/footer.css">
 </head>
 <body>
     <header>
-        <a href="" class="logo">BibliONLINE</a>
-        <ul class="navlist">
-            <li><a href="panelGestionAdministrador.php">Herramientas</a></li>
-            <li><a href="panelGestionContenidoAdministrador.php">Subir Contenido</a></li>
-            <li><a href="#">Notificaciones</a></li>
-            <li><a href="perfilAdministrador.php">Mi cuenta</a></li>
-            <li><a href="" class="lnk" id="btnCerrarSesion">Cerrar Sesion</a></li>
+        <a href="alumno.php" class="logo">BibliONLINE</a>
+        <ul class="navlist" id="navListAlumno">
+            <!-- La navegación será generada dinámicamente por JavaScript -->
         </ul>
 
         <div class="bx bx-menu" id="menu-icon"></div>
-
     </header>
 
-<br><br><br><br>
-<br><br><br><br>
-<center><h1 id="nombreBienvenida"></h1></center>
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
-<center><h3>Aqui va el contenido</h3></center>
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br>
+    <br><br><br><br>
+    <br><br><br><br>
+    <center><h1 id="nombreBienvenida">Mi Perfil</h1></center>
+    <br><br><br><br>
+    <br><br><br><br>
+    <br><br><br><br>
+    <br><br><br><br>
+    <center><h3>Configuración de perfil de estudiante</h3></center>
+    <br><br><br><br>
+    <br><br><br><br>
+    <br><br><br>
+
     <script>window.csrfToken = '<?php echo $csrf; ?>';</script>
-    <script src="../../../public/js/dashboardAdministrador.js"></script>
-    <script src="https://kit.fontawesome.com/b668f928a3.js" crossorigin="anonymous"></script>
+    <script src="../../../public/js/perfil.js"></script>
 </body>
 </html>
 

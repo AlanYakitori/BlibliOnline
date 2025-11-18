@@ -42,6 +42,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    const btnReporteGrupos = document.getElementById('btnReporteGrupos');
+    if (btnReporteGrupos) {
+        btnReporteGrupos.addEventListener('click', function() {
+            generarReporteGrupos();
+        });
+    }
+
     async function cerrarSesion() {
         try {
             if (!confirm('¿Está seguro de que desea cerrar sesión?')) return;
@@ -410,6 +417,48 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('Error en la petición:', error);
                 mostrarMensaje('Error al conectar con el servidor', 'error');
             }
+        }
+    }
+
+    async function generarReporteGrupos() {
+        try {
+            alert('🔄 Generando reporte de grupos...');
+            
+            const datosReporte = {
+                accion: 'generarReporteGrupos',
+                idDocente: id,
+                csrf_token: window.csrfToken || ''
+            };
+
+            const respuesta = await fetch('../../controllers/ReporteController.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(datosReporte)
+            });
+
+            if (!respuesta.ok) {
+                throw new Error('Error en la respuesta del servidor');
+            }
+
+            const resultado = await respuesta.json();
+
+            if (resultado.exito) {
+                alert('✅ Reporte de grupos generado exitosamente');
+                
+                // Si se devuelve una URL del archivo, permitir descarga
+                if (resultado.url_descarga) {
+                    const link = document.createElement('a');
+                    link.href = resultado.url_descarga;
+                    link.download = resultado.nombre_archivo || 'reporte_grupos.pdf';
+                    link.click();
+                }
+            } else {
+                alert('❌ Error: ' + (resultado.mensaje || 'Error desconocido al generar reporte'));
+            }
+
+        } catch (err) {
+            console.error('Error generando reporte de grupos:', err);
+            alert('❌ Error de conexión al generar el reporte. Revisa la consola para más detalles.');
         }
     }
 

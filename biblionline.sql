@@ -221,12 +221,12 @@ INSERT INTO CategoriasUsuario (id_usuario, id_categoria) VALUES
 
 -- Recursos por defecto
 INSERT INTO Recurso (titulo, descripcion, archivo_url, calificacion, aprobado, id_categoria, id_usuario) VALUES
-('GDB ONLINE','IDE en linea con capacidad de correr diferentes lenguajes de programacion','https://www.onlinegdb.com',5,1,1,1),
-('GIT HUB','Controlador de manejo de versiones','https://github.com',5,1,1,2),
-('OCEANOFPDF','Pagina web para descargar libros de texto de forma gratuita en formato pdf y epub','https://oceanofpdf.com',5,1,5,4),
-('BIB GURU','Generador de citas APA','https://www.bibguru.com/es',5,1,5,5),
-('CHATGPT','IA util para documentar','https://chatgpt.com',5,NULL,1,7),
-('ILOVEPDF','Convertidor de archivos','https://www.ilovepdf.com/es',5,NULL,5,8);
+('GDB ONLINE','IDE en linea con capacidad de correr diferentes lenguajes de programacion','https://www.onlinegdb.com',0,1,1,1),
+('GIT HUB','Controlador de manejo de versiones','https://github.com',0,1,1,2),
+('OCEANOFPDF','Pagina web para descargar libros de texto de forma gratuita en formato pdf y epub','https://oceanofpdf.com',0,1,5,4),
+('BIB GURU','Generador de citas APA','https://www.bibguru.com/es',0,1,5,5),
+('CHATGPT','IA util para documentar','https://chatgpt.com',0,NULL,1,7),
+('ILOVEPDF','Convertidor de archivos','https://www.ilovepdf.com/es',0,NULL,5,8);
 
 -- Listas de favoritos por defecto
 INSERT INTO ListasFavoritos (id_usuario, id_recurso) VALUES

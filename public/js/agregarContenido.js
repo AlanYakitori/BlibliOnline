@@ -62,9 +62,43 @@ function configurarEventos() {
     if (btnCerrarSesion) {
         btnCerrarSesion.addEventListener('click', function(e) {
             e.preventDefault();
-            localStorage.clear();
-            window.location.href = '../../../index.php';
+            cerrarSesion();
         });
+    }
+}
+
+// Función para cerrar sesión con validaciones completas
+async function cerrarSesion() {
+    try {
+        if (!confirm('¿Está seguro de que desea cerrar sesión?')) return;
+
+        const datosLogout = { csrf_token: window.csrfToken || '' };
+
+        const respuesta = await fetch('../../controllers/LogoutController.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(datosLogout)
+        });
+
+        const resultado = await respuesta.json();
+
+        if (resultado.exito) {
+            try { localStorage.removeItem('usuarioActual'); } catch(e){}
+            try { localStorage.clear(); } catch(e){}
+                    
+            // Proteger contra retroceso del navegador
+            window.history.pushState(null, '', window.location.href);
+            window.onpopstate = function () { window.history.pushState(null, '', window.location.href); };
+
+            alert('Sesión cerrada exitosamente');
+            window.location.href = '../../../index.php';
+        } else {
+            alert('Error al cerrar sesión: ' + (resultado.mensaje || '')); 
+        }
+
+    } catch (error) {
+        console.error('Error al cerrar sesión:', error);
+        alert('Error de conexión al cerrar sesión');
     }
 }
 

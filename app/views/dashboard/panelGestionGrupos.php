@@ -28,11 +28,11 @@ $csrf = obtenerCSRFToken();
     <header>
         <a href="docente.php" class="logo">BibliONLINE</a>
         <ul class="navlist">
-            <li><a href="panelGestionGrupos.php" class="lnk">Gestion de usuarios</a></li>
-            <li><a href="panelGestionContenidoDocente.php" class="lnk">Subir contenido</a></li>
+            <li><a href="panelGestionGrupos.php" class="lnk">Herramientas</a></li>
+            <li><a href="panelGestionContenidoDocente.php" class="lnk">Subir Contenido</a></li>
             <li><a href="#" class="lnk">Notificaciones</a></li>
-            <li><a href="perfil.php" class="lnk">Mi cuenta</a></li>
-            <li><a href="" class="lnk" id="btnCerrarSesion">Cerrar Sesion</a></li>
+            <li><a href="perfilDocente.php" class="lnk">Mi cuenta</a></li>
+            <li><a href="#" class="lnk" id="btnCerrarSesion">Cerrar Sesión</a></li>
         </ul>
 
         <div class="bx bx-menu" id="menu-icon"></div>
@@ -42,26 +42,56 @@ $csrf = obtenerCSRFToken();
     <div class="wrapper">
         <div class="main-container">
             <div class="content1">
-                <p>Crear un nuevo grupo</p>
-                <p>Para crear un nuevo grupo ingrese el un nombre y despues presione el boton enviar</p>
-                    <form class="formularioGrupo" id="formularioGrupo">
-                        <input type="text" id="inputNombreGrupo">
-                        <input type="submit" value="Crear Nuevo Grupo" class="btnGenerar" id="btnCrearGrupo">
+                <!-- Sección de Crear Grupo -->
+                <div class="formularioContenido">
+                    <h3 class="tituloFormulario">Crear Nuevo Grupo</h3>
+                    <p style="color: #666; margin-bottom: 20px;">Crea un grupo de trabajo para organizar a los estudiantes en proyectos colaborativos</p>
+                    
+                    <form class="camposFormulario" id="formularioGrupo">
+                        <div class="grupoInput">
+                            <label class="labelInput" for="inputNombreGrupo">Nombre del Grupo *</label>
+                            <input type="text" id="inputNombreGrupo" class="inputEstilizado" placeholder="Ingresa el nombre del grupo de trabajo" required>
+                            <p style="font-size: 12px; color: #999; margin-top: 5px;">El nombre debe ser descriptivo y único</p>
+                        </div>
+                        <input type="submit" value="Crear Nuevo Grupo" class="btnCrearRecurso" id="btnCrearGrupo">
                     </form>
+                </div>
+
+                <!-- Contenedor para formulario de actualización de grupos -->
                 <div id="contenedorActualizarGrupos" class="contenedor-grupos" style="margin-top: 20px;"></div>
-                <p>Generar Reporte general</p>
-                <a id="" class="btnGenerar">Crear</a>
+
+                <!-- Sección de Reportes -->
+                <div class="formularioContenido">
+                    <h3 class="tituloFormulario">Generar Reporte de Actividades</h3>
+                    <p style="color: #666; margin-bottom: 20px;">Genera un informe detallado de las actividades y progreso de tus grupos</p>
+                    
+                    <div class="camposFormulario">
+                        <div class="grupoInput">
+                            <label class="labelInput">Reporte de grupos</label>
+                            <p style="font-size: 14px; color: #777; margin: 5px 0 10px 0;">Incluye estadísticas de participación, contenidos compartidos y actividad general</p>
+                            <button id="btnReporteGrupos" class="btnCrearRecurso">Generar Reporte</button>
+                        </div>
+                    </div>
+                </div>
             </div>
+
             <div class="content2">
                 <div class="subcontent1">
-                    <p>Mis grupos</p>
-                    <br>
-                    <a id="btnGrupos" class="btnGenerar">Ver</a>
-                    
-                    <!-- Contenedor para mostrar los grupos -->
-                    <div id="contenedorGrupos" class="contenedor-grupos" style="margin-top: 20px;"></div>
-                </div>
-                
+                    <div class="formularioContenido">
+                        <h3 class="tituloFormulario">Mis Grupos</h3>
+                        <p style="color: #666; margin-bottom: 20px;">Visualiza y administra todos los grupos que has creado</p>
+                        
+                        <div class="camposFormulario">
+                            <div class="grupoInput">
+                                <label class="labelInput">Panel de grupos</label>
+                                <p style="font-size: 14px; color: #777; margin: 5px 0 10px 0;">Ver todos tus grupos, miembros y gestionar configuraciones</p>
+                                <button id="btnGrupos" class="btnCrearRecurso">Ver Mis Grupos</button>
+                            </div>
+                        </div>
+
+                        <!-- Contenedor para mostrar los grupos -->
+                        <div id="contenedorGrupos" class="contenedor-grupos" style="margin-top: 20px;"></div>
+                    </div>
                 </div>
             </div>
         </div>
