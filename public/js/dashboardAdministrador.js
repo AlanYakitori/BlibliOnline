@@ -1,20 +1,21 @@
 document.addEventListener('DOMContentLoaded', function() {
     const usuarioActualStorage = localStorage.getItem('usuarioActual');
     const nombreBienvenida = document.getElementById('nombreBienvenida');
-    if (usuarioActualStorage) {
+    
+    if (usuarioActualStorage && nombreBienvenida) { 
         try {
             const datosUsuario = JSON.parse(usuarioActualStorage);
-
             const nombre = datosUsuario.nombre.trim();
-            nombreBienvenida.textContent = `Bienvenido ${nombre}`;
+            nombreBienvenida.textContent = `¡Hola ${nombre}!`;
         } catch (e) {
-            console.warn('usuarioActual corrupto en localStorage');   
+            console.warn('LocalStorage corrupto o nombre no encontrado'); 
         }
     }
 
     const btnCerrarSesion = document.getElementById('btnCerrarSesion');
     if (btnCerrarSesion) {
-        btnCerrarSesion.addEventListener('click', function() {
+        btnCerrarSesion.addEventListener('click', function(e) { 
+            e.preventDefault(); 
             cerrarSesion();
         });
     }
@@ -26,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Manejar formulario de restauración si existe
     const formRestaurar = document.getElementById('formularioDB');
     if (formRestaurar) {
         formRestaurar.addEventListener('submit', function(e) {
@@ -35,17 +35,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-
     async function cerrarSesion() {
         try {
             if (!confirm('¿Está seguro de que desea cerrar sesión?')) return;
 
-            const datosLogout = { csrf_token: window.csrfToken || '' };
-
             const respuesta = await fetch('../../controllers/LogoutController.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(datosLogout)
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': window.csrfToken || '' 
+                },
+                body: JSON.stringify({}) 
             });
 
             const resultado = await respuesta.json();
@@ -53,16 +53,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (resultado.exito) {
                 try { localStorage.removeItem('usuarioActual'); } catch(e){}
                 try { localStorage.clear(); } catch(e){}
-                        
-                window.history.pushState(null, '', window.location.href);
-                window.onpopstate = function () { window.history.pushState(null, '', window.location.href); };
-
+                
                 alert('Sesión cerrada exitosamente');
                 window.location.href = '../../../index.php';
             } else {
                 alert('Error al cerrar sesión: ' + (resultado.mensaje || '')); 
             }
-
         } catch (error) {
             console.error('Error al cerrar sesión:', error);
             try { localStorage.clear(); } catch(e){}
@@ -72,15 +68,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function crearBackup() {
         try {
-            if (!confirm('¿Deseas generar una copia de seguridad de la base de datos?')) return;
+            if (!confirm('¿Deseas generar una copia de seguridad?')) return;
 
-            accion = 'crearBackup';
-
+            const accion = 'crearBackup'; 
             const payload = { accion: accion };
 
             const respuesta = await fetch('../../controllers/DataBaseController.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': window.csrfToken || '' 
+                },
                 body: JSON.stringify(payload)
             });
 
@@ -90,42 +88,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            // Construir la URL de descarga usando la ruta conocida al controlador
-            const serverFile = resultado.file; // e.g. copiaSeguridad_20251106_123456.bak
+            const serverFile = resultado.file;
             const downloadUrl = `../../controllers/DataBaseController.php?download=${encodeURIComponent(serverFile)}`;
-
-            // Forzar la descarga navegando a la URL (el controlador enviará headers de attachment)
             window.location.href = downloadUrl;
 
         } catch (err) {
             console.error('Error creando backup:', err);
-            alert('Ocurrió un error al generar la copia de seguridad. Revisa la consola.');
         }
     }
 
     async function procesarArchivoRestauracion(archivo) {
         try {
-            // Validar extensión
             if (!archivo.name.toLowerCase().endsWith('.bak')) {
                 alert('Solo se permiten archivos .bak');
                 return;
             }
+            if (!confirm('¿Desea restaurar la base de datos?')) return;
 
-            // Confirmar antes de restaurar
-            if (!confirm('¿Desea restaurar los datos del sistema? Esta acción puede sobrescribir datos actuales.')) {
-                return;
-            }
-
-            // Crear FormData para enviar el archivo
             const formData = new FormData();
             formData.append('accion', 'restaurarBackup');
             formData.append('backupFile', archivo);
 
-            // Mostrar mensaje de progreso
-            alert('Restaurando base de datos, por favor espere...');
+            alert('Restaurando, por favor espere...');
 
             const respuesta = await fetch('../../controllers/DataBaseController.php', {
                 method: 'POST',
+                headers: {
+                    'X-CSRF-Token': window.csrfToken || '' // Header añadido
+                },
                 body: formData
             });
 
@@ -133,33 +123,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (resultado.exito) {
                 alert('✅ ' + resultado.mensaje);
-                // Opcional: recargar la página después de restauración exitosa
-                if (confirm('¿Desea recargar la página para reflejar los cambios?')) {
+                if (confirm('¿Desea recargar la página?')) {
                     window.location.reload();
                 }
             } else {
                 alert('❌ Error: ' + resultado.mensaje);
             }
-
         } catch (err) {
             console.error('Error procesando restauración:', err);
-            alert('❌ Ocurrió un error durante la restauración. Revisa la consola.');
         }
     }
 
     async function procesarRestauracion() {
-        // Función para manejar el formulario HTML
         const fileInput = document.getElementById('inputArchivoDB');
-        
         if (!fileInput || !fileInput.files[0]) {
-            alert('Es necesario seleccionar un archivo .bak para la restauración');
+            alert('Es necesario seleccionar un archivo .bak');
             return;
         }
-        
         await procesarArchivoRestauracion(fileInput.files[0]);
     }
-
-    // Evitar mostrar contenido vía "back" (segunda capa)
-    window.history.pushState(null, '', window.location.href);
-    window.onpopstate = function () { window.history.pushState(null, '', window.location.href); };
+    
 });
