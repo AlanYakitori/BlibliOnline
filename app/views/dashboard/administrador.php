@@ -18,6 +18,8 @@ $csrf = obtenerCSRFToken();
 
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"/>
+
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,16 +27,18 @@ $csrf = obtenerCSRFToken();
     
     <link rel="stylesheet" href="../../../public/css/dashboardAdministrador.css">
     <link rel="stylesheet" href="../../../public/css/footer.css">
+    <link rel="stylesheet" href="../../../public/css/swiper.css">
+
 </head>
 <body>
     <header>
-        <a href="" class="logo">BibliONLINE</a>
+        <a href="#" class="logo">BibliONLINE</a>
         <ul class="navlist">
             <li><a href="panelGestionAdministrador.php">Herramientas</a></li>
             <li><a href="#">Subir contenido</a></li>
             <li><a href="#">Notificaciones</a></li>
             <li><a href="perfil.php">Mi cuenta</a></li>
-            <li><a href="" class="lnk" id="btnCerrarSesion">Cerrar Sesion</a></li>
+            <li><a href="#" class="lnk" id="btnCerrarSesion">Cerrar Sesion</a></li>
         </ul>
 
         <div class="bx bx-menu" id="menu-icon"></div>
@@ -42,20 +46,61 @@ $csrf = obtenerCSRFToken();
     </header>
 
 <br><br><br><br>
-<br><br><br><br>
-<center><h1 id="nombreBienvenida"></h1></center>
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
-<center><h3>Aqui va el contenido</h3></center>
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br>
+<br><br>
+    <center><h1 id="nombreBienvenida"></h1></center>
+    <div class="subTitulo">
+        <h2>Recomendacion segun tus gustos</h2>
+    </div>
+    <div class="swiper">
+        <div class="swiper-wrapper" id="carrusel-wrapper">
+        </div>
+
+        <div class="swiper-button-next"></div>
+    </div>
+    <br><br><br><br><br><br>
+    <div id="modal-detalle" class="modal-overlay">
+        <div class="modal-contenido">
+            
+            <span class="modal-cerrar">&times;</span>
+            
+            <h3 id="modal-titulo"></h3>
+            
+            <p id="modal-desc"></p>
+
+            <div class="modal-enlace">
+                <strong>Recurso:</strong>
+                <a id="modal-url-link" href="#" target="_blank" rel="noopener noreferrer"></a>
+            </div>
+
+            <div class="modal-acciones">
+    
+            <div class="valoracion">
+                <i class="fa-regular fa-star" data-valor="1"></i>
+                <i class="fa-regular fa-star" data-valor="2"></i>
+                <i class="fa-regular fa-star" data-valor="3"></i>
+                <i class="fa-regular fa-star" data-valor="4"></i>
+                <i class="fa-regular fa-star" data-valor="5"></i>
+            </div>
+            
+            <button id="btn-favorito" class="btn-favorito">
+                <i class="fa-regular fa-heart"></i>
+                <span>Agregar a Favoritos</span>
+            </button>
+
+        </div>
+            
+        </div>
+    </div>
+
+
+<?php include '../footer.php'; ?>
+
     <script>window.csrfToken = '<?php echo $csrf; ?>';</script>
     <script src="../../../public/js/dashboardAdministrador.js"></script>
     <script src="https://kit.fontawesome.com/b668f928a3.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+    <script src="../../../public/js/swiper.js"></script>
 </body>
 </html>
 
-<?php include '../footer.php'; ?>
+

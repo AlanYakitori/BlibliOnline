@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const datosUsuario = JSON.parse(usuarioActualStorage);
 
             const nombre = datosUsuario.nombre.trim();
-            nombreBienvenida.textContent = `Bienvenido ${nombre}`;
+            nombreBienvenida.textContent = `¡Hola ${nombre}!`;
         } catch(e){
             console.warn('usuarioActual corrupto en localStorage');  
         }

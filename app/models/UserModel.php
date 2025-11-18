@@ -230,6 +230,44 @@ class UserModel {
         }
     }
 
+    public function actualizarPerfilUsuario($conexion) {
+        try {
+      
+            $sql = "UPDATE Usuarios SET 
+                        nombre = :nombre,
+                        apellidos = :apellidos,
+                        telefono = :telefono,
+                        correo = :correo";
+
+            if ($this->getContrasena()) {
+                $sql .= ", contrasena = :contrasena";
+            }
+            
+            $sql .= " WHERE id_usuario = :id";
+
+            $stmt = $conexion->prepare($sql);
+
+            $stmt->bindParam(':nombre', $this->nombre);
+            $stmt->bindParam(':apellidos', $this->apellidos);
+            $stmt->bindParam(':telefono', $this->telefono);
+            $stmt->bindParam(':correo', $this->correo);
+            $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+
+            if ($this->getContrasena()) {
+                $stmt->bindParam(':contrasena', $this->contrasena);
+            }
+
+            return $stmt->execute();
+
+        } catch (PDOException $e) {
+            if ($e->errorInfo[1] == 1062) {
+                throw new Exception("Error: El correo '{$this->correo}' ya está en uso.");
+            }
+            error_log("Error en actualizarPerfilUsuario: " . $e->getMessage());
+            return false;
+        }
+    }
+
     public function actualizarUsuario($conexion) {
         try {
             $sql = "UPDATE Usuarios SET 
@@ -267,7 +305,7 @@ class UserModel {
             return $stmt->execute();
 
         } catch (PDOException $e) {
-            if ($e->errorInfo[1] == 1062) { // 1062 es el código de 'Duplicate entry'
+            if ($e->errorInfo[1] == 1062) {
                 throw new Exception("Error: El correo electrónico '{$this->correo}' ya está registrado por otro usuario.");
             }
             error_log("Error en actualizarUsuario: " . $e->getMessage());
@@ -275,6 +313,58 @@ class UserModel {
         }
     }
 
-}
+    public function consultarFavoritosPorUsuario($conexion, $id_usuario)
+    {
+        $sql = "SELECT 
+                    r.id_recurso, 
+                    r.titulo,
+                    r.archivo_url
+                FROM recurso r
+                JOIN listasfavoritos f ON r.id_recurso = f.id_recurso
+                WHERE f.id_usuario = :id_usuario
+                ORDER BY r.id_recurso DESC";
+        
+        try {
+            $stmt = $conexion->prepare($sql);
+            $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+            $stmt->execute();
+            
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            error_log("Error en consultarFavoritosPorUsuario: " . $e->getMessage());
+            return []; 
+        }
+    }
+
+    public function gestionarFavorito($conexion, $id_usuario, $id_recurso, $es_favorito)
+    {
+        try {
+            if ($es_favorito) {
+                $sql = "INSERT INTO listasfavoritos (id_usuario, id_recurso) 
+                        VALUES (:id_usuario, :id_recurso)
+                        ON DUPLICATE KEY UPDATE id_lista_favoritos = id_lista_favoritos";
+                
+                $stmt = $conexion->prepare($sql);
+                $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+                $stmt->bindParam(':id_recurso', $id_recurso, PDO::PARAM_INT);
+                return $stmt->execute();
+
+            } else {
+                $sql = "DELETE FROM listasfavoritos 
+                        WHERE id_usuario = :id_usuario AND id_recurso = :id_recurso";
+                
+                $stmt = $conexion->prepare($sql);
+                $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+                $stmt->bindParam(':id_recurso', $id_recurso, PDO::PARAM_INT);
+                return $stmt->execute();
+            }
+        } catch (PDOException $e) {
+            error_log("Error en gestionarFavorito: " . $e->getMessage());
+            return false;
+        }
+    }
+
+} 
 
 ?>
