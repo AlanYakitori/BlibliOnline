@@ -37,8 +37,6 @@ $csrf = obtenerCSRFToken();
         <ul class="navlist">
             <li><a href="panelGestionAdministrador.php">Herramientas</a></li>
             <li><a href="panelSubirContenidoAdministrador.php">Subir contenido</a></li>
-            <li><a href="panelGestionAdministrador.php">Herramientas</a></li>
-            <li><a href="#">Subir contenido</a></li>
             <li><a href="#">Notificaciones</a></li>
             <li><a href="perfil.php">Mi cuenta</a></li>
             <li><a href="#" class="lnk" id="btnCerrarSesion">Cerrar Sesion</a></li>

@@ -26,7 +26,6 @@ $csrf = obtenerCSRFToken();
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="../../../public/css/dashboardAdministrador.css">
-    <link rel="stylesheet" href="../../../public/css/footer.css">
     <link rel="stylesheet" href="../../../public/css/swiper.css">
 
 </head>
@@ -57,7 +56,16 @@ $csrf = obtenerCSRFToken();
 
         <div class="swiper-button-next"></div>
     </div>
+
+    <div id="recursos-feed-container" class="feed-grid">
+    </div>
+
+    <div id="loading-spinner" style="text-align: center; margin: 30px; display: none;">
+        <i class="bx bx-loader-alt bx-spin" style="font-size: 30px; color: #007bff;"></i> Cargando más contenido...
+    </div>
+
     <br><br><br><br><br><br>
+
     <div id="modal-detalle" class="modal-overlay">
         <div class="modal-contenido">
             
@@ -84,7 +92,7 @@ $csrf = obtenerCSRFToken();
             
             <button id="btn-favorito" class="btn-favorito">
                 <i class="fa-regular fa-heart"></i>
-                <span>Agregar a Favoritos</span>
+                <span id="btn-favorito-texto"></span>
             </button>
 
         </div>
@@ -93,13 +101,14 @@ $csrf = obtenerCSRFToken();
     </div>
 
 
-<?php include '../footer.php'; ?>
 
     <script>window.csrfToken = '<?php echo $csrf; ?>';</script>
     <script src="../../../public/js/dashboardAdministrador.js"></script>
     <script src="https://kit.fontawesome.com/b668f928a3.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
     <script src="../../../public/js/swiper.js"></script>
+    <script src="../../../public/js/feed.js"></script>
+
 </body>
 </html>
 
