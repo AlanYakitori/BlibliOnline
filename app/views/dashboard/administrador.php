@@ -3,6 +3,9 @@ require_once __DIR__ . '/../../../config/session.php';
 
 protegerPagina(['administrador']);
 $csrf = obtenerCSRFToken();
+
+// Tipo de usuario fijo para administrador
+$tipoUsuario = 'administrador';
 ?>
 
 <!DOCTYPE html>
@@ -92,15 +95,15 @@ $csrf = obtenerCSRFToken();
         </div>
     </div>
 
-
-<?php include '../footer.php'; ?>
-
     <script>window.csrfToken = '<?php echo $csrf; ?>';</script>
+    <script>window.tipoUsuario = '<?php echo $tipoUsuario; ?>';</script>
     <script src="../../../public/js/dashboardAdministrador.js"></script>
     <script src="https://kit.fontawesome.com/b668f928a3.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
     <script src="../../../public/js/swiper.js"></script>
 </body>
 </html>
+
+<?php include '../footer.php'; ?>
 
 

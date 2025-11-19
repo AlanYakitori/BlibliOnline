@@ -26,6 +26,7 @@ $csrf = obtenerCSRFToken();
     <link rel="stylesheet" href="../../../public/css/dashboardAdministrador.css">
     <link rel="stylesheet" href="../../../public/css/gestionDocente.css">
     <link rel="stylesheet" href="../../../public/css/footer.css">
+    <link rel="stylesheet" href="../../../public/css/perfil.css"> 
 </head>
 <body>
     <header>
@@ -41,21 +42,85 @@ $csrf = obtenerCSRFToken();
         <div class="bx bx-menu" id="menu-icon"></div>
     </header>
 
-    <br><br><br><br>
-    <br><br><br><br>
-    <center><h1 id="nombreBienvenida">Mi Perfil</h1></center>
-    <br><br><br><br>
-    <br><br><br><br>
-    <br><br><br><br>
-    <br><br><br><br>
-    <center><h3>Configuración de perfil de docente</h3></center>
-    <br><br><br><br>
-    <br><br><br><br>
+    <br><br><br><br><br><br>
+
+    <div class="perfil-container">
+
+        <div class="perfil-card">
+            <h2>Mis Datos</h2>
+            <br><br>
+            <div class="datos-vista">
+                <p><strong>Nombre:</strong> <span id="vista-nombre">Cargando...</span></p>
+                <p><strong>Apellidos:</strong> <span id="vista-apellidos"></span></p>
+                <p><strong>Correo:</strong> <span id="vista-correo"></span></p>
+                <p><strong>Teléfono:</strong> <span id="vista-telefono"></span></p>
+            </div>
+            
+            <button id="btn-abrir-modal" class="btn-actualizar">Actualizar Datos</button>
+        </div>
+
+        <div class="perfil-card">
+            <h2>Mis Favoritos</h2>
+            <div id="contenedor-favoritos">
+                <p>Cargando favoritos...</p>
+            </div>
+        </div>
+
+    </div> <div id="modal-actualizar" class="modal-overlay">
+        <div class="modal-contenido">
+            <span class="modal-cerrar">&times;</span>
+            
+            <h3>Actualizar Mis Datos</h3>
+            
+            <form id="form-actualizar-datos">
+                
+                <input type="hidden" id="perfil-id">
+
+                <div class="form-grupo">
+                    <label for="perfil-nombre-input">Nombre:</label>
+                    <input type="text" id="perfil-nombre-input" name="nombre" required>
+                </div>
+                
+                <div class="form-grupo">
+                    <label for="perfil-apellidos-input">Apellidos:</label>
+                    <input type="text" id="perfil-apellidos-input" name="apellidos" required>
+                </div>
+
+                <div class="form-grupo">
+                    <label for="perfil-correo-input">Correo:</label>
+                    <input type="email" id="perfil-correo-input" name="correo" required>
+                </div>
+
+                <div class="form-grupo">
+                    <label for="perfil-telefono-input">Teléfono:</label>
+                    <input type="tel" id="perfil-telefono-input" name="telefono">
+                </div>
+
+                <hr>
+                
+                <div class="form-grupo">
+                    <label for="perfil-pass1">Nueva Contraseña (dejar en blanco para no cambiar):</label>
+                    <input type="password" id="perfil-pass1">
+                </div>
+                
+                <div class="form-grupo">
+                    <label for="perfil-pass2">Confirmar Contraseña:</label>
+                    <input type="password" id="perfil-pass2">
+                </div>
+
+                <button type="submit" class="btn-actualizar">Guardar Cambios</button>
+                <div id="mensaje-perfil" class="mensajeGeneral"></div>
+            </form>
+
+        </div>
+    </div>
     <br><br><br>
+    
+ 
 
     <script>window.csrfToken = '<?php echo $csrf; ?>';</script>
     <script src="../../../public/js/perfil.js"></script>
 </body>
 </html>
 
-<?php include '../footer.php'; ?>
+   <?php include '../footer.php'; ?>

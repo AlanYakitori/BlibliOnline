@@ -1,21 +1,9 @@
-// perfil.js - Manejo de perfiles específicos por tipo de usuario
-
 document.addEventListener('DOMContentLoaded', function() {
     // Obtener datos del usuario desde localStorage
     const usuarioActualStorage = localStorage.getItem('usuarioActual');
     let datosUsuario = null;
     
-    // Configurar nombre de bienvenida
-    const nombreBienvenida = document.getElementById('nombreBienvenida');
-    if (usuarioActualStorage && nombreBienvenida) {
-        try {
-            datosUsuario = JSON.parse(usuarioActualStorage);
-            const nombre = datosUsuario.nombre.trim();
-            nombreBienvenida.textContent = `Mi perfil ${nombre}`;
-        } catch (e) {
-            console.warn('usuarioActual corrupto en localStorage');
-        }
-    }
+    datosUsuario = JSON.parse(usuarioActualStorage);
 
     // Si no tenemos datos del usuario, no podemos continuar
     if (!datosUsuario) return;
@@ -29,8 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Configurar cerrar sesión
     configurarCerrarSesion();
 
-    // Configurar enlaces de perfil
-    configurarEnlacesPerfil(tipoUsuario);
+    // ===== FUNCIONALIDAD DEL PERFIL ADMINISTRADOR =====
+    initPerfilAdministrador();
 });
 
 // Función para configurar navegación según tipo de usuario
@@ -111,43 +99,11 @@ function actualizarNavegacionAlumno(tieneGrupo) {
     }
 }
 
-// Función para configurar enlaces de perfil que redirijan según el tipo de usuario
-function configurarEnlacesPerfil(tipoUsuario) {
-    // Buscar todos los enlaces que apunten a perfil
-    const enlacesPerfil = document.querySelectorAll('a[href="#"]');
-    
-    enlacesPerfil.forEach(enlace => {
-        if (enlace.textContent.includes('Mi cuenta') || enlace.textContent.includes('perfil')) {
-            enlace.addEventListener('click', function(e) {
-                e.preventDefault();
-                redirigirAPerfil(tipoUsuario);
-            });
-        }
-    });
-}
-
-// Función para redirigir al perfil correcto según el tipo de usuario
-function redirigirAPerfil(tipoUsuario) {
-    switch (tipoUsuario) {
-        case 'administrador':
-            window.location.href = 'perfilAdministrador.php';
-            break;
-        case 'docente':
-            window.location.href = 'perfilDocente.php';
-            break;
-        case 'alumno':
-            window.location.href = 'perfilAlumno.php';
-            break;
-        default:
-            window.location.href = 'perfil.php'; // Fallback
-    }
-}
-
 // Función para configurar el cerrar sesión con validaciones completas
 function configurarCerrarSesion() {
-    const btnCerrarSesion = document.getElementById('btnCerrarSesion');
+    const btnCerrarSesion = document.getElementById('btnCerrarSesion'); 
     if (btnCerrarSesion) {
-        // Remover event listeners previos clonando el elemento
+        // Remover event listeners previos para evitar duplicados
         const nuevoBtn = btnCerrarSesion.cloneNode(true);
         btnCerrarSesion.parentNode.replaceChild(nuevoBtn, btnCerrarSesion);
         
@@ -190,7 +146,201 @@ async function cerrarSesion() {
 
     } catch (error) {
         console.error('Error al cerrar sesión:', error);
-        try { localStorage.clear(); } catch(e){}
-        window.location.href = '../../../index.php';
+        alert('Error de conexión al cerrar sesión');
     }
+}
+
+// ===== FUNCIONALIDAD ESPECÍFICA DEL PERFIL ADMINISTRADOR =====
+
+function initPerfilAdministrador() {
+    // Solo ejecutar si estamos en una página con elementos de perfil administrador
+    const form = document.getElementById('form-actualizar-datos');
+    if (!form) return; // No estamos en perfil de administrador
+
+    // Referencias del Modal y Formulario
+    const mensajePerfil = document.getElementById('mensaje-perfil');
+    const inputId = document.getElementById('perfil-id');
+    const inputNombreForm = document.getElementById('perfil-nombre-input');
+    const inputApellidosForm = document.getElementById('perfil-apellidos-input');
+    const inputCorreoForm = document.getElementById('perfil-correo-input');
+    const inputTelefonoForm = document.getElementById('perfil-telefono-input');
+    const inputPass1 = document.getElementById('perfil-pass1');
+    const inputPass2 = document.getElementById('perfil-pass2');
+
+    // Referencias de la Vista
+    const vistaNombre = document.getElementById('vista-nombre');
+    const vistaApellidos = document.getElementById('vista-apellidos');
+    const vistaCorreo = document.getElementById('vista-correo');
+    const vistaTelefono = document.getElementById('vista-telefono');
+
+    // Referencias de Favoritos
+    const contenedorFavoritos = document.getElementById('contenedor-favoritos');
+
+    // Referencias del Modal
+    const modal = document.getElementById('modal-actualizar');
+    const btnAbrirModal = document.getElementById('btn-abrir-modal');
+    const btnCerrarModal = modal ? modal.querySelector('.modal-cerrar') : null;
+
+    // 1. Cargar Datos
+    function cargarDatosUsuario() {
+        const usuarioStorage = localStorage.getItem('usuarioActual');
+        if (!usuarioStorage) return;
+        
+        try {
+            const usuario = JSON.parse(usuarioStorage);
+            if (vistaNombre) vistaNombre.textContent = usuario.nombre;
+            if (vistaApellidos) vistaApellidos.textContent = usuario.apellidos;
+            if (vistaCorreo) vistaCorreo.textContent = usuario.correo;
+            if (vistaTelefono) vistaTelefono.textContent = usuario.telefono || 'No registrado';
+            
+            if (inputId) inputId.value = usuario.id;
+            if (inputNombreForm) inputNombreForm.value = usuario.nombre;
+            if (inputApellidosForm) inputApellidosForm.value = usuario.apellidos;
+            if (inputCorreoForm) inputCorreoForm.value = usuario.correo;
+            if (inputTelefonoForm) inputTelefonoForm.value = usuario.telefono || '';
+        } catch (e) { 
+            console.error('Error LS', e); 
+        }
+    }
+
+    // 2. Cargar Favoritos
+    async function cargarFavoritos() {
+        if (!contenedorFavoritos) return;
+        
+        contenedorFavoritos.innerHTML = '<p style="text-align:center; color:#888;">Cargando...</p>';
+        try {
+            const token = window.csrfToken || '';
+            const respuesta = await fetch('../../controllers/AuthController.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': token },
+                body: JSON.stringify({ accion: 'obtenerMisFavoritos' })
+            });
+            
+            const resultado = await respuesta.json();
+            
+            if (resultado.exito && resultado.favoritos) {
+                pintarFavoritos(resultado.favoritos);
+            } else {
+                contenedorFavoritos.innerHTML = '<p style="text-align:center;">No tienes favoritos guardados.</p>';
+            }
+        } catch (error) {
+            contenedorFavoritos.innerHTML = '<p style="text-align:center; color:red;">Error al cargar favoritos.</p>';
+        }
+    }
+
+    function pintarFavoritos(favoritos) {
+        if (!contenedorFavoritos) return;
+        
+        contenedorFavoritos.innerHTML = ''; 
+        
+        if (favoritos.length === 0) {
+            contenedorFavoritos.innerHTML = '<p style="text-align:center;">No tienes favoritos guardados.</p>';
+            return;
+        }
+
+        favoritos.forEach(fav => {
+            const urlLimpia = fav.archivo_url || '#';
+            const urlTexto = urlLimpia.length > 40 ? urlLimpia.substring(0, 40) + '...' : urlLimpia;
+
+            const itemHtml = `
+                <div class="item-favorito">
+                    <div class="info-favorito">
+                        <h3>${fav.titulo}</h3>
+                        <small title="${urlLimpia}">
+                            <i class="fa-solid fa-link"></i> ${urlTexto}
+                        </small>
+                    </div>
+                    <a href="${urlLimpia}" target="_blank" class="btn-ir-recurso" title="Ir al recurso">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            `;
+            contenedorFavoritos.innerHTML += itemHtml;
+        });
+    }
+
+    // Evento del formulario de actualización
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (inputPass1 && inputPass2 && inputPass1.value !== inputPass2.value) {
+                mostrarMensajeModal('Las contraseñas no coinciden.', 'error');
+                return;
+            }
+            
+            mostrarMensajeModal('Actualizando...', 'info');
+
+            const datos = {
+                accion: 'actualizarUsuario',
+                id_usuario: inputId ? inputId.value : '',
+                nombre: inputNombreForm ? inputNombreForm.value : '',
+                apellidos: inputApellidosForm ? inputApellidosForm.value : '',
+                correo: inputCorreoForm ? inputCorreoForm.value : '',
+                telefono: inputTelefonoForm ? inputTelefonoForm.value : '',
+                contrasena: inputPass1 ? inputPass1.value : ''
+            };
+
+            try {
+                const token = window.csrfToken || '';
+                const respuesta = await fetch('../../controllers/AuthController.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': token },
+                    body: JSON.stringify(datos)
+                });
+                
+                const resultado = await respuesta.json();
+                
+                if (resultado.exito) {
+                    mostrarMensajeModal('¡Actualizado con éxito!', 'exito');
+                    
+                    const usuarioActualizado = { 
+                        ...JSON.parse(localStorage.getItem('usuarioActual')), 
+                        nombre: datos.nombre,
+                        apellidos: datos.apellidos,
+                        correo: datos.correo,
+                        telefono: datos.telefono
+                    };
+                    localStorage.setItem('usuarioActual', JSON.stringify(usuarioActualizado));
+                    
+                    cargarDatosUsuario();
+                    if (modal) {
+                        setTimeout(() => { 
+                            modal.style.display = 'none'; 
+                            mostrarMensajeModal('', 'info', false); 
+                        }, 2000);
+                    }
+                } else {
+                    mostrarMensajeModal('Error: ' + resultado.mensaje, 'error');
+                }
+            } catch (error) {
+                mostrarMensajeModal('Error de conexión.', 'error');
+            }
+        });
+    }
+
+    // Listeners Modal
+    if (btnAbrirModal && modal) {
+        btnAbrirModal.addEventListener('click', () => modal.style.display = 'flex');
+    }
+    if (btnCerrarModal && modal) {
+        btnCerrarModal.addEventListener('click', () => modal.style.display = 'none');
+    }
+    if (modal) {
+        modal.addEventListener('click', (e) => { 
+            if (e.target === modal) modal.style.display = 'none'; 
+        });
+    }
+
+    function mostrarMensajeModal(texto, tipo, mostrar = true) {
+        if (mensajePerfil) {
+            mensajePerfil.textContent = texto;
+            mensajePerfil.className = `mensajeGeneral ${tipo}`;
+            mensajePerfil.style.display = mostrar ? 'block' : 'none';
+        }
+    }
+
+    // Inicializar funcionalidad del perfil administrador
+    cargarDatosUsuario();
+    cargarFavoritos();
 }

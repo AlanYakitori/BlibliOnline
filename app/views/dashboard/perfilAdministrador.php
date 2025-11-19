@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../../config/session.php';
 
-protegerPagina(['administrador', 'docente', 'alumno']); 
+protegerPagina(['administrador']);
 $csrf = obtenerCSRFToken();
 ?>
 
@@ -39,7 +39,7 @@ $csrf = obtenerCSRFToken();
             <li><a href="panelGestionContenidoAdministrador.php">Subir Contenido</a></li>
             <li><a href="#">Notificaciones</a></li>
             <li><a href="perfilAdministrador.php">Mi cuenta</a></li>
-            <li><a href="#" class="lnk" id="btnCerrarSesion">Cerrar Sesión</a></li>
+            <li><a href="" class="lnk" id="btnCerrarSesion">Cerrar Sesion</a></li>
         </ul>
         <div class="bx bx-menu" id="menu-icon"></div>
     </header>
@@ -118,12 +118,10 @@ $csrf = obtenerCSRFToken();
     </div>
     <br><br><br>
     
-    <?php include '../footer.php'; ?>
-
+   
     <script>window.csrfToken = '<?php echo $csrf; ?>';</script>
-    <script src="../../../public/js/perfil.js"></script> 
-    
-    <script src="../../../public/js/perfilAdministrador.js"></script>
-    
+    <script src="../../../public/js/perfil.js"></script>
 </body>
 </html>
+
+ <?php include '../footer.php'; ?>
