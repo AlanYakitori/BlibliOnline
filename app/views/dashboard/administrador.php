@@ -60,7 +60,16 @@ $tipoUsuario = 'administrador';
 
         <div class="swiper-button-next"></div>
     </div>
+
+    <div id="recursos-feed-container" class="feed-grid">
+    </div>
+
+    <div id="loading-spinner" style="text-align: center; margin: 30px; display: none;">
+        <i class="bx bx-loader-alt bx-spin" style="font-size: 30px; color: #007bff;"></i> Cargando más contenido...
+    </div>
+
     <br><br><br><br><br><br>
+
     <div id="modal-detalle" class="modal-overlay">
         <div class="modal-contenido">
             
@@ -87,7 +96,7 @@ $tipoUsuario = 'administrador';
             
             <button id="btn-favorito" class="btn-favorito">
                 <i class="fa-regular fa-heart"></i>
-                <span>Agregar a Favoritos</span>
+                <span id="btn-favorito-texto"></span>
             </button>
 
         </div>
@@ -101,6 +110,8 @@ $tipoUsuario = 'administrador';
     <script src="https://kit.fontawesome.com/b668f928a3.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
     <script src="../../../public/js/swiper.js"></script>
+    <script src="../../../public/js/feed.js"></script>
+
 </body>
 </html>
 

@@ -120,6 +120,7 @@ $csrf = obtenerCSRFToken();
     
    
     <script>window.csrfToken = '<?php echo $csrf; ?>';</script>
+    <script src="https://kit.fontawesome.com/b668f928a3.js" crossorigin="anonymous"></script>
     <script src="../../../public/js/perfil.js"></script>
 </body>
 </html>

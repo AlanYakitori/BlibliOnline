@@ -9,28 +9,51 @@ h2 {
 .swiper {
     padding-top: 2%;
     width: 95%;
-    
     border-radius: 12px;
     padding-bottom: 30px;
+    margin: 40px auto 20px; /* Asegura que el carrusel esté centrado y separado */
 }
 
+/* Alineación de slides */
 .swiper-slide {
     background-color: transparent;
     padding: 10px 0; 
 }
 
 .swiper-wrapper {
-    align-items: stretch; 
+    align-items: stretch; /* Fuerza la misma altura en los slides */
+}
+
+.feed-grid {
+    display: grid;
+    /* Diseño responsivo de columnas (mínimo 280px por columna) */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin: 50px auto;
+    padding: 0 20px;
+    max-width: 1400px;
+}
+
+#loading-spinner {
+    text-align: center;
+    margin: 30px auto;
+    padding: 10px;
+    /* Estilo del icono que gira */
+    color: #007bff; 
+    font-size: 30px;
 }
 
 .tarjeta-noticia {
     background-color: #ffffff;
     border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0, 0.08); /* Sombra más sutil */
+    box-shadow: 0 4px 12px rgba(0,0,0, 0.08);
     overflow: hidden;
+    
+    /* Configuración de Flexbox para igualar la altura del contenido */
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 100%; 
+    
     border-top: 4px solid #8f6be2; 
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -48,7 +71,7 @@ h2 {
 
 .tarjeta-contenido {
     padding: 20px;
-    flex-grow: 1;
+    flex-grow: 1; /* Hace que el área de texto se estire */
 }
 
 .tarjeta-contenido h3 {

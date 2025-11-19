@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../models/UserModel.php';
+require_once __DIR__ . '/../models/ContenidoModel.php';
 require_once __DIR__ . '/../../config/conexion.php';
 require_once __DIR__ . '/../../config/session.php'; 
 
@@ -222,6 +223,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             r.titulo, 
                             r.descripcion, 
                             r.archivo_url,
+                            r.imagen_url,
                             (CASE WHEN f.id_usuario IS NOT NULL THEN 1 ELSE 0 END) as es_favorito
                         FROM recurso r
                         LEFT JOIN listasfavoritos f 

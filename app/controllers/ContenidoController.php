@@ -40,6 +40,9 @@ class ContenidoController {
                 case 'eliminarContenido':
                     $this->eliminarContenido($input);
                     break;
+                case 'obtenerFeedRecursos':
+                    $this->obtenerFeedRecursos($input);
+                    break;
                 default:
                     echo json_encode([
                         'exito' => false,
@@ -47,6 +50,33 @@ class ContenidoController {
                     ]);
                     break;
             }
+        }
+    }
+
+    private function obtenerFeedRecursos($datos) {
+        try {
+            $id_usuario = $_SESSION['usuario']['id'] ?? 0; 
+            
+            $limit = intval($datos['limit'] ?? 12);
+            $offset = intval($datos['offset'] ?? 0);
+            
+            $contenidoModel = new ContenidoModel();
+            global $conexion;
+            
+            $recursos = $contenidoModel->obtenerRecursosPaginados($conexion, $id_usuario, $limit, $offset);
+
+            echo json_encode([
+                'exito' => true,
+                'recursos' => $recursos,
+                'total_cargado' => count($recursos)
+            ]);
+
+        } catch (Exception $e) {
+            error_log("Error en obtenerFeedRecursos: " . $e->getMessage());
+            echo json_encode([
+                'exito' => false,
+                'mensaje' => 'Error al cargar el feed: ' . $e->getMessage()
+            ]);
         }
     }
 

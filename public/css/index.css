@@ -1,176 +1,171 @@
-/* ================================
-   ESTILOS GENERALES
-================================== */
-html, body {
+/* ======================================================== */
+/* --- ESTILOS DE LA PÁGINA DE INICIO (index.css) --- */
+/* ======================================================== */
+
+/* 1. Body y Layout Principal */
+body {
+    /* --- CAMBIO AQUÍ: Fondo degradado más suave --- */
+    background-color: #eef2f6; 
+    background-image: linear-gradient(135deg, #f0f4f8 0%, #dbe3ed 100%); 
+    
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    height: 100%;
-    font-family: 'Poppins', sans-serif;
-    background-color: #bb95ca;
-    color: #fff;
-    overflow-x: hidden; 
-    overflow-y: auto; 
+    min-height: 100vh;
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-/* ================================
-   CONTENEDOR PRINCIPAL
-================================== */
 .contenedorPrincipal {
-    background-color: #f7edf6;
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 50px;
-    width: 35%;
-    max-width: 800px;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background-color: white;
+    border-radius: 15px;
+    /* Sombra más profunda para darle más "vida" */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15); 
+    padding: 40px;
+    max-width: 600px; 
+    width: 90%;
     text-align: center;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-    margin: 60px auto;
-    transition: all 0.3s ease;
 }
 
-/* ================================
-   TÍTULOS Y TEXTOS
-================================== */
+/* 2. Títulos y Slogan */
 .tituloPrincipal {
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: 700;
-    color: #2e2c2e;
-    margin-bottom: 10px;
-    letter-spacing: 2px;
+    color: #007bff;
+    margin-bottom: 5px;
+}
+
+/* --- NUEVO ESTILO PARA EL ESLOGAN --- */
+.main-slogan {
+    font-size: 1.4rem;
+    font-weight: 400; /* Fuente más delgada */
+    color: #4a5568; /* Gris oscuro elegante */
+    margin-bottom: 30px;
+    margin-top: -10px; /* Acercarlo al título principal */
 }
 
 .subTitulo {
-    font-size: 1.3rem;
-    color: #333038;
-    margin-bottom: 40px;
+    font-size: 1.2rem;
+    color: #6c757d;
+    margin-bottom: 25px;
+    display: none; /* Ocultamos el 'Tu Biblioteca Digital' ya que el slogan es más claro */
 }
 
-.textoBienvenida p {
-    color: #3b3741;
-    font-size: 1.1rem;
+/* 3. Texto y Botones (Resto del CSS se queda igual) */
+
+.textoBienvenida {
+    margin-bottom: 30px;
+    font-size: 0.95rem;
     line-height: 1.6;
-    margin-bottom: 10px;
-    text-align: justify;
+    color: #495057;
 }
 
-/* ================================
-   SECCIÓN DE USUARIOS
-================================== */
 .seccionUsuarios {
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
 .tituloUsuarios {
     font-size: 1.5rem;
-    font-weight: 600;
-    color: #2f213a;
-    margin-bottom: 25px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 20px;
 }
 
-/* ================================
-   BOTONES DE USUARIO
-================================== */
 .contenedorBotones {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
+/* --- ESTILO BASE DEL BOTÓN CON ICONOS --- */
 .botonTipoUsuario {
-    display: inline-block;
-    width: 180px;
-    padding: 15px 0;
-    border-radius: 12px;
+    display: flex;
+    flex-direction: column; 
+    gap: 5px; 
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
-    color: #fff;
+    padding: 15px 10px;
+    border-radius: 10px;
     font-weight: 600;
     font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
     transition: all 0.3s ease;
+    min-height: 100px;
 }
 
-/* Tonos de morado */
-.botonAdministrador {
-    background-color: #5c4574;
-}
-.botonDocente {
-    background-color: #432e5a;
-}
-.botonAlumno {
-    background-color: #331750;
+.botonTipoUsuario i {
+    font-size: 2.2rem; 
+    margin-bottom: 5px; 
 }
 
-/* Efecto hover */
 .botonTipoUsuario:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25);
-    opacity: 0.95;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* ================================
-   ALERTAS
-================================== */
-.alert {
-    margin-top: 30px;
-    background-color: rgba(255, 255, 255, 0.15);
-    border: none;
-    color: #fff;
+/* 4. Colores por Rol */
+.botonAdministrador {
+    background-color: #dc3545; 
+    color: white;
+    border: 1px solid #dc3545;
+}
+.botonAdministrador:hover {
+    background-color: #c82333;
+}
+
+.botonDocente {
+    background-color: #28a745; 
+    color: white;
+    border: 1px solid #28a745;
+}
+.botonDocente:hover {
+    background-color: #218838;
+}
+
+.botonAlumno {
+    background-color: #007bff; 
+    color: white;
+    border: 1px solid #007bff;
+}
+.botonAlumno:hover {
+    background-color: #0069d9;
+}
+
+
+/* --- ESTILO PARA MENSAJES DE ALERTA SIN BOOTSTRAP --- */
+
+.custom-alert {
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
     font-weight: 500;
-    border-radius: 10px;
+    text-align: left;
+    border: 1px solid transparent;
 }
 
-/* ================================
-   RESPONSIVE DESIGN
-================================== */
-
-/* Tablet */
-@media (max-width: 992px) {
-    .tituloPrincipal {
-        font-size: 2.5rem;
-    }
-
-    .contenedorPrincipal {
-        padding: 40px 30px;
-    }
-
-    .botonTipoUsuario {
-        width: 160px;
-        padding: 12px 0;
-    }
+.type-success {
+    background-color: #d4edda; 
+    color: #155724; 
+    border-color: #c3e6cb;
 }
 
-/* Celular */
+/* Media Query para móvil */
 @media (max-width: 600px) {
-    body {
-        background: linear-gradient(160deg, #7a28cb 0%, #b372ff 100%);
-    }
-
     .contenedorPrincipal {
-        padding: 35px 25px;
-        margin: 30px auto;
+        width: 80%;
     }
 
     .tituloPrincipal {
         font-size: 2rem;
     }
-
-    .subTitulo {
-        font-size: 1.1rem;
-    }
-
-    .textoBienvenida p {
-        font-size: 1rem;
-    }
-
     .contenedorBotones {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .botonTipoUsuario {
-        width: 100%;
-        font-size: 0.95rem;
+        grid-template-columns: 1fr; 
     }
 }
