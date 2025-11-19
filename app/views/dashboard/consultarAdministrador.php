@@ -66,9 +66,7 @@ $csrf = obtenerCSRFToken();
 
     <br><br><br>
 
-    <?php include '../footer.php'; ?>
-
-    
+ 
     <script>
         window.csrfToken = '<?php echo $csrf; ?>';
     </script>
@@ -81,3 +79,7 @@ $csrf = obtenerCSRFToken();
 
 </body>
 </html>
+
+<?php include '../footer.php'; ?>
+
+    
