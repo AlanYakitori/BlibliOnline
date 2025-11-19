@@ -27,6 +27,16 @@ function iniciarSesionUsuario(array $usuario){
     }
 }
 
+function validarCSRFToken($token_enviado) {
+    // 1. Verificar que tengamos un token en sesión y que el JS haya enviado uno
+    if (empty($token_enviado) || empty($_SESSION['csrf_token'])) {
+        return false;
+    }
+
+    // 2. Comparar de forma segura (previene ataques de tiempo)
+    return hash_equals($_SESSION['csrf_token'], $token_enviado);
+}
+
 function protegerPagina(array $rolesPermitidos = []){
     // Evitar cache del lado del navegador para que el back no muestre contenido válido
     header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
