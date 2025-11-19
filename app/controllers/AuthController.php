@@ -1,22 +1,24 @@
 <?php
 require_once __DIR__ . '/../models/UserModel.php';
+require_once __DIR__ . '/../models/ContenidoModel.php';
 require_once __DIR__ . '/../../config/conexion.php';
-require_once __DIR__ . '/../../config/session.php';
+require_once __DIR__ . '/../../config/session.php'; 
 
-// Configurar respuestas en formato JSON
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type');
 
-// Solo procesar si recibimos datos POST
+header('Access-Control-Allow-Origin: *'); 
+header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Headers: Content-Type, X-CSRF-Token'); 
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-    // Leer los datos que envía JavaScript
     $datos_recibidos = file_get_contents('php://input');
     $datos_usuario = json_decode($datos_recibidos, true);
+
+    $token_enviado = $_SERVER['HTTP_X_CSRF_TOKEN'] ?? ''; 
     
-    // Verificar que llegaron datos
+
+
     if (!$datos_usuario) {
         echo json_encode([
             'exito' => false,
@@ -30,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     switch ($accion) {
         case 'registrar':
-            // Extraer datos del usuario
             $nombre = $datos_usuario['nombre'];
             $apellidos = $datos_usuario['apellidos'];
             $tipoUsuario = $datos_usuario['tipoUsuario'];
@@ -44,8 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $genero = $datos_usuario['genero'];
             $fechaNacimiento = $datos_usuario['fechaNacimiento'];
             
-            // Crear objeto UserModel
-            $usuario = new UserModel ();  
+            $usuario = new UserModel (); 
             $usuario->setNombre($nombre);
             $usuario->setApellidos($apellidos);
             $usuario->setTipoUsuario($tipoUsuario);
@@ -58,7 +58,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $usuario->setGenero($genero);
             $usuario->setFechaNacimiento($fechaNacimiento);
             
-            // Verificar si el correo ya existe antes de registrar
             if ($usuario->correoExiste($conexion)) {
                 echo json_encode([
                     'exito' => false,
@@ -67,63 +66,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 break;
             }
             
-            // Ejecutar el método registrarUsuario
             $resultado = $usuario->registrarUsuario($conexion);
             
-            // Enviar respuesta basada en el resultado
             if ($resultado) {
-                echo json_encode([
-                    'exito' => true,
-                    'mensaje' => 'Registro exitoso. Redirigiendo al inicio de sesión...'
-                ]);
+                echo json_encode(['exito' => true, 'mensaje' => 'Registro exitoso. Redirigiendo...']);
             } else {
-                echo json_encode([
-                    'exito' => false,
-                    'mensaje' => 'Ocurrió un error al guardar tus datos. Inténtalo de nuevo.'
-                ]);
+                echo json_encode(['exito' => false, 'mensaje' => 'Ocurrió un error al guardar tus datos.']);
             }
             break;
+        
         case 'ingresar':
-            // Extraer datos del usuario
             $correo = $datos_usuario['correo'];
             $contrasena = $datos_usuario['contrasena'];
             $tipoUsuario = $datos_usuario['tipoUsuario'];
             
-            // Crear objeto UserModel
             $usuario = new UserModel();
-            
-            // Validar credenciales
             $datosUsuario = $usuario->validarCredenciales($conexion, $correo, $contrasena);
             
-            // Si no se encontró el usuario o la contraseña es incorrecta
             if ($datosUsuario === null || $datosUsuario === false) {
-                echo json_encode([
-                    'exito' => false,
-                    'mensaje' => 'Correo o contraseña incorrectos'
-                ]);
+                echo json_encode(['exito' => false, 'mensaje' => 'Correo o contraseña incorrectos']);
                 break;
             }
             
-            // Verificar que el tipo de usuario coincida
             if ($datosUsuario['tipoUsuario'] !== $tipoUsuario) {
-                echo json_encode([
-                    'exito' => false,
-                    'mensaje' => 'Correo o contraseña incorrectos'
-                ]);
+                echo json_encode(['exito' => false, 'mensaje' => 'Correo o contraseña incorrectos']);
                 break;
             }
             
-            // Verificar si el usuario ha sido aceptado
             if ($datosUsuario['aceptado'] == 0) {
-                echo json_encode([
-                    'exito' => false,
-                    'mensaje' => 'Su petición de creación de usuario no ha sido aceptada'
-                ]);
+                echo json_encode(['exito' => false, 'mensaje' => 'Su petición de creación de usuario no ha sido aceptada']);
                 break;
             }
             
-            // Si todo está bien, retornar los datos del usuario
-            // Iniciar sesión en el servidor para proteger accesos a dashboards
             $usuarioSession = [
                 'id' => $datosUsuario['id_usuario'],
                 'nombre' => $datosUsuario['nombre'],
@@ -146,121 +120,82 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'usuario' => $usuarioSession
             ]);
             break;
+        
         case 'cambiarContrasenia':
-            // Extraer datos del usuario
-            
             $nuevaContrasena = $datos_usuario['contrasenia'];
             $nuevaContrasenaHash = password_hash($nuevaContrasena, PASSWORD_DEFAULT);
             $correo = $datos_usuario['correo'];
             
-            // Crear objeto UserModel
             $usuario = new UserModel();
-            
             $usuario->setCorreo($correo);
             $usuario->setContrasena($nuevaContrasenaHash);
-
-            // Ejecutar el método cambiarContrasenia
             $result = $usuario->actualizarContrasena($conexion);
 
-            // Enviar respuesta basada en el resultado
             if ($result) {
-                echo json_encode([
-                    'exito' => true,
-                    'mensaje' => 'Contraseña cambiada exitosamente. Redirigiendo al inicio de sesión...'
-                ]);
+                echo json_encode(['exito' => true, 'mensaje' => 'Contraseña cambiada exitosamente.']);
             } else {
-                echo json_encode([
-                    'exito' => false,
-                    'mensaje' => 'Ocurrió un error al cambiar la contraseña. Inténtalo de nuevo.'
-                ]);
+                echo json_encode(['exito' => false, 'mensaje' => 'Ocurrió un error al cambiar la contraseña.']);
             }
             break;
+        
         case 'consultarUsuarios':
             try {
                 $modelo = new UserModel();
                 $listaUsuarios = $modelo->consultarTodos($conexion); 
-                
-                echo json_encode([
-                    'exito' => true, 
-                    'usuarios' => $listaUsuarios
-                ]);
-                
+                echo json_encode(['exito' => true, 'usuarios' => $listaUsuarios]);
             } catch (Exception $e) {
-                echo json_encode([
-                    'exito' => false, 
-                    'mensaje' => 'Error del servidor: ' . $e->getMessage()
-                ]);
+                echo json_encode(['exito' => false, 'mensaje' => 'Error del servidor: ' . $e->getMessage()]);
             }
             break;
+        
         case 'consultarUsuarioUnico':
             try {
                 $id = $datos_usuario['id_usuario'] ?? null;
                 if (!$id) {
                     throw new Exception('ID de usuario no proporcionado');
                 }
-                
                 $modelo = new UserModel();
-                // Necesitas esta nueva función en tu Modelo
                 $usuario = $modelo->consultarPorId($conexion, $id); 
-                
                 echo json_encode(['exito' => true, 'usuario' => $usuario]);
-                
             } catch (Exception $e) {
                 echo json_encode(['exito' => false, 'mensaje' => $e->getMessage()]);
             }
             break;
-        case 'eliminarUsuario': // <--- Lo puse en singular
+        
+        case 'eliminarUsuario': 
             try {
                 $id_usuario = $datos_usuario['id_usuario'] ?? null;
-
                 if (!$id_usuario) {
                     throw new Exception('No se proporcionó un ID de usuario.');
                 }
-
                 $modelo = new UserModel();
-                
                 $exito = $modelo->eliminarPorId($conexion, $id_usuario); 
-
                 if ($exito) {
-                    echo json_encode([
-                        'exito' => true, 
-                        'mensaje' => 'Usuario eliminado correctamente'
-                    ]);
+                    echo json_encode(['exito' => true, 'mensaje' => 'Usuario eliminado correctamente']);
                 } else {
-                    throw new Exception('No se pudo eliminar el usuario (el ID no existía).');
+                    throw new Exception('No se pudo eliminar el usuario.');
                 }
-                
             } catch (Exception $e) {
-                echo json_encode([
-                    'exito' => false, 
-                    'mensaje' => $e->getMessage()
-                ]);
+                echo json_encode(['exito' => false, 'mensaje' => $e->getMessage()]);
             }
             break;
+        
         case 'actualizarUsuario':
             try {
                 $modelo = new UserModel();
                 
-                // Pasa todos los datos del JS al Modelo
                 $modelo->setId($datos_usuario['id_usuario']);
                 $modelo->setNombre($datos_usuario['nombre']);
                 $modelo->setApellidos($datos_usuario['apellidos']);
                 $modelo->setTelefono($datos_usuario['telefono']);
-                $modelo->setDato($datos_usuario['dato']);
                 $modelo->setCorreo($datos_usuario['correo']);
-                $modelo->setGenero($datos_usuario['genero']);
-                $modelo->setFechaNacimiento($datos_usuario['fechaNacimiento']);
-                $modelo->setTipoUsuario($datos_usuario['tipoUsuario']);
-                
-                // (MUY IMPORTANTE) Lógica de contraseña opcional
-                // Solo "hasheamos" y "seteamos" la contraseña si el JS la envió
+
                 if (isset($datos_usuario['contrasena']) && !empty($datos_usuario['contrasena'])) {
                     $hash = password_hash($datos_usuario['contrasena'], PASSWORD_DEFAULT);
                     $modelo->setContrasena($hash);
                 }
 
-                // Llama a la función del modelo (que también vamos a corregir)
-                $resultado = $modelo->actualizarUsuario($conexion);
+                $resultado = $modelo->actualizarPerfilUsuario($conexion); 
 
                 if ($resultado) {
                     echo json_encode([
@@ -276,6 +211,81 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'exito' => false, 
                     'mensaje' => $e->getMessage()
                 ]);
+            }
+            break;
+        
+        case 'obtenerNoticiasDestacadas':
+            try {
+                $id_usuario = $_SESSION['usuario']['id'] ?? 0;
+
+                $sql = "SELECT 
+                            r.id_recurso, 
+                            r.titulo, 
+                            r.descripcion, 
+                            r.archivo_url,
+                            r.imagen_url,
+                            (CASE WHEN f.id_usuario IS NOT NULL THEN 1 ELSE 0 END) as es_favorito
+                        FROM recurso r
+                        LEFT JOIN listasfavoritos f 
+                            ON r.id_recurso = f.id_recurso AND f.id_usuario = :id_usuario
+                        LIMIT 6";
+                
+                $stmt = $conexion->prepare($sql);
+                $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+                $stmt->execute();
+                
+                $noticias = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                echo json_encode(['exito' => true, 'noticias' => $noticias]);
+                
+            } catch (Exception $e) {
+                echo json_encode(['exito' => false, 'mensaje' => $e->getMessage()]);
+            }             
+            break;
+        case 'obtenerMisFavoritos':
+            try {
+                $id_usuario = $_SESSION['usuario']['id'] ?? null;
+                if (!$id_usuario) {
+                    throw new Exception('Usuario no autenticado');
+                }
+                
+                $modelo = new UserModel();
+                $favoritos = $modelo->consultarFavoritosPorUsuario($conexion, $id_usuario);
+                
+                echo json_encode([
+                    'exito' => true, 
+                    'favoritos' => $favoritos
+                ]);
+
+            } catch (Exception $e) {
+                echo json_encode(['exito' => false]);
+            }
+            break;
+        case 'marcarFavorito':
+            try {
+                $id_usuario = $_SESSION['usuario']['id'] ?? null;
+                if (!$id_usuario) {
+                    throw new Exception('Usuario no autenticado');
+                }
+
+                $id_recurso = $datos_usuario['id_recurso'] ?? null;
+                $es_favorito = $datos_usuario['es_favorito'] ?? false; // bool
+
+                if (!$id_recurso) {
+                    throw new Exception('ID de recurso no proporcionado');
+                }
+
+                $modelo = new UserModel();
+                $exito = $modelo->gestionarFavorito($conexion, $id_usuario, $id_recurso, $es_favorito);
+
+                if ($exito) {
+                    echo json_encode(['exito' => true, 'mensaje' => 'Favorito actualizado']);
+                } else {
+                    throw new Exception('No se pudo actualizar el favorito');
+                }
+
+            } catch (Exception $e) {
+                echo json_encode(['exito' => false, 'mensaje' => $e->getMessage()]);
             }
             break;
         default:

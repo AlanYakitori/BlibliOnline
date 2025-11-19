@@ -4,63 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIBLIONLINE - Biblioteca Digital</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="public/css/index.css">
     <link rel="stylesheet" href="public/css/footer.css">
 </head>
 <body>
  
     <div class="contenedorPrincipal">
-       
         
-        <!-- Título principal -->
         <h1 class="tituloPrincipal">BIBLIONLINE</h1>
+        
+        <h2 class="main-slogan">Tu acceso ilimitado al saber y la cultura.</h2> 
+        
         <p class="subTitulo">Tu Biblioteca Digital</p>
         
-        <!-- Texto de bienvenida -->
         <div class="textoBienvenida">
             <p>Descubre miles de libros digitales, artículos académicos y recursos educativos al alcance de un clic. Nuestra plataforma te ofrece acceso ilimitado a una vasta colección literaria desde la comodidad de tu hogar.</p>
         </div>
         
-        <!-- Selección de tipo de usuario -->
         <div class="seccionUsuarios">
             <h2 class="tituloUsuarios">Selecciona tu inicio de sesión</h2>
             <div class="contenedorBotones">
+                
                 <a href="app/views/auth/loginAdministrador.php" class="botonTipoUsuario botonAdministrador">
+                    <i class="ri-shield-user-line"></i> 
                     <span class="textoBoton">Administrador</span>
                 </a>
                 
                 <a href="app/views/auth/loginDocente.php" class="botonTipoUsuario botonDocente">
+                    <i class="ri-user-star-line"></i> 
                     <span class="textoBoton">Docente</span>
                 </a>
                 
                 <a href="app/views/auth/loginAlumno.php" class="botonTipoUsuario botonAlumno">
+                    <i class='bx bx-user'></i> 
                     <span class="textoBoton">Alumno</span>
                 </a>
+                
                 <?php 
-                    if(isset($_GET['message'])){  
+                    if(isset($_GET['message'])){ 
                 ?> 
-                <div class="alert alert-primary" role="alert">
-                   
-                <?php
-                    switch ($_GET['message']){
-                        case 'ok':
-                            echo 'Correo enviado con exito, por favor, revise su badeja de mensajes';
-                            break;
-                        default:
-                            echo 'Algo salio mal, no se porque la notificacion es verde!';
-                            break;
-                    }
-                ?>   
+                <div class="custom-alert type-success" role="alert"> 
+                    <?php
+                        switch ($_GET['message']){
+                            case 'ok':
+                                echo 'Correo enviado con exito, por favor, revise su badeja de mensajes';
+                                break;
+                            default:
+                                echo 'Algo salio mal, no se porque la notificacion es verde!';
+                                break;
+                        }
+                    ?> 
+                </div> 
                 <?php 
                     }
-                ?>   
-            </div>
-            </div>
-            
-        </div>
+                ?> 
+            </div> 
+        </div> 
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    
+    <?php include 'app/views/footer.php'; ?>
 </body>
-<?php include 'app/views/footer.php'; ?>
 </html>
