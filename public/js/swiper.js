@@ -218,7 +218,6 @@ cerrarModal();
         }
     });
 
-    // --- LÓGICA DE INTERACCIÓN (STARS/FAVORITE) ---
     contenedorEstrellas.addEventListener('click', (e) => {
         if (e.target.classList.contains('fa-star')) {
             const valor = parseInt(e.target.dataset.valor);

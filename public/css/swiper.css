@@ -1,7 +1,3 @@
-/* =========================================== */
-/* --- ESTILOS GENERALES Y CARRUSEL --- */
-/* =========================================== */
-
 h2 {
     font-weight: 600;
     color: #333;
@@ -116,7 +112,6 @@ h2 {
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     background-color: white;
 }
-/* ... (El resto de tus estilos de modal) ... */
 
 .modal-cerrar {
     position: absolute;
