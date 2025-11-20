@@ -216,30 +216,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         case 'obtenerNoticiasDestacadas':
             try {
-                $id_usuario = $_SESSION['usuario']['id'] ?? 0;
+                $id_usuario = $_SESSION['usuario']['id'] ?? null;
+                $modelo = new UserModel();
+                $noticias = $modelo->consultarNoticiasDestacadas($conexion, $id_usuario);
 
-                $sql = "SELECT 
-                    r.id_recurso, 
-                    r.titulo, 
-                    r.descripcion, 
-                    r.archivo_url,
-                    r.imagen_url,
-                    (CASE WHEN f.id_usuario IS NOT NULL THEN 1 ELSE 0 END) as es_favorito
-                FROM recurso r
-                LEFT JOIN listasfavoritos f 
-                    ON r.id_recurso = f.id_recurso AND f.id_usuario = :id_usuario
-                INNER JOIN categoriasusuario cu 
-                    ON r.id_categoria = cu.id_categoria 
-                    AND cu.id_usuario = :id_usuario
-                LIMIT 6";
-                
-                $stmt = $conexion->prepare($sql);
-                $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
-                $stmt->execute();
-                
-                $noticias = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                echo json_encode(['exito' => true, 'noticias' => $noticias]);
+                echo json_encode(
+                    ['exito' => true, 
+                    'noticias' => $noticias
+                ]);
                 
             } catch (Exception $e) {
                 echo json_encode(['exito' => false, 'mensaje' => $e->getMessage()]);
