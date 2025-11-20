@@ -18,6 +18,7 @@ $csrf = obtenerCSRFToken();
 
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"/>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,7 +35,7 @@ $csrf = obtenerCSRFToken();
         <ul class="navlist">
             <li><a href="panelGestionGrupos.php">Herramientas</a></li>
             <li><a href="panelGestionContenidoDocente.php">Subir Contenido</a></li>
-            <li><a href="#">Notificaciones</a></li>
+            <li><a href="notificacionesDocente.php">Notificaciones</a></li>
             <li><a href="perfilDocente.php">Mi cuenta</a></li>
             <li><a href="#" class="lnk" id="btnCerrarSesion">Cerrar Sesión</a></li>
         </ul>
@@ -118,6 +119,8 @@ $csrf = obtenerCSRFToken();
  
 
     <script>window.csrfToken = '<?php echo $csrf; ?>';</script>
+    
+    <script src="https://kit.fontawesome.com/b668f928a3.js" crossorigin="anonymous"></script>
     <script src="../../../public/js/perfil.js"></script>
 </body>
 </html>
