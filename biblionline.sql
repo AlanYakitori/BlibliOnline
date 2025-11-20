@@ -1,4 +1,4 @@
---Crear base de datos BibliOnline
+-- Crear base de datos BibliOnline
 DROP DATABASE IF EXISTS BibliOnline;
 CREATE DATABASE BibliOnline;
 USE BibliOnline;
