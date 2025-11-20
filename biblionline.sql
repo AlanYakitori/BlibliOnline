@@ -1,4 +1,4 @@
---Crear base de datos BibliOnline
+-- Crear base de datos BibliOnline
 DROP DATABASE IF EXISTS BibliOnline;
 CREATE DATABASE BibliOnline;
 USE BibliOnline;
@@ -44,7 +44,7 @@ CREATE TABLE Recurso (
     titulo VARCHAR(100),
     descripcion TEXT,
     archivo_url TEXT,
-    imagen_url TEXT DEFAULT 'https://www.esdip.com/wp-content/uploads/2023/01/historia-de-la-animacion_la-saga-shrek.jpg',
+    imagen_url TEXT DEFAULT 'https://media.istockphoto.com/id/1147544807/es/vector/no-imagen-en-miniatura-gr%C3%A1fico-vectorial.jpg?s=612x612&w=0&k=20&c=Bb7KlSXJXh3oSDlyFjIaCiB9llfXsgS7mHFZs6qUgVk=',
     calificacion FLOAT DEFAULT 0,
     aprobado BOOLEAN DEFAULT false,
     id_categoria INT,
@@ -76,6 +76,15 @@ CREATE TABLE MiembrosGrupo (
     id_usuario INT,
     FOREIGN KEY (id_grupo) REFERENCES Grupos(id_grupo) ON DELETE CASCADE,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE
+);
+
+CREATE TABLE ListaRechazos (
+    id_rechazo INT PRIMARY KEY auto_increment,
+    id_usuario INT,
+    id_recurso INT,
+    motivo TEXT,
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE,
+    FOREIGN KEY (id_recurso) REFERENCES Recurso(id_recurso) ON DELETE CASCADE
 );
 
 -- Tabla: Historial (Bitácora)

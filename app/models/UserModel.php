@@ -368,19 +368,20 @@ class UserModel {
     public function consultarNoticiasDestacadas($conexion, $id_usuario){
         try{
             $sql = "SELECT 
-                        r.id_recurso, 
-                        r.titulo, 
-                        r.descripcion, 
-                        r.archivo_url,
-                        r.imagen_url,
-                        (CASE WHEN f.id_usuario IS NOT NULL THEN 1 ELSE 0 END) as es_favorito
-                    FROM recurso r
-                    LEFT JOIN listasfavoritos f 
-                        ON r.id_recurso = f.id_recurso AND f.id_usuario = :id_usuario
-                    INNER JOIN categoriasusuario cu 
-                        ON r.id_categoria = cu.id_categoria 
-                        AND cu.id_usuario = :id_usuario
-                    LIMIT 6";
+                r.id_recurso, 
+                r.titulo, 
+                r.descripcion, 
+                r.archivo_url,
+                r.imagen_url,
+                (CASE WHEN f.id_usuario IS NOT NULL THEN 1 ELSE 0 END) as es_favorito 
+            FROM Recurso r
+            LEFT JOIN ListasFavoritos f 
+                ON r.id_recurso = f.id_recurso AND f.id_usuario = :id_usuario
+            INNER JOIN CategoriasUsuario cu 
+                ON r.id_categoria = cu.id_categoria 
+                AND cu.id_usuario = :id_usuario
+            WHERE r.aprobado = 1
+            LIMIT 6";
             
             $stmt = $conexion->prepare($sql);
             $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
