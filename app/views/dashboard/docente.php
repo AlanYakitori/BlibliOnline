@@ -20,7 +20,7 @@ $csrf = obtenerCSRFToken();
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="../../../public/css/dashboardAdministrador.css">
-    <link rel="stylesheet" href="../../../public/css/footer.css">
+    <link rel="stylesheet" href="../../../public/css/swiper.css">
 </head>
 <body>
     <header>
@@ -40,13 +40,66 @@ $csrf = obtenerCSRFToken();
 <br><br><br><br>
 <br><br><br><br>
 <center><h1 id="nombreBienvenida"></h1></center>
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br>
+<div class="subTitulo">
+        <h2>Recomendacion segun tus gustos</h2>
+    </div>
+    <div class="swiper">
+        <div class="swiper-wrapper" id="carrusel-wrapper">
+        </div>
+
+        <div class="swiper-button-next"></div>
+    </div>
+
+    <div id="recursos-feed-container" class="feed-grid">
+    </div>
+
+    <div id="loading-spinner" style="text-align: center; margin: 30px; display: none;">
+        <i class="bx bx-loader-alt bx-spin" style="font-size: 30px; color: #007bff;"></i> Cargando más contenido...
+    </div>
+
+    <br><br><br><br><br><br>
+
+    <div id="modal-detalle" class="modal-overlay">
+        <div class="modal-contenido">
+            
+            <span class="modal-cerrar">&times;</span>
+            
+            <h3 id="modal-titulo"></h3>
+            
+            <p id="modal-desc"></p>
+
+            <div class="modal-enlace">
+                <strong>Recurso:</strong>
+                <a id="modal-url-link" href="#" target="_blank" rel="noopener noreferrer"></a>
+            </div>
+
+            <div class="modal-acciones">
+    
+            <div class="valoracion">
+                <i class="fa-regular fa-star" data-valor="1"></i>
+                <i class="fa-regular fa-star" data-valor="2"></i>
+                <i class="fa-regular fa-star" data-valor="3"></i>
+                <i class="fa-regular fa-star" data-valor="4"></i>
+                <i class="fa-regular fa-star" data-valor="5"></i>
+            </div>
+            
+            <button id="btn-favorito" class="btn-favorito">
+                <i class="fa-regular fa-heart"></i>
+                <span id="btn-favorito-texto"></span>
+            </button>
+
+        </div>
+            
+        </div>
+    </div>
+
 
     <script>window.csrfToken = '<?php echo $csrf; ?>';</script>
     <script src="../../../public/js/dashboardDocente.js"></script>
+    <script src="https://kit.fontawesome.com/b668f928a3.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+    <script src="../../../public/js/swiper.js"></script>
+    <script src="../../../public/js/feed.js"></script>
 </body>
 </html>
 
-<?php include '../footer.php'; ?>

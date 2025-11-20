@@ -61,7 +61,7 @@ function pintarTarjetas(noticias) {
 
     noticias.forEach(noticia => {
         const esFav = (noticia.es_favorito == 1) ? 'true' : 'false';
-        const imgUrl = noticia.imagen_url || `https://picsum.photos/seed/${noticia.id_recurso}/300/180`;
+        const imgUrl = noticia.imagen_url;
         const idRecurso = noticia.id_recurso; 
 
         const tarjetaHtml = `

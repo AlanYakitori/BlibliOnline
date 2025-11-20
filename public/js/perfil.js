@@ -243,19 +243,84 @@ function initPerfilAdministrador() {
             const urlTexto = urlLimpia.length > 40 ? urlLimpia.substring(0, 40) + '...' : urlLimpia;
 
             const itemHtml = `
-                <div class="item-favorito">
+                <div class="item-favorito" id="fav-item-${fav.id_recurso}">
                     <div class="info-favorito">
                         <h3>${fav.titulo}</h3>
                         <small title="${urlLimpia}">
                             <i class="fa-solid fa-link"></i> ${urlTexto}
                         </small>
                     </div>
-                    <a href="${urlLimpia}" target="_blank" class="btn-ir-recurso" title="Ir al recurso">
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                    </a>
+                    <div class="acciones-favorito" style="display:flex; gap:10px;">
+                        <a href="${urlLimpia}" target="_blank" class="btn-ir-recurso" title="Ir al recurso">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                        <button class="btn-eliminar-fav" data-id="${fav.id_recurso}" title="Eliminar de favoritos" style="border:none; background:none; cursor:pointer; color: #dc3545;">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
                 </div>
             `;
             contenedorFavoritos.innerHTML += itemHtml;
+        });
+    }
+
+    if (contenedorFavoritos) {
+        contenedorFavoritos.addEventListener('click', async function(e) {
+            // Buscamos si el clic fue en el botón de eliminar o en su ícono
+            const btnEliminar = e.target.closest('.btn-eliminar-fav');
+
+            if (btnEliminar) {
+                const idRecurso = btnEliminar.getAttribute('data-id');
+                
+                if (!confirm('¿Estás seguro de que deseas quitar este recurso de tus favoritos?')) {
+                    return;
+                }
+
+                // Efecto visual inmediato (opcional: opacidad mientras carga)
+                const itemCard = document.getElementById(`fav-item-${idRecurso}`);
+                if(itemCard) itemCard.style.opacity = '0.5';
+
+                try {
+                    const token = window.csrfToken || '';
+                    const datos = {
+                        accion: 'marcarFavorito',
+                        id_recurso: idRecurso,
+                        es_favorito: false // False para eliminar
+                    };
+
+                    const respuesta = await fetch('../../controllers/AuthController.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': token },
+                        body: JSON.stringify(datos)
+                    });
+
+                    const resultado = await respuesta.json();
+
+                    if (resultado.exito) {
+                        // Si se borró bien, eliminamos el elemento del HTML suavemente
+                        if (itemCard) {
+                            itemCard.remove();
+                        }
+                        // Si ya no quedan hijos, mostramos mensaje de vacío
+                        if (contenedorFavoritos.children.length === 0) {
+                            contenedorFavoritos.innerHTML = '<p style="text-align:center;">No tienes favoritos guardados.</p>';
+                        }
+                        mostrarMensajeModal('Favorito eliminado', 'exito'); // Usamos tu modal existente
+                        setTimeout(() => { 
+                             const msg = document.getElementById('mensaje-perfil');
+                             if(msg) msg.style.display = 'none'; 
+                        }, 2000);
+                    } else {
+                        mostrarMensajeModal('Error al eliminar', 'error');
+                        if(itemCard) itemCard.style.opacity = '1'; // Revertir opacidad
+                    }
+
+                } catch (error) {
+                    console.error(error);
+                    mostrarMensajeModal('Error de conexión', 'error');
+                    if(itemCard) itemCard.style.opacity = '1';
+                }
+            }
         });
     }
 
