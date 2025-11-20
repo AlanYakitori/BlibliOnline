@@ -44,7 +44,6 @@ $csrf = obtenerCSRFToken();
 
         <div class="perfil-card">
             <h2>Mis Datos</h2>
-            <br><br>
             <div class="datos-vista">
                 <p><strong>Nombre:</strong> <span id="vista-nombre">Cargando...</span></p>
                 <p><strong>Apellidos:</strong> <span id="vista-apellidos"></span></p>

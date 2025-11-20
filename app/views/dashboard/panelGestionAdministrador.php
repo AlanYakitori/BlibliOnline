@@ -72,15 +72,6 @@ $csrf = obtenerCSRFToken();
             </div>
 
             <div class="admin-card">
-                <div class="card-icon"><i class="ri-file-chart-line"></i></div>
-                <h3>Reportes Generales</h3>
-                <p>Descarga un PDF con las estadísticas de uso y registros del sistema.</p>
-                <a href="#" class="btn-action btn-green">
-                    <i class="bx bxs-file-pdf"></i> Generar Reporte
-                </a>
-            </div>
-
-            <div class="admin-card">
                 <div class="card-icon"><i class="ri-user-settings-line"></i></div>
                 <h3>Gestión de Usuarios</h3>
                 <p>Consulta, edita o elimina usuarios (Docentes y Alumnos) registrados.</p>
@@ -89,6 +80,32 @@ $csrf = obtenerCSRFToken();
                 </a>
             </div>
 
+            <div class="admin-card">
+                <div class="card-icon"><i class="ri-file-chart-line"></i></div>
+                <h3>Reportes sobre recursos</h3>
+                <p>Estadísticas y Top Favoritos</p>
+                <a href="generarReporte.php?tipo=recursos" target="_blank" class="btn-action btn-green">
+                    <i class="bx bxs-file-pdf"></i> Generar PDF
+                </a>
+            </div>
+
+            <div class="admin-card">
+                <div class="card-icon"><i class="ri-file-chart-2-line"></i></div>
+                <h3>Reportes sobre Grupos</h3>
+                <p>Alumnos y Estado de Inscripciones</p>
+                <a href="generarReporte.php?tipo=grupos" target="_blank" class="btn-action btn-green">
+                    <i class="bx bxs-file-pdf"></i> Generar PDF
+                </a>
+            </div>
+
+            <div class="admin-card">
+                <div class="card-icon"><i class="ri-file-user-fill"></i></div>
+                <h3>Reportes sobre usuarios</h3>
+                <p>Gráficas de Roles y Género</p>
+                <a href="generarReporte.php?tipo=usuarios" target="_blank" class="btn-action btn-green">
+                    <i class="bx bxs-file-pdf"></i> Generar PDF
+                </a>
+            </div>
         </div>
     </div>
 

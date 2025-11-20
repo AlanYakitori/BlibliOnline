@@ -125,8 +125,10 @@
 
 .admin-card:nth-child(1):hover { border-top-color: #007bff; }
 .admin-card:nth-child(2):hover { border-top-color: #ffc107; }
-.admin-card:nth-child(3):hover { border-top-color: #28a745; }
-.admin-card:nth-child(4):hover { border-top-color: #343a40; }
+.admin-card:nth-child(3):hover { border-top-color: #343a40; }
+.admin-card:nth-child(4):hover { border-top-color: #28a745; }
+.admin-card:nth-child(5):hover { border-top-color: #28a745; }
+.admin-card:nth-child(6):hover { border-top-color: #28a745; }
 
 /* ===== ESTILOS PARA FORMULARIOS DE HERRAMIENTAS ===== */
 

@@ -1,90 +1,115 @@
 .perfil-container {
     width: 90%;
     max-width: 1200px;
-    margin: 30px auto 50px; /* Margen para centrar y separar del header */
+    margin: 30px auto 50px;
     display: grid;
-    grid-template-columns: 1fr; /* Una columna por defecto (móvil) */
-    gap: 30px;
+    grid-template-columns: 1fr; /* Móvil: 1 columna */
+    gap: 20px; 
     padding-top: 10px;
 }
 
-@media (min-width: 992px) {
+/* Tablet y PC: 2 columnas */
+@media (min-width: 768px) {
     .perfil-container {
         grid-template-columns: 1.2fr 1.8fr; 
+        gap: 30px;
     }
 }
 
 .perfil-card {
     background: #fff;
     border-radius: 12px;
-    padding: 30px;
-    box-shadow: 0 4px 18px rgba(0,0,0, 0.08); /* Sombra elegante */
-    height: 100%;
+    padding: 20px; /* Padding cómodo para móvil */
+    box-shadow: 0 4px 18px rgba(0,0,0, 0.08);
+    height: auto;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+    .perfil-card {
+        padding: 30px;
+    }
 }
 
 .perfil-card h2 {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     color: #222;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     border-bottom: 2px solid #f0f0f0;
     padding-bottom: 10px;
 }
 
 .datos-vista p {
     display: flex; 
+    flex-direction: column; /* Móvil: Etiqueta arriba, dato abajo */
     border-bottom: 1px solid #eee;
     padding: 12px 0;
-    margin: 0; /* Quita márgenes del párrafo */
+    margin: 0;
     line-height: 1.5;
 }
 
-.datos-vista p:last-child {
-    border-bottom: none; 
-}
-
 .datos-vista strong {
-    width: 120px; 
+    width: 100%;
     color: #555;
     font-weight: 600;
+    margin-bottom: 4px;
 }
 
 .datos-vista span {
     color: #333;
     font-weight: 500;
-    flex: 1; /* Ocupa el resto del espacio */
-    word-wrap: break-word;
+    word-wrap: break-word; /* Evita que correos largos rompan el diseño */
 }
 
+/* PC: Regresa a fila horizontal */
+@media (min-width: 500px) {
+    .datos-vista p {
+        flex-direction: row; 
+        align-items: center;
+    }
+    .datos-vista strong {
+        width: 130px; 
+        margin-bottom: 0;
+    }
+}
 
 #contenedor-favoritos {
     display: flex;
-    flex-direction: column; /* Lista vertical */
+    flex-direction: column;
     gap: 15px; 
 }
 
 .item-favorito {
     background-color: #ffffff;
     border-radius: 8px;
-    padding: 15px 20px;
+    padding: 15px;
     box-shadow: 0 2px 5px rgba(0,0,0, 0.05);
     border-left: 5px solid #007bff; 
     
     display: flex;
-    justify-content: space-between; 
-    align-items: center;
-    gap: 15px; /* Espacio entre el texto y el botón */
+    flex-direction: column; /* Móvil: Texto arriba, botones abajo */
+    gap: 10px;
     
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .item-favorito:hover {
-    transform: translateY(-2px); /* Se levanta un poco */
+    transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0,0,0, 0.1);
+}
+
+/* Ajuste PC para favoritos */
+@media (min-width: 500px) {
+    .item-favorito {
+        flex-direction: row; 
+        justify-content: space-between; 
+        align-items: center;
+    }
 }
 
 .info-favorito h3 {
     margin: 0 0 5px 0;
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #333;
 }
 
@@ -95,12 +120,19 @@
     align-items: center;
     gap: 5px;
     max-width: 100%;
-    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; /* Para URLs largas */
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.btn-ir-recurso {
+/* Botones de acción (Ir y Borrar) */
+.acciones-favorito {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end; /* Alineados a la derecha */
+}
+
+.btn-ir-recurso, .btn-eliminar-fav {
     background-color: #f0f2f5;
     color: #333;
     width: 40px;
@@ -111,87 +143,125 @@
     justify-content: center;
     text-decoration: none;
     transition: background 0.2s;
-    flex-shrink: 0; 
-}
-
-.btn-ir-recurso:hover {
-    background-color: #007bff;
-    color: white;
-}
-
-.btn-actualizar {
-    background-color: #007bff;
-    color: white;
-    padding: 12px 20px;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
-    font-size: 1rem;
-    margin-top: 20px;
-    transition: background-color 0.2s ease;
-}
-.btn-actualizar:hover {
-    background-color: #0056b3;
+    font-size: 1.1rem;
+    flex-shrink: 0;
 }
 
-/* Formulario */
-.form-grupo { margin-bottom: 15px; }
-.form-grupo label { display: block; margin-bottom: 5px; font-weight: 600; color: #333; }
+.btn-ir-recurso:hover { background-color: #007bff; color: white; }
+.btn-eliminar-fav:hover { background-color: #ffecec; color: #dc3545; }
+
+#modal-actualizar {
+    display: none;          /* Oculto por defecto (JS lo pone en flex) */
+    position: fixed;        /* Flota sobre la pantalla */
+    z-index: 10000;         /* Siempre encima */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro */
+    
+    /* Centrado Flexbox */
+    justify-content: center;
+    align-items: center;
+    padding: 20px;          /* Margen de seguridad en móviles */
+    box-sizing: border-box;
+}
+
+.modal-contenido {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    width: 100%;
+    max-width: 420px;       /* Ancho máximo elegante */
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    
+    max-height: 85vh;       /* Nunca más alto que el 85% de la pantalla */
+    overflow-y: auto;       /* Scroll interno si falta espacio */
+}
+
+.modal-cerrar {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;        /* Muestra la manita */
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.modal-cerrar:hover {
+    color: #333;
+}
+
+.modal-contenido h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+    text-align: center;
+    color: #333;
+}
+
+/* Formularios del Modal */
+.form-grupo { 
+    margin-bottom: 15px; 
+}
+
+.form-grupo label { 
+    display: block; 
+    margin-bottom: 6px; 
+    font-weight: 600; 
+    color: #444; 
+    font-size: 0.9rem;
+}
+
 .form-grupo input { 
     width: 100%; 
-    padding: 10px; 
+    padding: 10px 12px; 
     border: 1px solid #ccc; 
-    border-radius: 5px; 
+    border-radius: 6px; 
     box-sizing: border-box; 
+    font-size: 1rem; /* Evita zoom en iOS */
     transition: border-color 0.2s;
 }
+
 .form-grupo input:focus {
     border-color: #007bff;
     outline: none;
 }
 
-/* Modal Overlay */
-.modal-overlay {
-    display: none; 
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    align-items: center;
-    justify-content: center;
-}
-.modal-contenido {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 30px;
-    width: 90%;
-    max-width: 500px;
-    position: relative;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
-}
-.modal-cerrar {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    color: #aaa;
-    font-size: 30px;
-    font-weight: bold;
+/* Botones Generales */
+.btn-actualizar {
+    background-color: #007bff;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
-}
-.modal-cerrar:hover {
-    color: #000;
+    font-size: 1rem;
+    width: 100%; /* Botón ancho en móvil */
+    margin-top: 10px;
+    transition: background-color 0.2s ease;
 }
 
+.btn-actualizar:hover {
+    background-color: #0056b3;
+}
+
+/* Mensajes de Feedback */
 .mensajeGeneral {
     margin-top: 15px;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 6px;
     display: none;
     font-size: 0.9rem;
+    text-align: center;
 }
+
 .mensajeGeneral.exito { background-color: #d4edda; color: #155724; display: block; }
 .mensajeGeneral.error { background-color: #f8d7da; color: #721c24; display: block; }
 .mensajeGeneral.info { color: #007bff; display: block; }
