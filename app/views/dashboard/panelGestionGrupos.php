@@ -69,8 +69,7 @@ $csrf = obtenerCSRFToken();
                         <div class="grupoInput">
                             <label class="labelInput">Reporte de grupos</label>
                             <p style="font-size: 14px; color: #777; margin: 5px 0 10px 0;">Incluye estadísticas de participación, contenidos compartidos y actividad general</p>
-                            <button id="btnReporteGrupos" class="btnCrearRecurso">Generar Reporte</button>
-                        </div>
+                            <a href="generarReporte.php?tipo=docente" target="_blank" class="btnCrearRecurso" style="text-decoration:none; text-align:center; display:inline-block;">Generar Reporte</a>                        </div>
                     </div>
                 </div>
             </div>
