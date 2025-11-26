@@ -31,14 +31,9 @@ $tipoUsuario = 'alumno';
 <body>
     <header>
         <a href="alumno.php" class="logo">BibliONLINE</a>
-        <ul class="navlist">
-            <li><a href="#" class="lnk" id="unirmeGrupo">Unirme a grupo</a></li>
-            <li><a href="panelGestionContenidoAlumno.php" class="lnk">Mi contenido</a></li>
-            <li><a href="#" class="lnk">Notificaciones</a></li>
-            <li><a href="perfilAlumno.php" class="lnk">Mi cuenta</a></li>
-            <li><a href="#" class="lnk" id="btnCerrarSesion">Cerrar Sesión</a></li>
+        <ul class="navlist" id="navListAlumno">
+            <!-- La navegación será generada dinámicamente por JavaScript -->
         </ul>
-
         <div class="bx bx-menu" id="menu-icon"></div>
     </header>
 

@@ -80,7 +80,7 @@ function actualizarNavegacionAlumno(tieneGrupo) {
             navListAlumno.innerHTML = `
                 <li><a href="#" onclick="window.location.href='panelGestionAlumno.php'">Ver Grupo</a></li>
                 <li><a href="panelGestionContenidoAlumno.php">Subir Contenido</a></li>
-                <li><a href="#">Notificaciones</a></li>
+                <li><a href="notificacionesAlumno.php">Notificaciones</a></li>
                 <li><a href="perfilAlumno.php">Mi cuenta</a></li>
                 <li><a href="#" class="lnk" id="btnCerrarSesion">Cerrar Sesión</a></li>
             `;
@@ -88,7 +88,7 @@ function actualizarNavegacionAlumno(tieneGrupo) {
             navListAlumno.innerHTML = `
                 <li><a href="alumno.php" id="unirmeGrupo">Unirme a grupo</a></li>
                 <li><a href="panelGestionContenidoAlumno.php">Subir Contenido</a></li>
-                <li><a href="#">Notificaciones</a></li>
+                <li><a href="notificacionesAlumno.php">Notificaciones</a></li>
                 <li><a href="perfilAlumno.php">Mi cuenta</a></li>
                 <li><a href="#" class="lnk" id="btnCerrarSesion">Cerrar Sesión</a></li>
             `;

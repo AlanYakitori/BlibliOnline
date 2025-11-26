@@ -55,8 +55,7 @@ class ContenidoModel {
             $stmt = $conexion->prepare($sql);
             
             $imagenUrl = empty($this->imagen_url) ? null : $this->imagen_url;
-            $aprobado = ($this->aprobado === null || $this->aprobado === '') ? 0 : $this->aprobado; // Usar el default de la BD (0)
-
+            
             $stmt->bindParam(1, $this->titulo, PDO::PARAM_STR);
             $stmt->bindParam(2, $this->descripcion, PDO::PARAM_STR);
             $stmt->bindParam(3, $this->archivo_url, PDO::PARAM_STR);
@@ -64,7 +63,7 @@ class ContenidoModel {
             $stmt->bindParam(4, $imagenUrl, $imagenUrl === null ? PDO::PARAM_NULL : PDO::PARAM_STR); 
             
             $stmt->bindParam(5, $this->calificacion, PDO::PARAM_STR);
-            $stmt->bindParam(6, $aprobado, PDO::PARAM_INT);
+            $stmt->bindParam(6, $this->aprobado, PDO::PARAM_INT);
             $stmt->bindParam(7, $this->id_categoria, PDO::PARAM_INT);
             $stmt->bindParam(8, $this->id_usuario, PDO::PARAM_INT);
 
@@ -133,7 +132,6 @@ class ContenidoModel {
     public function actualizarContenido($conexion, $idRecurso, $titulo, $descripcion, $archivoUrl, $imagen_url, $idCategoria, $aprobado) {
         try {
             $imagenUrl = empty($imagen_url) ? null : $imagen_url;
-            $aprobado = ($aprobado === null || $aprobado === '') ? 0 : $aprobado; 
             
             $sqlVerificar = "SELECT COUNT(*) FROM Recurso WHERE id_recurso = ?";
             $stmtVerificar = $conexion->prepare($sqlVerificar);
@@ -206,7 +204,8 @@ class ContenidoModel {
                 FROM Recurso r
                 LEFT JOIN ListasFavoritos f  
                     ON r.id_recurso = f.id_recurso AND f.id_usuario = :id_usuario
-                ORDER BY r.id_recurso DESC
+                WHERE r.aprobado = 1
+                ORDER BY r.calificacion DESC
                 LIMIT :limit OFFSET :offset";
         
         try {

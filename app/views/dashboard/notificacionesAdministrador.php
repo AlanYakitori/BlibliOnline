@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../../config/session.php';
 
-protegerPagina(['docente']);
+protegerPagina(['administrador']);
 $csrf = obtenerCSRFToken();
 ?>
 
@@ -25,13 +25,13 @@ $csrf = obtenerCSRFToken();
 </head>
 <body>
     <header>
-        <a href="docente.php" class="logo">BibliONLINE</a>
+        <a href="administrador.php" class="logo">BibliONLINE</a>
         <ul class="navlist">
-            <li><a href="panelGestionGrupos.php" class="lnk">Herramientas</a></li>
-            <li><a href="panelGestionContenidoDocente.php">Subir Contenido</a></li>
-            <li><a href="notificacionesDocente.php">Notificaciones</a></li>
-            <li><a href="perfilDocente.php">Mi cuenta</a></li>
-            <li><a href="" class="lnk" id="btnCerrarSesion">Cerrar Sesion</a></li>
+            <li><a href="panelGestionAdministrador.php" class="lnk active">Herramientas</a></li>
+            <li><a href="panelGestionContenidoAdministrador.php" class="lnk">Subir Contenido</a></li>
+            <li><a href="notificacionesAdministrador.php" class="lnk">Notificaciones</a></li>
+            <li><a href="perfilAdministrador.php" class="lnk">Mi cuenta</a></li>
+            <li><a href="#" class="lnk" id="btnCerrarSesion">Cerrar Sesión</a></li>
         </ul>
         <div class="bx bx-menu" id="menu-icon"></div>
     </header>
@@ -52,32 +52,29 @@ $csrf = obtenerCSRFToken();
 
 
 
-    <!-- Modal para motivo de rechazo -->
-    <div id="modalRechazo" class="modal-rechazo" style="display: none;">
+    <!-- Modal para motivo de rechazo de usuario -->
+    <div id="modalRechazoUsuario" class="modal-rechazo-usuario" style="display: none;">
         <div class="modal-header">
-            <h3>Rechazar Recurso</h3>
-            <button onclick="cerrarModalRechazo()" class="btn-cerrar">&times;</button>
+            <h3>Rechazar Usuario</h3>
+            <button onclick="cerrarModalRechazoUsuario()" class="btn-cerrar">&times;</button>
         </div>
         <div class="modal-body">
-            <input type="hidden" id="recursoIdRechazo" value="">
-            <label for="motivoRechazo">Motivo del rechazo:</label>
-            <textarea id="motivoRechazo" rows="4" placeholder="Explica por qué estás rechazando este recurso..."></textarea>
+            <input type="hidden" id="usuarioIdRechazo" value="">
+            <label for="motivoRechazoUsuario">Motivo del rechazo:</label>
+            <textarea id="motivoRechazoUsuario" rows="4" placeholder="Explica por qué estás rechazando este usuario..."></textarea>
         </div>
         <div class="modal-footer">
-            <button onclick="cerrarModalRechazo()" class="btn-cancelar">Cancelar</button>
-            <button onclick="confirmarRechazo()" class="btn-confirmar">Confirmar Rechazo</button>
+            <button onclick="cerrarModalRechazoUsuario()" class="btn-cancelar">Cancelar</button>
+            <button onclick="confirmarRechazoUsuario()" class="btn-confirmar">Confirmar Rechazo</button>
         </div>
     </div>
-
-
 
     <script>window.csrfToken = '<?php echo $csrf; ?>';</script>
     <script src="../../../public/js/notificaciones.js"></script>
 
-    <script>window.csrfToken = '<?php echo $csrf; ?>';</script>
-    <script src="../../../public/js/dashboardDocente.js"></script>
+    <script src="../../../public/js/dashboardAdministrador.js"></script>
     <script src="https://kit.fontawesome.com/b668f928a3.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+    
 </body>
 </html>
-

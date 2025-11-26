@@ -53,6 +53,15 @@ CREATE TABLE Recurso (
     FOREIGN KEY (id_categoria) REFERENCES Categoria(id_categoria) ON DELETE CASCADE
 );
 
+CREATE TABLE CalificacionPorUsuario (
+    id_calificacion INT PRIMARY KEY auto_increment,
+    id_usuario INT,
+    id_recurso INT,
+    calificacion INT,
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE,
+    FOREIGN KEY (id_recurso) REFERENCES Recurso(id_recurso) ON DELETE CASCADE
+);
+
 -- Tabla: ListasFavoritos
 CREATE TABLE ListasFavoritos (
     id_lista_favoritos INT PRIMARY KEY auto_increment,
@@ -163,6 +172,58 @@ END;
 //
 DELIMITER ;
 
+-- Trigger para actualizar la calificion de un recurso
+DROP TRIGGER IF EXISTS actualizarCalificacionRecurso;
+DELIMITER //
+CREATE TRIGGER actualizarCalificacionRecurso AFTER INSERT ON CalificacionPorUsuario FOR EACH ROW
+BEGIN
+    DECLARE nueva_calificacion FLOAT;
+    
+    SELECT AVG(calificacion) INTO nueva_calificacion
+    FROM CalificacionPorUsuario
+    WHERE id_recurso = NEW.id_recurso;
+    
+    UPDATE Recurso
+    SET calificacion = nueva_calificacion
+    WHERE id_recurso = NEW.id_recurso;
+END;
+//
+DELIMITER ;
+
+-- Trigger para actualizar la calificion de un recurso al eliminar una calificación
+DROP TRIGGER IF EXISTS actualizarCalificacionRecursoEliminacion;
+DELIMITER //
+CREATE TRIGGER actualizarCalificacionRecursoEliminacion AFTER DELETE ON CalificacionPorUsuario FOR EACH ROW
+BEGIN
+    DECLARE nueva_calificacion FLOAT;
+    
+    SELECT AVG(calificacion) INTO nueva_calificacion
+    FROM CalificacionPorUsuario
+    WHERE id_recurso = OLD.id_recurso;
+    
+    UPDATE Recurso
+    SET calificacion = IFNULL(nueva_calificacion, 0)
+    WHERE id_recurso = OLD.id_recurso;
+END;
+//
+DELIMITER ;
+
+-- Trigger para actualizar la calificacion de un recurso al actualizar una calificación
+DROP TRIGGER IF EXISTS actualizarCalificacionRecursoActualizacion;
+DELIMITER //
+CREATE TRIGGER actualizarCalificacionRecursoActualizacion AFTER UPDATE ON CalificacionPorUsuario FOR EACH ROW
+BEGIN
+    DECLARE nueva_calificacion FLOAT;
+    
+    SELECT AVG(calificacion) INTO nueva_calificacion
+    FROM CalificacionPorUsuario
+    WHERE id_recurso = NEW.id_recurso;
+    
+    UPDATE Recurso
+    SET calificacion = nueva_calificacion
+    WHERE id_recurso = NEW.id_recurso;
+END;
+
 /* ================================================
    USUARIOS POR DEFECTO
    ================================================ */
@@ -234,8 +295,8 @@ INSERT INTO Recurso (titulo, descripcion, archivo_url, calificacion, aprobado, i
 ('GIT HUB','Controlador de manejo de versiones','https://github.com',0,1,1,2),
 ('OCEANOFPDF','Pagina web para descargar libros de texto de forma gratuita en formato pdf y epub','https://oceanofpdf.com',0,1,5,4),
 ('BIB GURU','Generador de citas APA','https://www.bibguru.com/es',0,1,5,5),
-('CHATGPT','IA util para documentar','https://chatgpt.com',0,NULL,1,7),
-('ILOVEPDF','Convertidor de archivos','https://www.ilovepdf.com/es',0,NULL,5,8);
+('CHATGPT','IA util para documentar','https://chatgpt.com',0,1,1,7),
+('ILOVEPDF','Convertidor de archivos','https://www.ilovepdf.com/es',0,1,5,8);
 
 INSERT INTO Recurso (titulo, descripcion, archivo_url, calificacion, aprobado, id_categoria, id_usuario) VALUES ('Recurso 1 - Tecnologia e Informacion', 'Recurso educativo relacionado con Tecnologia e Informacion.', 'https://www.wikipedia.org', 0, 1, 1, 1);
 INSERT INTO Recurso (titulo, descripcion, archivo_url, calificacion, aprobado, id_categoria, id_usuario) VALUES ('Recurso 2 - Tecnologia e Informacion', 'Recurso educativo relacionado con Tecnologia e Informacion.', 'https://www.khanacademy.org', 0, 1, 1, 1);

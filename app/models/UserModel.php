@@ -373,6 +373,7 @@ class UserModel {
                 r.descripcion, 
                 r.archivo_url,
                 r.imagen_url,
+                r.calificacion,
                 (CASE WHEN f.id_usuario IS NOT NULL THEN 1 ELSE 0 END) as es_favorito 
             FROM Recurso r
             LEFT JOIN ListasFavoritos f 
@@ -381,7 +382,8 @@ class UserModel {
                 ON r.id_categoria = cu.id_categoria 
                 AND cu.id_usuario = :id_usuario
             WHERE r.aprobado = 1
-            LIMIT 6";
+            ORDER BY r.calificacion DESC
+            LIMIT 50";
             
             $stmt = $conexion->prepare($sql);
             $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);

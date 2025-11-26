@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../../config/session.php';
 
-protegerPagina(['docente']);
+protegerPagina(['alumno']);
 $csrf = obtenerCSRFToken();
 ?>
 
@@ -26,12 +26,8 @@ $csrf = obtenerCSRFToken();
 <body>
     <header>
         <a href="docente.php" class="logo">BibliONLINE</a>
-        <ul class="navlist">
-            <li><a href="panelGestionGrupos.php" class="lnk">Herramientas</a></li>
-            <li><a href="panelGestionContenidoDocente.php">Subir Contenido</a></li>
-            <li><a href="notificacionesDocente.php">Notificaciones</a></li>
-            <li><a href="perfilDocente.php">Mi cuenta</a></li>
-            <li><a href="" class="lnk" id="btnCerrarSesion">Cerrar Sesion</a></li>
+        <ul class="navlist" id="navListAlumno">
+            <!-- La navegación será generada dinámicamente por JavaScript -->
         </ul>
         <div class="bx bx-menu" id="menu-icon"></div>
     </header>
@@ -50,27 +46,6 @@ $csrf = obtenerCSRFToken();
         </div>
     </main>
 
-
-
-    <!-- Modal para motivo de rechazo -->
-    <div id="modalRechazo" class="modal-rechazo" style="display: none;">
-        <div class="modal-header">
-            <h3>Rechazar Recurso</h3>
-            <button onclick="cerrarModalRechazo()" class="btn-cerrar">&times;</button>
-        </div>
-        <div class="modal-body">
-            <input type="hidden" id="recursoIdRechazo" value="">
-            <label for="motivoRechazo">Motivo del rechazo:</label>
-            <textarea id="motivoRechazo" rows="4" placeholder="Explica por qué estás rechazando este recurso..."></textarea>
-        </div>
-        <div class="modal-footer">
-            <button onclick="cerrarModalRechazo()" class="btn-cancelar">Cancelar</button>
-            <button onclick="confirmarRechazo()" class="btn-confirmar">Confirmar Rechazo</button>
-        </div>
-    </div>
-
-
-
     <script>window.csrfToken = '<?php echo $csrf; ?>';</script>
     <script src="../../../public/js/notificaciones.js"></script>
 
@@ -78,6 +53,7 @@ $csrf = obtenerCSRFToken();
     <script src="../../../public/js/dashboardDocente.js"></script>
     <script src="https://kit.fontawesome.com/b668f928a3.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+    <script src="../../../public/js/swiper.js"></script>
+    <script src="../../../public/js/feed.js"></script>
 </body>
 </html>
-

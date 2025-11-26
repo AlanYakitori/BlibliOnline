@@ -129,6 +129,132 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             break;
             
+        // Casos para alumnos
+        case 'obtenerRecursosAlumno':
+            $id_alumno = isset($datos_usuario['id_alumno']) ? $datos_usuario['id_alumno'] : null;
+            
+            if (!$id_alumno) {
+                echo json_encode([
+                    'exito' => false,
+                    'mensaje' => 'ID del alumno requerido'
+                ]);
+                break;
+            }
+            
+            try {
+                $notificaciones = new NotificationsModel();
+                $notificaciones->setIdUsuario($id_alumno);
+                $resultado = $notificaciones->obtenerRecursosAlumno($conexion, $id_alumno);
+                echo json_encode($resultado);
+            } catch (Exception $e) {
+                echo json_encode([
+                    'exito' => false,
+                    'mensaje' => 'Error interno del servidor'
+                ]);
+            }
+            break;
+            
+        case 'contarNotificacionesAlumno':
+            $id_alumno = $datos_usuario['id_alumno'];
+            
+            if (!$id_alumno) {
+                echo json_encode([
+                    'exito' => false,
+                    'mensaje' => 'ID del alumno requerido'
+                ]);
+                break;
+            }
+            
+            try {
+                $notificaciones = new NotificationsModel();
+                $notificaciones->setIdUsuario($id_alumno);
+                $resultado = $notificaciones->contarNotificacionesAlumno($conexion, $id_alumno);
+                echo json_encode($resultado);
+            } catch (Exception $e) {
+                echo json_encode([
+                    'exito' => false,
+                    'mensaje' => 'Error interno del servidor'
+                ]);
+            }
+            break;
+            
+        // Casos para administradores
+        case 'obtenerUsuariosPendientes':
+            try {
+                $notificaciones = new NotificationsModel();
+                $resultado = $notificaciones->obtenerUsuariosPendientes($conexion);
+                echo json_encode($resultado);
+            } catch (Exception $e) {
+                echo json_encode([
+                    'exito' => false,
+                    'mensaje' => 'Error interno del servidor'
+                ]);
+            }
+            break;
+            
+        case 'aprobarUsuario':
+            $id_usuario = $datos_usuario['id_usuario'];
+            
+            if (!$id_usuario) {
+                echo json_encode([
+                    'exito' => false,
+                    'mensaje' => 'ID del usuario requerido'
+                ]);
+                break;
+            }
+            
+            try {
+                $notificaciones = new NotificationsModel();
+                $notificaciones->setIdUsuario($id_usuario);
+                $resultado = $notificaciones->aprobarUsuario($conexion, $id_usuario);
+                echo json_encode($resultado);
+            } catch (Exception $e) {
+                echo json_encode([
+                    'exito' => false,
+                    'mensaje' => 'Error interno del servidor al aprobar usuario'
+                ]);
+            }
+            break;
+            
+        case 'rechazarUsuario':
+            $id_usuario = $datos_usuario['id_usuario'];
+            $motivo = $datos_usuario['motivo'] ?? '';
+            
+            if (!$id_usuario || !$motivo) {
+                echo json_encode([
+                    'exito' => false,
+                    'mensaje' => 'ID del usuario y motivo requeridos'
+                ]);
+                break;
+            }
+            
+            try {
+                $notificaciones = new NotificationsModel();
+                $notificaciones->setIdUsuario($id_usuario);
+                $notificaciones->setMotivo($motivo);
+                $resultado = $notificaciones->rechazarUsuario($conexion, $id_usuario, $motivo);
+                echo json_encode($resultado);
+            } catch (Exception $e) {
+                echo json_encode([
+                    'exito' => false,
+                    'mensaje' => 'Error interno del servidor al rechazar usuario'
+                ]);
+            }
+            break;
+            
+        case 'contarUsuariosPendientes':
+            try {
+                $notificaciones = new NotificationsModel();
+                $resultado = $notificaciones->contarUsuariosPendientes($conexion);
+                echo json_encode($resultado);
+            } catch (Exception $e) {
+                echo json_encode([
+                    'exito' => false,
+                    'mensaje' => 'Error interno del servidor'
+                ]);
+            }
+            break;
+            
         default:
             echo json_encode([
                 'exito' => false,

@@ -24,6 +24,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 tipo_usuario: datosUsuarioTemp.tipoUsuario,
                 nombre: datosUsuarioTemp.nombre
             };
+            
+            // Configurar navegación según tipo de usuario
+            configurarNavegacion(datosUsuario.tipo_usuario, datosUsuario.id);
 
         } catch(e){
             console.warn('usuarioActual corrupto en localStorage');
@@ -35,35 +38,38 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    // Configurar eventos
+    // Configurar eventos una sola vez
     configurarEventos();
 });
 
 function configurarEventos() {
     // Evento para enviar formulario de contenido
     const formularioContenido = document.getElementById('formularioContenido');
-    if (formularioContenido) {
+    if (formularioContenido && !formularioContenido.dataset.configurado) {
         formularioContenido.addEventListener('submit', function(e) {
             e.preventDefault();
             agregarContenido();
         });
+        formularioContenido.dataset.configurado = 'true';
     }
 
     // Evento para ver contenido
     const btnVerContenido = document.getElementById('btnVerContenido');
-    if (btnVerContenido) {
+    if (btnVerContenido && !btnVerContenido.dataset.configurado) {
         btnVerContenido.addEventListener('click', function() {
             consultarContenido();
         });
+        btnVerContenido.dataset.configurado = 'true';
     }
 
-    // Evento para cerrar sesión
+    // Evento para cerrar sesión (solo si existe en el HTML estático)
     const btnCerrarSesion = document.getElementById('btnCerrarSesion');
-    if (btnCerrarSesion) {
+    if (btnCerrarSesion && !btnCerrarSesion.dataset.configurado) {
         btnCerrarSesion.addEventListener('click', function(e) {
             e.preventDefault();
             cerrarSesion();
         });
+        btnCerrarSesion.dataset.configurado = 'true';
     }
 }
 
@@ -432,5 +438,94 @@ async function eliminarContenido(idRecurso) {
     } catch (error) {
         console.error('Error al eliminar contenido:', error);
         alert('Error de conexión al servidor');
+    }
+}
+
+// Función para configurar navegación según tipo de usuario
+async function configurarNavegacion(tipoUsuario, idUsuario) {
+    if (tipoUsuario === 'alumno') {
+        await verificarEstadoGrupoAlumno(idUsuario);
+    }
+    // Para administrador y docente, la navegación es estática y ya está definida en los archivos PHP
+}
+
+// Función para verificar estado del grupo del alumno
+async function verificarEstadoGrupoAlumno(idAlumno) {
+    try {
+        const datos = {
+            accion: 'verificarGrupoAlumno',
+            idAlumno: idAlumno
+        };
+
+        const respuesta = await fetch('../../controllers/GrupoController.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(datos)
+        });
+        
+        const resultado = await respuesta.json();
+        
+        if (resultado.exito) {
+            // Actualizar navegación del alumno
+            actualizarNavegacionAlumno(resultado.tieneGrupo);
+        }
+    } catch (error) {
+        console.error('Error al verificar estado del grupo:', error);
+    }
+}
+
+// Función para actualizar la navegación del alumno
+function actualizarNavegacionAlumno(tieneGrupo) {
+    // Buscar el enlace de "Unirme a grupo" en la navegación
+    const btnUnirmeGrupo = document.getElementById('unirmeGrupo');
+    const navListAlumno = document.getElementById('navListAlumno');
+    
+    if (btnUnirmeGrupo) {
+        if (tieneGrupo) {
+            // Cambiar texto y funcionalidad a "Ver Grupo"
+            btnUnirmeGrupo.textContent = 'Ver Grupo';
+            btnUnirmeGrupo.onclick = function() { 
+                window.location.href = 'panelGestionAlumno.php';
+            };
+        } else {
+            // Mantener funcionalidad original "Unirme a Grupo"
+            btnUnirmeGrupo.textContent = 'Unirme a grupo';
+            // La funcionalidad de unirse está manejada por dashboardAlumno.js
+        }
+    } else if (navListAlumno) {
+        // Si estamos en perfilAlumno.php, generar la navegación dinámicamente
+        if (tieneGrupo) {
+            navListAlumno.innerHTML = `
+                <li><a href="#" onclick="window.location.href='panelGestionAlumno.php'">Ver Grupo</a></li>
+                <li><a href="panelGestionContenidoAlumno.php">Subir Contenido</a></li>
+                <li><a href="notificacionesAlumno.php">Notificaciones</a></li>
+                <li><a href="perfilAlumno.php">Mi cuenta</a></li>
+                <li><a href="#" class="lnk" id="btnCerrarSesion">Cerrar Sesión</a></li>
+            `;
+        } else {
+            navListAlumno.innerHTML = `
+                <li><a href="alumno.php" id="unirmeGrupo">Unirme a grupo</a></li>
+                <li><a href="panelGestionContenidoAlumno.php">Subir Contenido</a></li>
+                <li><a href="notificacionesAlumno.php">Notificaciones</a></li>
+                <li><a href="perfilAlumno.php">Mi cuenta</a></li>
+                <li><a href="#" class="lnk" id="btnCerrarSesion">Cerrar Sesión</a></li>
+            `;
+        }
+        // Reconfigurar eventos después de actualizar el HTML
+        configurarCerrarSesionDinamico();
+    }
+}
+
+// Función para configurar el cerrar sesión después de actualización dinámica
+function configurarCerrarSesionDinamico() {
+    const btnCerrarSesion = document.getElementById('btnCerrarSesion');
+    if (btnCerrarSesion && !btnCerrarSesion.dataset.configurado) {
+        btnCerrarSesion.addEventListener('click', function(e) {
+            e.preventDefault();
+            cerrarSesion();
+        });
+        btnCerrarSesion.dataset.configurado = 'true';
     }
 }

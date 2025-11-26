@@ -38,7 +38,7 @@ $tipoUsuario = 'administrador';
         <ul class="navlist">
             <li><a href="panelGestionAdministrador.php">Herramientas</a></li>
             <li><a href="panelGestionContenidoAdministrador.php">Subir Contenido</a></li>
-            <li><a href="#">Notificaciones</a></li>
+            <li><a href="notificacionesAdministrador.php">Notificaciones</a></li>
             <li><a href="perfilAdministrador.php">Mi cuenta</a></li>
             <li><a href="" class="lnk" id="btnCerrarSesion">Cerrar Sesion</a></li>
         </ul>

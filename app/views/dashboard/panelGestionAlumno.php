@@ -29,7 +29,7 @@ $csrf = obtenerCSRFToken();
         <ul class="navlist">
             <li><a href="panelGestionAlumno.php" class="lnk">Ver Grupo</a></li>
             <li><a href="panelGestionContenidoAlumno.php" class="lnk">Subir contenido</a></li>
-            <li><a href="#" class="lnk">Notificaciones</a></li>
+            <li><a href="notificacionesAlumno.php" class="lnk">Notificaciones</a></li>
             <li><a href="perfilAlumno.php" class="lnk">Mi cuenta</a></li>
             <li><a href="" class="lnk" id="btnCerrarSesion">Cerrar Sesión</a></li>
         </ul>
