@@ -374,10 +374,13 @@ class UserModel {
                 r.archivo_url,
                 r.imagen_url,
                 r.calificacion,
-                (CASE WHEN f.id_usuario IS NOT NULL THEN 1 ELSE 0 END) as es_favorito 
+                (CASE WHEN f.id_usuario IS NOT NULL THEN 1 ELSE 0 END) as es_favorito,
+                COALESCE(c.calificacion, 0) as calificacion_usuario
             FROM Recurso r
             LEFT JOIN ListasFavoritos f 
                 ON r.id_recurso = f.id_recurso AND f.id_usuario = :id_usuario
+            LEFT JOIN CalificacionPorUsuario c
+                ON r.id_recurso = c.id_recurso AND c.id_usuario = :id_usuario
             INNER JOIN CategoriasUsuario cu 
                 ON r.id_categoria = cu.id_categoria 
                 AND cu.id_usuario = :id_usuario
@@ -397,6 +400,63 @@ class UserModel {
         }catch(PDOException $e){
             error_log("Error en consultarNoticiasDestacadas: " . $e->getMessage());
             return []; // Mejor devolver array vacío que false para evitar errores en el foreach de la vista
+        }
+    }
+
+    public function guardarCalificacion($conexion, $id_usuario, $id_recurso, $calificacion) {
+        try {
+            // Verificar si ya existe una calificación del usuario para este recurso
+            $sqlVerificar = "SELECT id_calificacion FROM CalificacionPorUsuario 
+                            WHERE id_usuario = :id_usuario AND id_recurso = :id_recurso";
+            $stmtVerificar = $conexion->prepare($sqlVerificar);
+            $stmtVerificar->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+            $stmtVerificar->bindParam(':id_recurso', $id_recurso, PDO::PARAM_INT);
+            $stmtVerificar->execute();
+            
+            $existe = $stmtVerificar->fetch(PDO::FETCH_ASSOC);
+            
+            if ($existe) {
+                // Actualizar calificación existente
+                $sqlActualizar = "UPDATE CalificacionPorUsuario 
+                                 SET calificacion = :calificacion 
+                                 WHERE id_usuario = :id_usuario AND id_recurso = :id_recurso";
+                $stmt = $conexion->prepare($sqlActualizar);
+                $stmt->bindParam(':calificacion', $calificacion, PDO::PARAM_INT);
+                $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+                $stmt->bindParam(':id_recurso', $id_recurso, PDO::PARAM_INT);
+                return $stmt->execute();
+            } else {
+                // Insertar nueva calificación
+                $sqlInsertar = "INSERT INTO CalificacionPorUsuario (id_usuario, id_recurso, calificacion) 
+                               VALUES (:id_usuario, :id_recurso, :calificacion)";
+                $stmt = $conexion->prepare($sqlInsertar);
+                $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+                $stmt->bindParam(':id_recurso', $id_recurso, PDO::PARAM_INT);
+                $stmt->bindParam(':calificacion', $calificacion, PDO::PARAM_INT);
+                return $stmt->execute();
+            }
+            
+        } catch (PDOException $e) {
+            error_log("Error en guardarCalificacion: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function obtenerCalificacionUsuario($conexion, $id_usuario, $id_recurso) {
+        try {
+            $sql = "SELECT calificacion FROM CalificacionPorUsuario 
+                    WHERE id_usuario = :id_usuario AND id_recurso = :id_recurso";
+            $stmt = $conexion->prepare($sql);
+            $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+            $stmt->bindParam(':id_recurso', $id_recurso, PDO::PARAM_INT);
+            $stmt->execute();
+            
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $resultado ? $resultado['calificacion'] : 0;
+            
+        } catch (PDOException $e) {
+            error_log("Error en obtenerCalificacionUsuario: " . $e->getMessage());
+            return 0;
         }
     }
 

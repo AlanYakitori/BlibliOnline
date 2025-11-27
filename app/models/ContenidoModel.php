@@ -200,10 +200,13 @@ class ContenidoModel {
                     r.archivo_url,
                     r.imagen_url, 
                     r.calificacion,
-                    (CASE WHEN f.id_usuario IS NOT NULL THEN 1 ELSE 0 END) as es_favorito
+                    (CASE WHEN f.id_usuario IS NOT NULL THEN 1 ELSE 0 END) as es_favorito,
+                    COALESCE(c.calificacion, 0) as calificacion_usuario
                 FROM Recurso r
                 LEFT JOIN ListasFavoritos f  
                     ON r.id_recurso = f.id_recurso AND f.id_usuario = :id_usuario
+                LEFT JOIN CalificacionPorUsuario c
+                    ON r.id_recurso = c.id_recurso AND c.id_usuario = :id_usuario
                 WHERE r.aprobado = 1
                 ORDER BY r.calificacion DESC
                 LIMIT :limit OFFSET :offset";

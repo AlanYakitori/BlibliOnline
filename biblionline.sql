@@ -44,7 +44,7 @@ CREATE TABLE Recurso (
     titulo VARCHAR(100),
     descripcion TEXT,
     archivo_url TEXT,
-    imagen_url TEXT DEFAULT 'https://media.istockphoto.com/id/1147544807/es/vector/no-imagen-en-miniatura-gr%C3%A1fico-vectorial.jpg?s=612x612&w=0&k=20&c=Bb7KlSXJXh3oSDlyFjIaCiB9llfXsgS7mHFZs6qUgVk=',
+    imagen_url TEXT DEFAULT NULL,
     calificacion FLOAT DEFAULT 0,
     aprobado BOOLEAN DEFAULT false,
     id_categoria INT,
@@ -223,6 +223,66 @@ BEGIN
     SET calificacion = nueva_calificacion
     WHERE id_recurso = NEW.id_recurso;
 END;
+//
+DELIMITER ;
+
+-- Trigger para generar imagen placeholder en INSERT de recurso
+DROP TRIGGER IF EXISTS generarImagenPlaceholderInsert;
+DELIMITER //
+CREATE TRIGGER generarImagenPlaceholderInsert BEFORE INSERT ON Recurso FOR EACH ROW
+BEGIN
+    DECLARE color_aleatorio VARCHAR(6);
+    DECLARE titulo_url VARCHAR(255);
+    
+    -- Si imagen_url es NULL o vacía, generar placeholder
+    IF NEW.imagen_url IS NULL OR NEW.imagen_url = '' THEN
+        -- Generar color hexadecimal aleatorio de 6 caracteres
+        SET color_aleatorio = CONCAT(
+            SUBSTRING('0123456789ABCDEF', FLOOR(1 + (RAND() * 16)), 1),
+            SUBSTRING('0123456789ABCDEF', FLOOR(1 + (RAND() * 16)), 1),
+            SUBSTRING('0123456789ABCDEF', FLOOR(1 + (RAND() * 16)), 1),
+            SUBSTRING('0123456789ABCDEF', FLOOR(1 + (RAND() * 16)), 1),
+            SUBSTRING('0123456789ABCDEF', FLOOR(1 + (RAND() * 16)), 1),
+            SUBSTRING('0123456789ABCDEF', FLOOR(1 + (RAND() * 16)), 1)
+        );
+        
+        -- Preparar título para URL (reemplazar espacios con +)
+        SET titulo_url = REPLACE(NEW.titulo, ' ', '+');
+        
+        -- Generar URL de placeholder
+        SET NEW.imagen_url = CONCAT('https://placehold.co/600x400/', color_aleatorio, '/ffffff?text=', titulo_url);
+
+    END IF;
+END;
+//
+DELIMITER ;
+
+-- Trigger para generar imagen placeholder en UPDATE de recurso
+DROP TRIGGER IF EXISTS generarImagenPlaceholderUpdate;
+DELIMITER //
+CREATE TRIGGER generarImagenPlaceholderUpdate BEFORE UPDATE ON Recurso FOR EACH ROW
+BEGIN
+    DECLARE color_aleatorio VARCHAR(6);
+    DECLARE titulo_url VARCHAR(255);
+    
+    -- Si imagen_url es NULL o vacía, generar placeholder
+    IF NEW.imagen_url IS NULL OR NEW.imagen_url = '' THEN
+        -- Generar color hexadecimal aleatorio de 6 caracteres
+        SET color_aleatorio = CONCAT(
+            SUBSTRING('0123456789ABCDEF', FLOOR(1 + (RAND() * 16)), 1),
+            SUBSTRING('0123456789ABCDEF', FLOOR(1 + (RAND() * 16)), 1),
+            SUBSTRING('0123456789ABCDEF', FLOOR(1 + (RAND() * 16)), 1),
+            SUBSTRING('0123456789ABCDEF', FLOOR(1 + (RAND() * 16)), 1),
+            SUBSTRING('0123456789ABCDEF', FLOOR(1 + (RAND() * 16)), 1),
+            SUBSTRING('0123456789ABCDEF', FLOOR(1 + (RAND() * 16)), 1)
+        );
+        -- Preparar título para URL (reemplazar espacios con +)
+        SET titulo_url = REPLACE(NEW.titulo, ' ', '+');
+        
+    END IF;
+END;
+//
+DELIMITER ;
 
 /* ================================================
    USUARIOS POR DEFECTO
@@ -290,13 +350,13 @@ INSERT INTO CategoriasUsuario (id_usuario, id_categoria) VALUES
 (8,10);
 
 -- Recursos por defecto
-INSERT INTO Recurso (titulo, descripcion, archivo_url, calificacion, aprobado, id_categoria, id_usuario) VALUES
-('GDB ONLINE','IDE en linea con capacidad de correr diferentes lenguajes de programacion','https://www.onlinegdb.com',0,1,1,1),
-('GIT HUB','Controlador de manejo de versiones','https://github.com',0,1,1,2),
-('OCEANOFPDF','Pagina web para descargar libros de texto de forma gratuita en formato pdf y epub','https://oceanofpdf.com',0,1,5,4),
-('BIB GURU','Generador de citas APA','https://www.bibguru.com/es',0,1,5,5),
-('CHATGPT','IA util para documentar','https://chatgpt.com',0,1,1,7),
-('ILOVEPDF','Convertidor de archivos','https://www.ilovepdf.com/es',0,1,5,8);
+INSERT INTO Recurso (titulo, descripcion, archivo_url, imagen_url, calificacion, aprobado, id_categoria, id_usuario) VALUES
+('GDB ONLINE','IDE en linea con capacidad de correr diferentes lenguajes de programacion','https://www.onlinegdb.com', NULL,0,1,1,1),
+('GIT HUB','Controlador de manejo de versiones','https://github.com', NULL,0,1,1,2),
+('OCEANOFPDF','Pagina web para descargar libros de texto de forma gratuita en formato pdf y epub','https://oceanofpdf.com', NULL,0,1,5,4),
+('BIB GURU','Generador de citas APA','https://www.bibguru.com/es', NULL,0,1,5,5),
+('CHATGPT','IA util para documentar','https://chatgpt.com', NULL,0,1,1,7),
+('ILOVEPDF','Convertidor de archivos','https://www.ilovepdf.com/es', NULL,0,1,5,8);
 
 INSERT INTO Recurso (titulo, descripcion, archivo_url, calificacion, aprobado, id_categoria, id_usuario) VALUES ('Recurso 1 - Tecnologia e Informacion', 'Recurso educativo relacionado con Tecnologia e Informacion.', 'https://www.wikipedia.org', 0, 1, 1, 1);
 INSERT INTO Recurso (titulo, descripcion, archivo_url, calificacion, aprobado, id_categoria, id_usuario) VALUES ('Recurso 2 - Tecnologia e Informacion', 'Recurso educativo relacionado con Tecnologia e Informacion.', 'https://www.khanacademy.org', 0, 1, 1, 1);

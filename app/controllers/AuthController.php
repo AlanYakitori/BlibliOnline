@@ -275,6 +275,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo json_encode(['exito' => false, 'mensaje' => $e->getMessage()]);
             }
             break;
+        
+        case 'calificarRecurso':
+            try {
+                $id_usuario = $_SESSION['usuario']['id'] ?? null;
+                if (!$id_usuario) {
+                    throw new Exception('Usuario no autenticado');
+                }
+
+                $id_recurso = $datos_usuario['id_recurso'] ?? null;
+                $calificacion = $datos_usuario['calificacion'] ?? null;
+
+                if (!$id_recurso || !$calificacion) {
+                    throw new Exception('ID de recurso o calificación no proporcionados');
+                }
+
+                // Validar que la calificación esté en el rango correcto
+                if ($calificacion < 1 || $calificacion > 5) {
+                    throw new Exception('La calificación debe estar entre 1 y 5');
+                }
+
+                $modelo = new UserModel();
+                $exito = $modelo->guardarCalificacion($conexion, $id_usuario, $id_recurso, $calificacion);
+
+                if ($exito) {
+                    echo json_encode(['exito' => true, 'mensaje' => 'Calificación guardada exitosamente']);
+                } else {
+                    throw new Exception('No se pudo guardar la calificación');
+                }
+
+            } catch (Exception $e) {
+                echo json_encode(['exito' => false, 'mensaje' => $e->getMessage()]);
+            }
+            break;
+        
+        case 'obtenerCalificacionUsuario':
+            try {
+                $id_usuario = $_SESSION['usuario']['id'] ?? null;
+                if (!$id_usuario) {
+                    throw new Exception('Usuario no autenticado');
+                }
+
+                $id_recurso = $datos_usuario['id_recurso'] ?? null;
+                if (!$id_recurso) {
+                    throw new Exception('ID de recurso no proporcionado');
+                }
+
+                $modelo = new UserModel();
+                $calificacion = $modelo->obtenerCalificacionUsuario($conexion, $id_usuario, $id_recurso);
+
+                echo json_encode(['exito' => true, 'calificacion' => $calificacion]);
+
+            } catch (Exception $e) {
+                echo json_encode(['exito' => false, 'mensaje' => $e->getMessage()]);
+            }
+            break;
         default:
             echo json_encode([
                 'exito' => false,

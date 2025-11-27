@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let html = '';
         recursos.forEach(recurso => {
             const esFav = (recurso.es_favorito == 1) ? 'true' : 'false';
+            const calificacionUsuario = recurso.calificacion_usuario || 0;
             const imgUrl = recurso.imagen_url || `https://picsum.photos/seed/${recurso.id_recurso}/300/180`;
 
             // Incluimos todos los datos para que el modal funcione
@@ -79,7 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
                      data-description="${recurso.descripcion}" 
                      data-image-url="${imgUrl}"
                      data-file-url="${recurso.archivo_url}" 
-                     data-favorito="${esFav}">
+                     data-favorito="${esFav}"
+                     data-calificacion-usuario="${calificacionUsuario}">
                     
                     <img src="${imgUrl}" alt="${recurso.titulo}">
                     <div class="tarjeta-contenido">

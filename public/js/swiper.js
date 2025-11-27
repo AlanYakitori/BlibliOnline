@@ -51,7 +51,29 @@ function abrirModal(datos) {
         btnFavoritoTexto.textContent = 'Agregar a Favoritos';
     }
 
+    // 3. Cargar calificación del usuario para este recurso
+    const calificacionUsuario = datos.calificacionUsuario || datos.calificacion_usuario || 0;
+    cargarCalificacionUsuario(calificacionUsuario);
+
     modal.style.display = 'flex'; 
+}
+
+/**
+ * Carga la calificación previa del usuario en las estrellas
+ */
+function cargarCalificacionUsuario(calificacion) {
+    if (!contenedorEstrellas) return;
+    
+    resetearEstrellas();
+    
+    if (calificacion > 0) {
+        contenedorEstrellas.querySelectorAll('.fa-star').forEach(star => {
+            if (parseInt(star.dataset.valor) <= calificacion) {
+                star.classList.add('fa-solid');
+                star.classList.remove('fa-regular');
+            }
+        });
+    }
 }
 
 
@@ -61,6 +83,7 @@ function pintarTarjetas(noticias) {
 
     noticias.forEach(noticia => {
         const esFav = (noticia.es_favorito == 1) ? 'true' : 'false';
+        const calificacionUsuario = noticia.calificacion_usuario || 0;
         const imgUrl = noticia.imagen_url;
         const idRecurso = noticia.id_recurso; 
 
@@ -71,7 +94,8 @@ function pintarTarjetas(noticias) {
                  data-description="${noticia.descripcion}" 
                  data-archivo-url="${noticia.archivo_url}"
                  data-image-url="${imgUrl}"
-                 data-es-favorito="${esFav}"> 
+                 data-es-favorito="${esFav}"
+                 data-calificacion-usuario="${calificacionUsuario}"> 
                 
                 <div class="tarjeta-noticia">
                     <img src="${imgUrl}" alt="${noticia.titulo}">
@@ -140,6 +164,12 @@ async function enviarCalificacion(id, calificacion) {
 
         if (resultado.exito) {
             console.log('Calificación guardada');
+            
+            // Mostrar mensaje de éxito breve antes de recargar
+            setTimeout(() => {
+                window.location.reload();
+            }, 800); // 800ms para que el usuario vea las estrellas seleccionadas
+            
         } else {
             console.warn('No se guardó la calificación:', resultado.mensaje);
             resetearEstrellas();
