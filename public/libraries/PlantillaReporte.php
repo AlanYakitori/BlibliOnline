@@ -4,7 +4,6 @@ require_once __DIR__ . '/../../public/libraries/fpdf/fpdf.php';
 class PlantillaReporte extends FPDF {
     
     function Header() {
-        // $this->Image(__DIR__ . '/../../public/img/logo.png', 10, 8, 25);
         $this->SetFont('Arial', 'B', 15);
         $this->Cell(0, 10, 'BIBLIONLINE - SISTEMA DE GESTION', 0, 1, 'C');
         $this->SetFont('Arial', '', 10);
@@ -22,10 +21,6 @@ class PlantillaReporte extends FPDF {
         $this->Cell(0, 10, mb_convert_encoding('Página ', 'ISO-8859-1', 'UTF-8') . $this->PageNo() . '/{nb}', 0, 0, 'C');
     }
 
-    // ============================================================
-    // FUNCIONES MATEMÁTICAS PARA EL PASTEL (MOVIDAS AQUÍ)
-    // ============================================================
-    
     function Sector($xc, $yc, $r, $a, $b, $style='FD', $cw=true, $o=90) {
         $d0 = $a - $b;
         if($cw){
@@ -49,11 +44,8 @@ class PlantillaReporte extends FPDF {
         } else {
             $MyArc = 0;
         }
-        // first put the center
         $this->_out(sprintf('%.2F %.2F m',($xc)*$k,($hp-$yc)*$k)); // AHORA SÍ FUNCIONA
-        // put the first point
         $this->_out(sprintf('%.2F %.2F l',($xc+$r*cos($a))*$k,($hp-($yc-$r*sin($a)))*$k));
-        // draw the arc
         if ($d < M_PI/2) {
             $this->Arc($xc+$r*cos($a)+$MyArc*cos(M_PI/2+$a),
                         $yc-$r*sin($a)-$MyArc*sin(M_PI/2+$a),

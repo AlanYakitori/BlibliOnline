@@ -161,9 +161,6 @@ class ReportController {
         $this->pdf->Output('I', 'Reporte_Usuarios.pdf');
     }
 
-    // =========================================================
-    // 4. (NUEVO) REPORTE ACTIVIDAD DOCENTE (Lo que pediste)
-    // =========================================================
     public function reporteActividadDocente($id_docente) {
         $this->pdf->SetFont('Arial', 'B', 14);
         $this->pdf->Cell(0, 10, mb_convert_encoding('Reporte de Actividad Docente', 'ISO-8859-1', 'UTF-8'), 0, 1, 'C');
@@ -270,9 +267,7 @@ class ReportController {
 
     private function crearGraficaPastel($datos) {
         if(empty($datos)) return;
-        // IMPORTANTE: Este código asume que tu PlantillaReporte extiende de FPDF 
-        // y que tiene implementado el método 'Sector' (extensión común).
-        // Si te da error "Call to undefined method Sector", usa crearGraficaBarras en su lugar.
+
         
         $radio = 30; 
         $centroX = 60;
