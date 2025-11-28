@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../../config/session.php';
 
-protegerPagina(['administrador']);
+protegerPagina(['administrador', 'alumno']); // Protege al alumno
 $csrf = obtenerCSRFToken();
 ?>
 <!DOCTYPE html>
@@ -9,7 +9,7 @@ $csrf = obtenerCSRFToken();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIBLIONLINE - Actualizar Administrador</title>
+    <title>BIBLIONLINE - Actualizar Alumno</title>
     <link rel="stylesheet" href="../../../public/css/registro.css">
 </head>
 <body>
@@ -17,10 +17,10 @@ $csrf = obtenerCSRFToken();
         <div class="logoLibro">📚</div>
         
         <h1 class="tituloRegistro">BIBLIONLINE</h1>
-        <p class="subTituloRegistro">Actualizar - Administrador</p>
-        <div class="indicadorTipoUsuario administrador">
-            <span class="iconoTipoUsuario">👤</span>
-            <span class="textoTipoUsuario">Administrador</span>
+        <p class="subTituloRegistro">Actualizar - Alumno</p>
+        <div class="indicadorTipoUsuario alumno">
+            <span class="iconoTipoUsuario">🎓</span>
+            <span class="textoTipoUsuario">Alumno</span>
         </div>
         
         <form class="formularioRegistro" id="formularioRegistro" disabled>
@@ -41,18 +41,8 @@ $csrf = obtenerCSRFToken();
                     <input type="tel" id="telefonoContacto" name="telefonoContacto" class="campoInput" placeholder="Ej: 555-123-4567" required>
                 </div>
                 <div class="grupoInput">
-                    <label for="cargoAdministrativo" class="etiquetaInput">Cargo</label>
-                    <select id="cargoAdministrativo" name="cargoAdministrativo" class="campoInput" required>
-                        <option value="">Selecciona un cargo</option>
-                        <option value="Director(a) Académico(a) de la Ingeniería en Tecnología Ambiental y de la Ingeniería en Biotecnología">Director(a) Académico(a) de la Ingeniería en Tecnología Ambiental y de la Ingeniería en Biotecnología</option>
-                        <option value="Director(a) Académico(a) de la Licenciatura en Administración y Gestión">Director(a) Académico(a) de la Licenciatura en Administración y Gestión</option>
-                        <option value="Director(a) Académico(a) de la Ingeniería en Informática y de la Ingeniería en Electrónica y Telecomunicaciones">Director(a) Académico(a) de la Ingeniería en Informática y de la Ingeniería en Electrónica y Telecomunicaciones</option>
-                        <option value="Director(a) Académico(a) de la Ingeniería Industrial">Director(a) Académico(a) de la Ingeniería Industrial</option>
-                        <option value="Director(a) Académico(a) de la Ingeniería Financiera">Director(a) Académico(a) de la Ingeniería Financiera</option>
-                        <option value="Director(a) de Posgrado y Educación Contínua">Director(a) de Posgrado y Educación Contínua</option>
-                        <option value="Coordinador de Idiomas">Coordinador de Idiomas</option>
-                        <option value="Profesor(a) de Tiempo Completo">Profesor(a) de Tiempo Completo</option>
-                    </select>
+                    <label for="matriculaAlumno" class="etiquetaInput">Matrícula</label>
+                    <input type="text" id="matriculaAlumno" name="matriculaAlumno" class="campoInput" readonly>
                 </div>
             </div>
             
@@ -74,7 +64,7 @@ $csrf = obtenerCSRFToken();
 
             <div class="grupoInput">
                 <label for="correoElectronico" class="etiquetaInput">Correo Electrónico</label>
-                <input type="email" id="correoElectronico" name="correoElectronico" class="campoInput" placeholder="admin@biblionline.com" required>
+                <input type="email" id="correoElectronico" name="correoElectronico" class="campoInput" placeholder="alumno@upemor.edu.mx" required>
             </div>
             
             <div class="filaInputs">
@@ -89,15 +79,15 @@ $csrf = obtenerCSRFToken();
             </div>
             
             <input type="submit" value="Actualizar Datos" class="botonRegistrarse">
+            <div id="mensaje-feedback"></div>
         </form>
         
         <div class="enlacesAdicionales">
-            <a href="PanelGestionAdministrador.php" class="enlaceVolver">← Volver al panel</a>
+            <a href="consultarAlumno.php" class="enlaceVolver">← Volver al panel</a>
         </div>
     </div>
     
     <script>window.csrfToken = '<?php echo $csrf; ?>';</script>
-    <script src="../../../public/js/dashboardAdministrador.js"></script>
     <script src="../../../public/js/actualizarUsuarios.js"></script>
 </body>
 </html>

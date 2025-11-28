@@ -54,6 +54,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 ? '<span class="badge bg-success">Aceptado</span>' 
                 : '<span class="badge bg-warning">Pendiente</span>';
 
+
+            let paginaDestino = '';
+
+            if (usuario.tipoUsuario === 'administrador') {
+                paginaDestino = 'actualizarAdministrador.php';
+            } else if (usuario.tipoUsuario === 'docente') {
+                paginaDestino = 'actualizarDocente.php';
+            } else if (usuario.tipoUsuario === 'alumno') {
+                paginaDestino = 'actualizarAlumno.php';
+            } else {
+                paginaDestino = 'actualizarDefault.php'; 
+            }
+
             filasHtml += `
                 <tr data-id-usuario="${usuario.id_usuario}">
                     <td>${usuario.id_usuario}</td>
@@ -64,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <td>${usuario.tipoUsuario}</td>
                     <td>${estadoBadge}</td>
                     <td>
-                        <a href="actualizarAdministrador.php?id=${usuario.id_usuario}" class="btnActualizar">Editar</a>
+                        <a href="${paginaDestino}?id=${usuario.id_usuario}" class="btnActualizar">Editar</a>
                         <a class="btnEliminar" onclick="confirmarEliminar(${usuario.id_usuario})">Eliminar</a>
                     </td>
                 </tr>

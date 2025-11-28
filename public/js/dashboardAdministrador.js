@@ -148,3 +148,23 @@ async function cerrarSesion() {
     }
     
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const menuIcon = document.getElementById('menu-icon');
+    const navlist = document.querySelector('.navlist');
+
+    if (menuIcon && navlist) {
+        menuIcon.onclick = () => {
+            menuIcon.classList.toggle('bx-x'); // Cambia el ícono a una "X"
+            navlist.classList.toggle('open');  // Muestra/oculta la lista
+        };
+
+        // Cierra el menú al hacer clic en un enlace
+        navlist.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuIcon.classList.remove('bx-x');
+                navlist.classList.remove('open');
+            });
+        });
+    }
+});

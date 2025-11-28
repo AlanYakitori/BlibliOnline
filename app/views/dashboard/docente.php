@@ -102,6 +102,8 @@ $csrf = obtenerCSRFToken();
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
     <script src="../../../public/js/swiper.js"></script>
     <script src="../../../public/js/feed.js"></script>
+    <script src="../../../public/js/dashboardAdministrador.js"></script>
+
 </body>
 </html>
 

@@ -76,6 +76,7 @@ $csrf = obtenerCSRFToken();
 
     <script>window.csrfToken = '<?php echo $csrf; ?>';</script>
     <script src="../../../public/js/dashboardDocente.js"></script>
+    <script src="../../../public/js/dashboardAdministrador.js"></script>
     <script src="https://kit.fontawesome.com/b668f928a3.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
 </body>

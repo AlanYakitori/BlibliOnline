@@ -104,7 +104,7 @@ $csrf = obtenerCSRFToken();
     <script src="../../../public/js/dashboardAlumno.js"></script>
     <script src="https://kit.fontawesome.com/b668f928a3.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
-   
+    <script src="../../../public/js/dashboardAdministrador.js"></script>
     <script src="../../../public/js/feed.js"></script>
 </body>
 </html>
